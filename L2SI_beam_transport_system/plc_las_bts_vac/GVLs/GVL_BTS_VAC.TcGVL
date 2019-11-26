@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <GVL Name="GVL_BTS_VAC" Id="{29e65882-4122-461a-9001-9faecd304aa4}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	(* Valves *)
+	{attribute 'pytmc' := 'pv: LT12LHN:BO4:VGC'}
+	fb_BO4_VGC : FB_VGC; // Gate valve, output tube 1
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:VGC'}
+	fb_PP_VGC : FB_VGC; // Gate valve, vacuum switchbox
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:VVC'}
+	fb_PP_VVC : FB_VVC; // Turbo N2 purge
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:VRC:1'}
+	fb_PP_VRC_1 : FB_VRC; // O-ring diff pump valve
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:VRC:2'}
+	fb_PP_VRC_2 : FB_VRC; // Foreline valve
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:VRC:3'}
+	fb_PP_VRC_3 : FB_VRC; // Slow pump valve
+	
+	{attribute 'pytmc' := 'pv: LT1LHN:BI1:VGC'}
+	fb_BI1_VGC : FB_VGC; // Gate valve, Input 1 laser Table
+	
+	st_VP_VVC_1 : ST_VCC_NO;
+	{attribute 'pytmc' := 'pv: LXLHN:VP:VVC:1'}
+	fb_VP_VVC_1 : FB_VCC_NO; // Vent valve, Switchbox
+	
+	st_VP_VVC_2 : ST_VCC_NO;
+	{attribute 'pytmc' := 'pv: LXLHN:VP:VVC:2'}
+	fb_VP_VVC_2 : FB_VCC_NO; // Vent valve, Slow, Switchbox
+
+	
+	(* Pumps *)
+	{attribute 'pytmc' := 'pv: LXLHN:PP:PTM'}
+	fb_PP_PTM : FB_PTM_Pfeiffer; // Turbo pump
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:PMF'}
+	fb_PP_PMF : FB_KashiyamaPump; // Roughing Pump
+	
+	{attribute 'pytmc' := 'pv: LT12LHN:BO4:PIP'}
+	fb_BO4_PIP : FB_PIP_Gamma; // Ion Pump, output tube 1
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:PIP'}
+	fb_PP_PIP : FB_PIP_Gamma; // Ion Pump, SWB
+	
+	{attribute 'pytmc' := 'pv: LT1LHN:BI1:PIP'}
+	fb_BI1_PIP : FB_PIP_Gamma; // Ion Pump, input tube 1
+	
+	(* Gauges *)
+	{attribute 'pytmc' := 'pv: LXLHN:PP:GPI:1'}
+	fb_PP_GPI_1 : FB_MKS275; // Switchbox pumpline ATM gauge
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:GPI:2'}
+	fb_PP_GPI_2 : FB_MKS275; // Foreline gauge
+	
+	{attribute 'pytmc' := 'pv: LXLHN:DP:GPI'}
+	fb_DP_GPI : FB_MKS275; // Switchbox gauge
+	
+	{attribute 'pytmc' := 'pv: LT12LHN:BO4:GPI'}
+	fb_BO4_GPI : FB_MKS275; // Output tube 1 ATM gauge
+	
+	{attribute 'pytmc' := 'pv: LT1LHN:BI1:GPI '}
+	fb_BI1_GPI : FB_MKS275; // Input tube 1 ATM gauge
+	
+	{attribute 'pytmc' := 'pv: LXLHN:PP:GCC'}
+	fb_PP_GCC : FB_MKS500; // Switchbox pumpline Cold Cathode gauge
+	
+	{attribute 'pytmc' := 'pv: LT12LHN:BO4:GCC'}
+	fb_BO4_GCC : FB_MKS500; // Output tube 1, Cold Cathode gauge
+	
+	{attribute 'pytmc' := 'pv: LT1LHN:BI1:GCC'}
+	fb_BI1_GCC : FB_MKS500; // Input tube 1, Cold Cathode gauge
+	
+	{attribute 'pytmc' := 'pv: LXLHN:DP:GCC'}
+	fb_DP_GCC : FB_MKS500; // Switchbox Cold Cathode gauge
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>

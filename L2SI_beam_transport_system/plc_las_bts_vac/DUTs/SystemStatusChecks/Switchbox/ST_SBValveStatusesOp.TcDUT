@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <DUT Name="ST_SBValveStatusesOp" Id="{62571934-0f67-46f9-afa7-9358df503f77}">
+    <Declaration><![CDATA[(* Which valve statuses should be ignored during system verification *)
+TYPE ST_SBValveStatusesOp :
+STRUCT
+	bGateValveIgnore : BOOL := FALSE; // LXLHN:PP:VGC
+	bVentValveIgnore : BOOL := FALSE; // LXLHN:PP:VVC
+	bORingPumpValveIgnore : BOOL := FALSE; // LXLHN:PP:VRC:1
+	bForelineValveIgnore : BOOL := FALSE; // LXLHN:PP:VRC:2
+	bSlowPumpValveIgnore : BOOL := FALSE; // LXLHN:PP:VRC:3
+	bSBVentIgnore : BOOL := FALSE; // LXLHN:VP:VVC1
+	bSBSlowVentIgnore : BOOL := FALSE; // LXLHN:VP:VVC:2
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

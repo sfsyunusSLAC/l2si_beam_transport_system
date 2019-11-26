@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <POU Name="F_SetTransportTubeStatuses" Id="{71653e18-e337-4c05-b7ab-5fa8158795fd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_SetTransportTubeStatuses : BOOL
+VAR_INPUT
+	eTransportTube : E_TransportTube;
+	stExpStatus : ST_TransportTubeStatuses;
+	stStatusOp : ST_TransportTubeOps;
+END_VAR
+VAR
+	refIonPump : REFERENCE TO FB_PIP_Gamma;
+	refGateValve : REFERENCE TO FB_VGC;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE eTransportTube OF
+E_TransportTube.BI1:
+	refIonPump := GVL_BTS_VAC.fb_BI1_PIP;
+	refGateValve := GVL_BTS_VAC.fb_BI1_VGC;
+	
+E_TransportTube.BO4:
+	refIonPump := GVL_BTS_VAC.fb_BO4_PIP;
+	refGateValve := GVL_BTS_VAC.fb_BO4_VGC;
+END_CASE
+
+
+IF NOT stStatusOp.bIonPumpIgnore THEN
+	refIonPump.M_Run(stExpStatus.bIonPumpOn);
+END_IF
+IF NOT stStatusOp.bGateValveIgnore THEN
+	refGateValve.M_Set_OPN_SW(stExpStatus.bGateValveOpen);
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="F_SetTransportTubeStatuses">
+      <LineId Id="9" Count="1" />
+      <LineId Id="16" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="17" Count="1" />
+      <LineId Id="24" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="28" Count="6" />
+      <LineId Id="27" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

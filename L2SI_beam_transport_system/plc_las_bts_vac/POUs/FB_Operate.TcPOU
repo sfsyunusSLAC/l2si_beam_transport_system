@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <POU Name="FB_Operate" Id="{8ee47251-2ac9-09b7-2785-97e47b267431}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Operate
+VAR_INPUT
+	i_nOperation : E_Op := E_Op.NONE; // Select which operation to run, if any
+END_VAR
+VAR_OUTPUT
+	q_bBusy : BOOL := FALSE; // Flag for if an operation is running
+	q_nOperation : E_Op := E_Op.NONE; // Operation that is currently running
+END_VAR
+VAR
+	(* Operations *)
+	fbPumpOutputTube : FB_PumpOutputTube;
+	fbPumpSwitchbox : FB_PumpSwitchbox;
+	fbSlowPumpSwitchbox : FB_SlowPumpSwitchbox;
+	fbVentPumpStation : FB_VentPumpStation;
+	fbVentSwitchbox : FB_VentSwitchbox;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* Run operations, but don't start any new operations if another operation is still running *)
+
+
+IF NOT q_bBusy THEN // If there isn't a currently running operation, then the input operation will become the new running operation
+	q_nOperation := i_nOperation;
+END_IF
+
+// Start execution of selected operation. Other operations will idle
+fbPumpOutputTube(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.POT1);
+fbPumpSwitchbox(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.PSB);
+fbSlowPumpSwitchbox(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.SPSB);
+fbVentPumpStation(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.VPS);
+fbVentSwitchbox(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.VSB);
+
+// Update busy signal
+q_bBusy := fbPumpOutputTube.q_bBusy OR fbPumpSwitchbox.q_bBusy OR fbSlowPumpSwitchbox.q_bBusy OR fbVentPumpStation.q_bBusy OR fbVentSwitchbox.q_bBusy;
+
+IF NOT q_bBusy THEN
+	q_nOperation := E_Op.NONE;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Operate">
+      <LineId Id="56" Count="0" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="67" Count="0" />
+      <LineId Id="66" Count="0" />
+      <LineId Id="68" Count="1" />
+      <LineId Id="57" Count="6" />
+      <LineId Id="70" Count="0" />
+      <LineId Id="64" Count="0" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="73" Count="0" />
+      <LineId Id="72" Count="0" />
+      <LineId Id="74" Count="1" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

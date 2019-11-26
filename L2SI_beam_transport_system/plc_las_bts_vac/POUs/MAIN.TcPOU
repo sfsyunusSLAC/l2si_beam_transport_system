@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <POU Name="MAIN" Id="{e39c3acf-17bf-44fe-a884-c77329dee9c5}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM MAIN
+VAR
+	fbOperate : FB_Operate;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_UpdateIO();
+
+fbOperate(i_nOperation := GVL_Operation.nOperation,
+	q_nOperation => GVL_Operation.nOperation,
+	q_bBusy => GVL_Operation.bBusy);
+	
+F_UpdateIO();
+	]]></ST>
+    </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="350" Count="0" />
+      <LineId Id="349" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="341" Count="1" />
+      <LineId Id="353" Count="1" />
+      <LineId Id="172" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

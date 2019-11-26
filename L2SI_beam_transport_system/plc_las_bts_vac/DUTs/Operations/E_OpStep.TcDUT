@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <DUT Name="E_OpStep" Id="{ec262c74-2984-43a5-9b67-138f9035ebaf}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_OpStep :
+(
+	IDLE_STEP := 0,
+	START_STEP := 1,
+	
+	(* Pump Switchbox steps *)
+	PSB_OPEN_GATE_VALVE,
+	PSB_OPEN_PUMP_STATION_VALVES,
+	PSB_ROUGH_CHAMBER,
+	PSB_TURBO_CHAMBER,
+	PSB_SWITCH_TO_ION_PUMP,
+	PSB_CLOSE_GATE_VALVE,
+	PSB_STOP_TURBO_PUMP,
+	PSB_FINISH,
+	
+	(* Vent Switchbox steps *)
+	VSB_CLOSE_GATE_VALVE,
+	VSB_CLOSE_FORELINE_VALVE,
+	VSB_TURN_OFF_PUMPS,
+	VSB_CLOSE_ORING_VALVE,
+	VSB_VENT,
+	VSB_CLOSE_VENT,
+	VSB_FINISH,
+	
+	(* Vent pump station *)
+	VPS_START_VENT,
+	VPS_VENTING
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

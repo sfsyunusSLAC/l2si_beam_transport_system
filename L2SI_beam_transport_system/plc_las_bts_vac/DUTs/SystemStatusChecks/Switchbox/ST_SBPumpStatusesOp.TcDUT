@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <DUT Name="ST_SBPumpStatusesOp" Id="{052ded5b-6b82-4343-833a-6ae6fc177652}">
+    <Declaration><![CDATA[(* Which pump statuses should be ignored during system verification *)
+TYPE ST_SBPumpStatusesOp :
+STRUCT
+	bRoughingPumpIgnore : BOOL := FALSE; // LXLHN:PP:PMF
+	bTurboPumpIgnore : BOOL := FALSE; // LXLHN:PP:PTM
+	bIonPumpIgnore : BOOL := FALSE; // LXLHN:PP:PIP
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

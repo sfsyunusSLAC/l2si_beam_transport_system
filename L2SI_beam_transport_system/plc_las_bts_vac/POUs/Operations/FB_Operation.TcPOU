@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <POU Name="FB_Operation" Id="{6fc6f593-2545-4a95-82e1-c37424c5cf8b}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_Operation
+VAR_INPUT
+	i_bExecute : BOOL; // Flag that indicates the operation should be ran
+	I_bCancel : BOOL; // Cancel operation
+END_VAR
+VAR_OUTPUT
+	q_bBusy : BOOL; // Whether the current operation is executing
+	q_bError : BOOL;
+END_VAR
+VAR
+	nStep : E_OpStep := E_OpStep.IDLE_STEP;
+	fbTimeoutTimer : TON;
+END_VAR
+VAR CONSTANT
+	STATUS_CHECK_TIMEOUT : TIME := T#30S; // How long the system tries setting the desired state before failing
+	VALVE_TIMEOUT : TIME := T#10S; // How long system tries to open or close valve before failing
+	ROUGH_CHAMBER_TIMEOUT : TIME := T#5M; // How long to try rough pumping before failing
+	TURBO_CHAMBER_TIMEOUT : TIME := T#10M; // How long to try turbo pumping before failing
+	VENT_SWITCHBOX_TIMEOUT : TIME := T#20M; // How long to try venting switchbox before failing
+	PUMP_TIMEOUT : TIME := T#20S; // How long to try to turn on or off pump before failing
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF i_bCancel OR M_TimeoutExpired() THEN // If a timeout has expired, trigger a fatal error
+	M_FatalError();
+END_IF
+
+IF nStep = E_OpStep.IDLE_STEP AND i_bExecute = TRUE THEN
+	// Start operation
+	nStep := E_OpStep.START_STEP;
+	q_bBusy := TRUE;
+	q_bError := FALSE;
+END_IF]]></ST>
+    </Implementation>
+    <Method Name="M_FatalError" Id="{a9657383-9b85-4461-93cb-61ac9678587c}">
+      <Declaration><![CDATA[METHOD PROTECTED M_FatalError
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[M_ResetTimeoutTimer();
+nStep := E_OpStep.IDLE_STEP;
+q_bError := TRUE;
+q_bBusy := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_Finish" Id="{88ea7fc5-59a3-48a8-88d0-e9fbd7406631}">
+      <Declaration><![CDATA[METHOD PROTECTED M_Finish
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[M_ResetTimeoutTimer();
+nStep := E_OpStep.IDLE_STEP;
+q_bError := FALSE;
+q_bBusy := FALSE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_ResetTimeoutTimer" Id="{c5848f2a-4ad0-4c43-bb15-e2835c5c0c6d}">
+      <Declaration><![CDATA[METHOD PROTECTED M_ResetTimeoutTimer
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbTimeoutTimer(IN := FALSE);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_RunTimeoutTimer" Id="{e7e36b84-1348-4c93-80ba-e67778baf763}">
+      <Declaration><![CDATA[METHOD PROTECTED M_RunTimeoutTimer
+VAR_INPUT
+	i_tTime : TIME; // How long the timer should run before signalling a timeout
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbTimeoutTimer(IN := TRUE, PT := i_tTime);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_TimeoutExpired" Id="{613a1767-fc71-4068-a0f9-f09d123b2cbd}">
+      <Declaration><![CDATA[METHOD PROTECTED M_TimeoutExpired : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbTimeoutTimer(); // Advance timer
+M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
+      </Implementation>
+    </Method>
+    <LineIds Name="FB_Operation">
+      <LineId Id="134" Count="2" />
+      <LineId Id="114" Count="1" />
+      <LineId Id="184" Count="0" />
+      <LineId Id="116" Count="2" />
+      <LineId Id="49" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Operation.M_FatalError">
+      <LineId Id="15" Count="2" />
+      <LineId Id="7" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Operation.M_Finish">
+      <LineId Id="11" Count="0" />
+      <LineId Id="6" Count="1" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Operation.M_ResetTimeoutTimer">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Operation.M_RunTimeoutTimer">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Operation.M_TimeoutExpired">
+      <LineId Id="12" Count="0" />
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

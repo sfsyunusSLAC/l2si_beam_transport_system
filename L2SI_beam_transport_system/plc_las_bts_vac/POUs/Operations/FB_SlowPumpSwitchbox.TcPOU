@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <POU Name="FB_SlowPumpSwitchbox" Id="{1d23d589-7e96-413b-9518-980d7a37e641}" SpecialFunc="None">
+    <Declaration><![CDATA[(* Operation to slowly pump the switchbox *)
+FUNCTION_BLOCK FB_SlowPumpSwitchbox EXTENDS FB_Operation
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR CONSTANT
+	stExpPumpStatus : ST_SBPumpStatuses := (
+		bRoughingPumpOn:= FALSE, 
+		bTurboPumpOn:= FALSE, 
+		bIonPumpOn:= FALSE);
+	
+	stExpValveStatus : ST_SBValveStatuses := (
+		bGateValveOpen:= FALSE, 
+		bVentValveOpen:= FALSE, 
+		bORingPumpValveOpen:= FALSE, 
+		bForelineValveOpen:= FALSE, 
+		bSBVentOpen:= FALSE, 
+		bSlowPumpValveOpen:= FALSE, 
+		bSBSlowVentOpen:= FALSE);
+	
+	stExpGaugeReadings : ST_SBGaugeReadings := ();
+	stGaugeReadingsOp : ST_SBGaugeReadingsOp := (
+		eDPPiraniOp:= E_GaugeCompOp.ATM, 
+		eDPColdCathodeOp:= E_GaugeCompOp.IGNORE, 
+		ePumpStationPirani1Op:= E_GaugeCompOp.ATM, 
+		ePumpStationPirani2Op:= E_GaugeCompOp.ATM, 
+		ePumpStationColdCathodeOp:= E_GaugeCompOp.IGNORE);
+		
+	TURBO_READY_PRESS : REAL := 1E-4; // Pressure at which to initiate turbo pump
+	ION_READY_PRESS : REAL := 1E-5; // Pressure at which to initiate ion pump
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^();
+
+CASE nStep OF
+1: // System Status Check
+	IF NOT F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
+	OR NOT F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
+	OR NOT F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
+	THEN // System status check failed
+		RETURN;
+	END_IF
+	
+	// Make sure pressure difference is low between switchbox and pumping station
+	IF ABS(GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS - GVL_BTS_VAC.fb_PP_GPI_1.PG.rPRESS) < 10 THEN
+		nStep := 2;
+	ELSE
+		// Proceed to VSB-1?
+	END_IF
+	
+2: // Rough chamber
+	// Open pumping station valves
+	GVL_BTS_VAC.fb_PP_VGC.M_Set_OPN_SW(TRUE);
+	GVL_BTS_VAC.fb_PP_VRC_1.M_Set_OPN_SW(TRUE);
+	GVL_BTS_VAC.fb_PP_VRC_3.M_Set_OPN_SW(TRUE);
+		
+	// Turn on roughing (PMF) pump
+	// ?????????
+	
+	IF GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS < TURBO_READY_PRESS THEN
+		// Turn on DP_GCC?????
+		// ???	
+	
+		nStep := 3;
+	END_IF
+	
+3: // Turbo pump down to base pressure
+	GVL_BTS_VAC.fb_PP_VRC_2.M_Set_OPN_SW(TRUE);
+	GVL_BTS_VAC.fb_PP_PTM.M_Run(TRUE);
+	IF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS < ION_READY_PRESS THEN
+		nStep := 4;
+	END_IF
+	
+4: // Switch to Ion Pump
+	GVL_BTS_VAC.fb_PP_PIP.M_Run(TRUE);
+	GVL_BTS_VAC.fb_PP_VGC.M_Set_OPN_SW(FALSE);
+	GvL_BTS_VAC.fb_PP_VRC_3.M_Set_OPN_SW(FALSE);
+	GVL_BTS_VAC.fb_PP_PTM.M_Run(FALSE);
+	
+	nStep := 5;
+	
+5: // System Status Check
+	
+	M_Finish();
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_SlowPumpSwitchbox">
+      <LineId Id="9" Count="0" />
+      <LineId Id="43" Count="33" />
+      <LineId Id="95" Count="0" />
+      <LineId Id="77" Count="7" />
+      <LineId Id="96" Count="0" />
+      <LineId Id="85" Count="6" />
+      <LineId Id="42" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

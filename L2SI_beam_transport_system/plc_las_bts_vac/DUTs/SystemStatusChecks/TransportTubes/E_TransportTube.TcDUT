@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <DUT Name="E_TransportTube" Id="{bcb0bf0b-15c7-0883-24e2-59f0f27b9ba3}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_TransportTube :
+(
+	BO4 := 0, // Output tube 1
+	BI1 := 1 // Input tube 1
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
