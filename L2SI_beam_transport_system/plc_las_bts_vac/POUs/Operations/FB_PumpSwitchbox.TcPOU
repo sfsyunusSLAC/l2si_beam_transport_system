@@ -83,7 +83,7 @@ END_VAR]]></Declaration>
       <ST><![CDATA[SUPER^();
 
 CASE nStep OF
-E_OpStep.START_STEP: // System Status Check
+E_OpStep.START: // System Status Check
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
