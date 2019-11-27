@@ -81,7 +81,7 @@ END_VAR
       <ST><![CDATA[SUPER^();
 
 CASE nStep OF
-E_OpStep.START_STEP: // System Status Check
+E_OpStep.START: // System Status Check
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
@@ -96,38 +96,58 @@ E_OpStep.START_STEP: // System Status Check
 			bEnforce := TRUE)
 	THEN // System status check passed
 		M_ResetTimeoutTimer();
-		//nStep := E_OpStep.PSB_INIT_ROUGHING;
+		nStep := E_OpStep.VPS_VENT;
 	ELSIF M_TimeoutExpired() THEN // Timeout reached
 		M_FatalError();
 	END_IF
 	
-E_OpStep.VPS_START_VENT: // Vent pump station to atmospheric pressure
-	// Redundant check that PP_VGC is closed before proceeding
-	IF GVL_BTS_VAC.fb_PP_VGC.M_IsClosed() THEN
-		// Disable pumps
-		GVL_BTS_VAC.fb_PP_PTM.M_Run(FALSE);
-		GVL_BTS_VAC.fb_PP_PMF.M_Run(FALSE);
-		
+E_OpStep.VPS_VENT: // Vent pump station to atmospheric pressure
+	M_RunTimeoutTimer(VENT_TIMEOUT);
+
+	// Redundant equipment safety checks
+	GVL_BTS_VAC.fb_PP_PTM.M_Run(FALSE);
+	GVL_BTS_VAC.fb_PP_PMF.M_Run(FALSE);
+	IF GVL_BTS_VAC.fb_PP_VGC.M_IsClosed() THEN		
 		// Open pump station vent
 		GVL_BTS_VAC.fb_PP_VVC.M_Open(TRUE);
 		
-		nStep := E_OpStep.VPS_VENTING;
+		// Vent until atmoshperic pressure reached
+		IF F_Atm(GVL_BTS_VAC.fb_PP_GPI_1.PG.rPRESS) THEN
+			M_ResetTimeoutTimer();
+			nStep := E_OpStep.VPS_CLOSE_VENT;
+		END_IF
 	ELSE // Attempt to close PP_VGC
 		M_FatalError();
 	END_IF
 	
-E_OpStep.VPS_VENTING:
-	
+E_OpStep.VPS_CLOSE_VENT:
+	M_RunTimeoutTimer(VALVE_TIMEOUT);
 
-	// Vent until atmoshperic pressure reached
-	IF ABS(GVL_BTS_VAC.fb_PP_GPI_1.PG.rPRESS - ATM_PRESS) < ATM_PRESS_ERR_RNG THEN
-		// Atmospheric pressure reached in pumping station. Close vent
-		GVL_BTS_VAC.fb_PP_VVC.M_Open(FALSE);
-		nStep := 3;
+	// Close vent
+	GVL_BTS_VAC.fb_PP_VVC.M_Open(FALSE);
+	
+	IF GVL_BTS_VAC.fb_PP_VVC.M_IsClosed() THEN
+		M_ResetTimeoutTimer();
+		nStep := E_OpStep.VPS_FINISH;
 	END_IF
 	
-3: // System status check
-	M_Finish();	
+E_OpStep.VPS_FINISH: // System status check
+	IF F_VerifySBPumpStatuses(stExpStatus := stFinExpPumpStatus, bEnforce := FALSE)
+	AND F_VerifySBValveStatuses(stExpStatus := stFinExpValveStatus, bEnforce := FALSE)
+	AND F_VerifySBGaugeReadings(stExpReadings := stFinExpGaugeReadings, stReadingsOp := stFinGaugeReadingsOp)
+	AND F_VerifyTransportTubeStatuses(stExpStatus := stFinExpBO4Status, 
+		stStatusOp := stFinBO4Op, 
+		eTransportTube := E_TransportTube.BO4,
+		bEnforce := FALSE)
+	AND F_VerifyTransportTubeStatuses(stExpStatus := stFinExpBI1Status, 
+		stStatusOp := stFinBI1Op, 
+		eTransportTube := E_TransportTube.BI1,
+		bEnforce := FALSE)
+	THEN
+		M_Finish();
+	ELSE
+		M_FatalError();
+	END_IF
 END_CASE
 ]]></ST>
     </Implementation>
@@ -138,22 +158,29 @@ END_CASE
       <LineId Id="183" Count="17" />
       <LineId Id="94" Count="0" />
       <LineId Id="112" Count="1" />
-      <LineId Id="115" Count="1" />
-      <LineId Id="201" Count="0" />
-      <LineId Id="120" Count="0" />
-      <LineId Id="122" Count="1" />
+      <LineId Id="294" Count="0" />
+      <LineId Id="290" Count="0" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="306" Count="1" />
+      <LineId Id="116" Count="0" />
       <LineId Id="202" Count="0" />
       <LineId Id="124" Count="0" />
-      <LineId Id="213" Count="1" />
+      <LineId Id="297" Count="0" />
+      <LineId Id="301" Count="1" />
+      <LineId Id="304" Count="1" />
+      <LineId Id="298" Count="0" />
       <LineId Id="118" Count="1" />
       <LineId Id="114" Count="0" />
       <LineId Id="203" Count="1" />
+      <LineId Id="311" Count="1" />
+      <LineId Id="310" Count="0" />
       <LineId Id="212" Count="0" />
-      <LineId Id="211" Count="0" />
-      <LineId Id="210" Count="0" />
-      <LineId Id="206" Count="3" />
-      <LineId Id="205" Count="0" />
-      <LineId Id="126" Count="2" />
+      <LineId Id="313" Count="2" />
+      <LineId Id="317" Count="0" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="126" Count="1" />
+      <LineId Id="318" Count="14" />
+      <LineId Id="128" Count="0" />
       <LineId Id="93" Count="0" />
       <LineId Id="11" Count="0" />
     </LineIds>

@@ -83,7 +83,7 @@ END_VAR
       <ST><![CDATA[SUPER^();
 
 CASE nStep OF
-E_OpStep.START_STEP: // Verify system status
+E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
@@ -153,7 +153,7 @@ E_OpStep.VSB_VENT:
 	GVL_BTS_VAC.fb_VP_VVC_1.M_Close(FALSE);
 	
 	// Vent until atmospheric pressure reached in the switchbox
-	IF ABS(GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS - ATM_PRESS) < ATM_PRESS_ERR_RNG THEN
+	IF F_Atm(GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS) THEN
 		M_ResetTimeoutTimer();
 		nStep := E_OpStep.VSB_CLOSE_VENT;
 	END_IF
