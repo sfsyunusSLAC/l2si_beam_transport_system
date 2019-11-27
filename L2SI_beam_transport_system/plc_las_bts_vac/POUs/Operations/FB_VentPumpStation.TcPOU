@@ -11,8 +11,8 @@ VAR CONSTANT
 	(* Expected system states before operation starts*)
 	stExpPumpStatus : ST_SBPumpStatuses := (
 		bRoughingPumpOn:= TRUE, 
-		bTurboPumpOn:= FALSE,
-		bIonPumpOn := FALSE);
+		bTurboPumpOn:= FALSE, 
+		bIonPumpOn:= FALSE);
 	
 	stExpValveStatus : ST_SBValveStatuses := (
 		bGateValveOpen:= FALSE, 
@@ -20,32 +20,61 @@ VAR CONSTANT
 		bORingPumpValveOpen:= TRUE, 
 		bForelineValveOpen:= TRUE,
 		bSlowPumpValveOpen:= FALSE,
-		bSBVentOpen:= FALSE,
+		bSBVentOpen:= FALSE,  
 		bSBSlowVentOpen:= FALSE);
 	
 	stExpGaugeReadings : ST_SBGaugeReadings := (
-		fPumpStationColdCathodeVal := 1E-5
+		eDPColdCathodeState:= E_PressureState.Off,
+		ePumpStationPirani1State:= E_PressureState.ValidLo,
+		fPumpStationColdCathodeVal:= 1E-5
 	);
 	stGaugeReadingsOp : ST_SBGaugeReadingsOp := (
 		eDPPiraniOp:= E_GaugeCompOp.ATM, 
-		eDPColdCathodeOp:= E_GaugeCompOp.IGNORE, 
-		ePumpStationPirani1Op:= E_GaugeCompOp.IGNORE, 
+		eDPColdCathodeOp:= E_GaugeCompOp.STATE, 
+		ePumpStationPirani1Op:= E_GaugeCompOp.STATE, 
 		ePumpStationPirani2Op:= E_GaugeCompOp.IGNORE, 
 		ePumpStationColdCathodeOp:= E_GaugeCompOp._LTE);
 		
 	stExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBO4Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	stExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBI1Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+		
+	(* Expected system states after operation finishes *)
+	stFinExpPumpStatus : ST_SBPumpStatuses := (
+		bRoughingPumpOn:= FALSE, 
+		bTurboPumpOn:= FALSE, 
+		bIonPumpOn:= FALSE);
+	
+	stFinExpValveStatus : ST_SBValveStatuses := (
+		bGateValveOpen:= FALSE, 
+		bVentValveOpen:= FALSE, 
+		bORingPumpValveOpen:= TRUE, 
+		bForelineValveOpen:= TRUE, 
+		bSlowPumpValveOpen:= FALSE,
+		bSBVentOpen:= FALSE,  
+		bSBSlowVentOpen:= FALSE);
+	
+	stFinExpGaugeReadings : ST_SBGaugeReadings := (
+		eDPColdCathodeState := E_PressureState.Off,
+		ePumpStationColdCathodeState := E_PressureState.Off
+	);
+	stFinGaugeReadingsOp : ST_SBGaugeReadingsOp := (
+		eDPPiraniOp:= E_GaugeCompOp.ATM, 
+		eDPColdCathodeOp:= E_GaugeCompOp.STATE, 
+		ePumpStationPirani1Op:= E_GaugeCompOp.ATM, 
+		ePumpStationPirani2Op:= E_GaugeCompOp.ATM, 
+		ePumpStationColdCathodeOp:= E_GaugeCompOp.STATE);
+		
+	stFinExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
+	stFinBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+		
+	stFinExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
+	stFinBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+
+	(* Timeout constants *)
+	VENT_TIMEOUT : TIME := T#20S;
 END_VAR
 ]]></Declaration>
     <Implementation>

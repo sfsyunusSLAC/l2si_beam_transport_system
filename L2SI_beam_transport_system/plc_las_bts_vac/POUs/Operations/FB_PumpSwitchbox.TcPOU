@@ -31,18 +31,10 @@ VAR CONSTANT
 		ePumpStationColdCathodeOp:= E_GaugeCompOp.STATE);
 		
 	stExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBO4Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	stExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBI1Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Expected system states after operation finishes *)
 	stFinExpPumpStatus : ST_SBPumpStatuses := (
@@ -73,18 +65,10 @@ VAR CONSTANT
 		ePumpStationColdCathodeOp:= E_GaugeCompOp._LTE);
 		
 	stFinExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBO4Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stFinBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	stFinExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBI1Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stFinBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Pressure constants *)
 	TURBO_READY_PRESS : REAL := 1E-4; // Pressure at which to initiate turbo pump
