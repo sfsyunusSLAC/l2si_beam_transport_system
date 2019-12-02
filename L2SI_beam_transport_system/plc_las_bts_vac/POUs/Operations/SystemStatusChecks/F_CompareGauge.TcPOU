@@ -15,7 +15,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[CASE eCompOp OF
 E_GaugeCompOp.ATM: // Check the gauge is within atmoshperic pressure range
-	F_CompareGauge := ABS(ATM_PRESS - fReading) <= ATM_PRESS_ERR_RNG;
+	F_CompareGauge := F_Atm(fReading);
 E_GaugeCompOp._GTE: // Check the gauge is greater than or equal to the expected value
 	F_CompareGauge := fReading >= fExpReading;
 E_GaugeCompOp._LTE: // Check the gauge is less than or equal to the expected value

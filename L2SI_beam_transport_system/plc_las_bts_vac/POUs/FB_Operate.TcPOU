@@ -11,7 +11,7 @@ VAR_OUTPUT
 END_VAR
 VAR
 	(* Operations *)
-	fbPumpOutputTube : FB_PumpOutputTube;
+	fbPumpTransportTube : FB_PumpTransportTube;
 	fbPumpSwitchbox : FB_PumpSwitchbox;
 	fbSlowPumpSwitchbox : FB_SlowPumpSwitchbox;
 	fbVentPumpStation : FB_VentPumpStation;
@@ -27,32 +27,22 @@ IF NOT q_bBusy THEN // If there isn't a currently running operation, then the in
 END_IF
 
 // Start execution of selected operation. Other operations will idle
-fbPumpOutputTube(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.POT1);
+fbPumpTransportTube(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.POT1);
 fbPumpSwitchbox(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.PSB);
 fbSlowPumpSwitchbox(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.SPSB);
 fbVentPumpStation(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.VPS);
 fbVentSwitchbox(i_bExecute := NOT q_bBusy AND q_nOperation = E_Op.VSB);
 
 // Update busy signal
-q_bBusy := fbPumpOutputTube.q_bBusy OR fbPumpSwitchbox.q_bBusy OR fbSlowPumpSwitchbox.q_bBusy OR fbVentPumpStation.q_bBusy OR fbVentSwitchbox.q_bBusy;
+q_bBusy := fbPumpTransportTube.q_bBusy OR fbPumpSwitchbox.q_bBusy OR fbSlowPumpSwitchbox.q_bBusy OR fbVentPumpStation.q_bBusy OR fbVentSwitchbox.q_bBusy;
 
 IF NOT q_bBusy THEN
 	q_nOperation := E_Op.NONE;
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="FB_Operate">
-      <LineId Id="56" Count="0" />
-      <LineId Id="65" Count="0" />
-      <LineId Id="67" Count="0" />
-      <LineId Id="66" Count="0" />
-      <LineId Id="68" Count="1" />
-      <LineId Id="57" Count="6" />
-      <LineId Id="70" Count="0" />
-      <LineId Id="64" Count="0" />
-      <LineId Id="35" Count="0" />
-      <LineId Id="73" Count="0" />
-      <LineId Id="72" Count="0" />
-      <LineId Id="74" Count="1" />
+      <LineId Id="108" Count="18" />
+      <LineId Id="75" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

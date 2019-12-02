@@ -24,29 +24,24 @@ VAR CONSTANT
 		bSBSlowVentOpen:= FALSE);
 	
 	stExpGaugeReadings : ST_SBGaugeReadings := (
+		eDPPiraniState:= E_PressureState.ValidLo,
 		fDPColdCathodeVal:= 1E-5,
+		ePumpStationPirani1State:= E_PressureState.ValidLo,
+		ePumpStationPirani2State:= E_PressureState.ValidLo,
 		fPumpStationColdCathodeVal:= 1E-5
 	);
 	stGaugeReadingsOp : ST_SBGaugeReadingsOp := (
-		eDPPiraniOp:= E_GaugeCompOp.IGNORE, 
+		eDPPiraniOp:= E_GaugeCompOp.STATE, 
 		eDPColdCathodeOp:= E_GaugeCompOp._LTE, 
-		ePumpStationPirani1Op:= E_GaugeCompOp.IGNORE, 
-		ePumpStationPirani2Op:= E_GaugeCompOp.IGNORE, 
+		ePumpStationPirani1Op:= E_GaugeCompOp.STATE, 
+		ePumpStationPirani2Op:= E_GaugeCompOp.STATE, 
 		ePumpStationColdCathodeOp:= E_GaugeCompOp._LTE);
 		
 	stExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBO4Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	stExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBI1Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Expected system states after operation finishes *)
 	stFinExpPumpStatus : ST_SBPumpStatuses := (
@@ -64,29 +59,23 @@ VAR CONSTANT
 		bSBSlowVentOpen:= FALSE);
 	
 	stFinExpGaugeReadings : ST_SBGaugeReadings := (
-		//eDPColdCathodeState := E_Gauge
+		eDPColdCathodeState := E_PressureState.Off,
+		ePumpStationColdCathodeState := E_PressureState.Off
 	);
 	stFinGaugeReadingsOp : ST_SBGaugeReadingsOp := (
 		eDPPiraniOp:= E_GaugeCompOp.ATM, 
 		eDPColdCathodeOp:= E_GaugeCompOp.STATE, 
 		ePumpStationPirani1Op:= E_GaugeCompOp.ATM, 
 		ePumpStationPirani2Op:= E_GaugeCompOp.ATM, 
-		ePumpStationColdCathodeOp:= E_GaugeCompOp.IGNORE);
+		ePumpStationColdCathodeOp:= E_GaugeCompOp.STATE);
 		
 	stFinExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBO4Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stFinBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	stFinExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBI1Op : ST_TransportTubeOps := (
-		bIonPumpIgnore:= TRUE, 
-		bGateValveIgnore:= FALSE, 
-		ePiraniOp:= E_GaugeCompOp.IGNORE, 
-		eColdCathodeOp:= E_GaugeCompOp.IGNORE);
+	stFinBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
+	(* Timeout constants *)
 	VENT_TIMEOUT : TIME := T#20S;
 END_VAR
 ]]></Declaration>
@@ -94,7 +83,7 @@ END_VAR
       <ST><![CDATA[SUPER^();
 
 CASE nStep OF
-E_OpStep.START_STEP: // Verify system status
+E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
@@ -164,7 +153,7 @@ E_OpStep.VSB_VENT:
 	GVL_BTS_VAC.fb_VP_VVC_1.M_Close(FALSE);
 	
 	// Vent until atmospheric pressure reached in the switchbox
-	IF ABS(GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS - ATM_PRESS) < ATM_PRESS_ERR_RNG THEN
+	IF F_Atm(GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS) THEN
 		M_ResetTimeoutTimer();
 		nStep := E_OpStep.VSB_CLOSE_VENT;
 	END_IF
@@ -172,6 +161,7 @@ E_OpStep.VSB_VENT:
 
 E_OpStep.VSB_CLOSE_VENT:
 	GVL_BTS_VAC.fb_VP_VVC_1.M_Close(TRUE);
+	// How to verfiy the vent is closed?
 	nStep := E_OpStep.VSB_FINISH;
 	
 E_OpStep.VSB_FINISH:
@@ -245,7 +235,9 @@ END_CASE]]></ST>
       <LineId Id="113" Count="0" />
       <LineId Id="131" Count="0" />
       <LineId Id="130" Count="0" />
-      <LineId Id="142" Count="3" />
+      <LineId Id="142" Count="0" />
+      <LineId Id="432" Count="0" />
+      <LineId Id="143" Count="2" />
       <LineId Id="189" Count="14" />
       <LineId Id="146" Count="0" />
       <LineId Id="40" Count="0" />

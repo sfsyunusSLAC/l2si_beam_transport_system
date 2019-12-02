@@ -11,7 +11,7 @@ VAR_OUTPUT
 	q_bError : BOOL;
 END_VAR
 VAR
-	nStep : E_OpStep := E_OpStep.IDLE_STEP;
+	nStep : E_OpStep := E_OpStep.IDLE;
 	fbTimeoutTimer : TON;
 END_VAR
 VAR CONSTANT
@@ -27,9 +27,9 @@ END_VAR]]></Declaration>
 	M_FatalError();
 END_IF
 
-IF nStep = E_OpStep.IDLE_STEP AND i_bExecute = TRUE THEN
+IF nStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
 	// Start operation
-	nStep := E_OpStep.START_STEP;
+	nStep := E_OpStep.START;
 	q_bBusy := TRUE;
 	q_bError := FALSE;
 END_IF]]></ST>
@@ -41,7 +41,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[M_ResetTimeoutTimer();
-nStep := E_OpStep.IDLE_STEP;
+nStep := E_OpStep.IDLE;
 q_bError := TRUE;
 q_bBusy := FALSE;]]></ST>
       </Implementation>
@@ -53,7 +53,7 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[M_ResetTimeoutTimer();
-nStep := E_OpStep.IDLE_STEP;
+nStep := E_OpStep.IDLE;
 q_bError := FALSE;
 q_bBusy := FALSE;]]></ST>
       </Implementation>

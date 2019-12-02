@@ -4,14 +4,14 @@
     <Declaration><![CDATA[TYPE ST_TransportTubeOps :
 STRUCT
 	// Pumps
-	bIonPumpIgnore : BOOL;
+	bIonPumpIgnore : BOOL := FALSE;
 	
 	// Valves
-	bGateValveIgnore : BOOL;
+	bGateValveIgnore : BOOL := FALSE;
 	
 	// Gauges
-	ePiraniOp : E_GaugeCompOp;
-	eColdCathodeOp : E_GaugeCompOp;
+	ePiraniOp : E_GaugeCompOp := E_GaugeCompOp.IGNORE;
+	eColdCathodeOp : E_GaugeCompOp := E_GaugeCompOp.IGNORE;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

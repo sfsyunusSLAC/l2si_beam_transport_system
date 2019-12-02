@@ -5,8 +5,8 @@
 {attribute 'strict'}
 TYPE E_OpStep :
 (
-	IDLE_STEP := 0,
-	START_STEP := 1,
+	IDLE := 0,
+	START := 1,
 	
 	(* Pump Switchbox steps *)
 	PSB_OPEN_GATE_VALVE,
@@ -28,8 +28,9 @@ TYPE E_OpStep :
 	VSB_FINISH,
 	
 	(* Vent pump station *)
-	VPS_START_VENT,
-	VPS_VENTING
+	VPS_VENT,
+	VPS_CLOSE_VENT,
+	VPS_FINISH
 );
 END_TYPE
 ]]></Declaration>

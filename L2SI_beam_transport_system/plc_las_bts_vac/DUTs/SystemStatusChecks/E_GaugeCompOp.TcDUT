@@ -11,8 +11,7 @@ TYPE E_GaugeCompOp :
 	_LTE, // Check that gauge is less than or equal to value
 	_GTE, // Check that gauge is greater than or equal to value
 	STATE // Check that gauge has a specific state
-	//OFF // Don't compare gauge, just check that it is off
-);
+):= IGNORE;
 END_TYPE
 ]]></Declaration>
   </DUT>

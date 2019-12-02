@@ -68,6 +68,9 @@
     <Compile Include="POUs\F_UpdateIO.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Helpers\F_Atm.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -89,7 +92,7 @@
     <Compile Include="POUs\Operations\FB_VentSwitchbox.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Operations\FB_PumpOutputTube.TcPOU">
+    <Compile Include="POUs\Operations\FB_PumpTransportTube.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Operations\SystemStatusChecks\F_CompareGauge.TcPOU">
@@ -136,6 +139,7 @@
     <Folder Include="DUTs\SystemStatusChecks" />
     <Folder Include="DUTs\SystemStatusChecks\Switchbox" />
     <Folder Include="GVLs" />
+    <Folder Include="POUs\Helpers" />
     <Folder Include="POUs\Operations" />
     <Folder Include="POUs\Operations\SystemStatusChecks" />
     <Folder Include="POUs\Operations\SystemStatusChecks\TransportTubes" />
