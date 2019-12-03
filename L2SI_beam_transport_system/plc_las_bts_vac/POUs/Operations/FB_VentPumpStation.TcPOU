@@ -34,12 +34,9 @@ VAR CONSTANT
 		ePumpStationPirani1Op:= E_GaugeCompOp.STATE, 
 		ePumpStationPirani2Op:= E_GaugeCompOp.IGNORE, 
 		ePumpStationColdCathodeOp:= E_GaugeCompOp._LTE);
-		
-	stExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
-		
-	stExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+			
+	stExpTTStatus : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
+	stTTOp : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Expected system states after operation finishes *)
 	stFinExpPumpStatus : ST_SBPumpStatuses := (
@@ -67,11 +64,8 @@ VAR CONSTANT
 		ePumpStationPirani2Op:= E_GaugeCompOp.ATM, 
 		ePumpStationColdCathodeOp:= E_GaugeCompOp.STATE);
 		
-	stFinExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
-		
-	stFinExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+	stFinExpTTStatus : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
+	stFinTTOp : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 
 	(* Timeout constants *)
 	VENT_TIMEOUT : TIME := T#20S;
@@ -86,13 +80,8 @@ E_OpStep.START: // System Status Check
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpBO4Status, 
-			stStatusOp := stBO4Op, 
-			eTransportTube := E_TransportTube.BO4, 
-			bEnforce := TRUE)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpBI1Status, 
-			stStatusOp := stBI1Op, 
-			eTransportTube := E_TransportTube.BI1, 
+		AND F_VerifyAllTransportTubeStatuses(stExpStatus := stExpTTStatus, 
+			stStatusOp := stTTOp, 
 			bEnforce := TRUE)
 	THEN // System status check passed
 		M_ResetTimeoutTimer();
@@ -135,13 +124,8 @@ E_OpStep.VPS_FINISH: // System status check
 	IF F_VerifySBPumpStatuses(stExpStatus := stFinExpPumpStatus, bEnforce := FALSE)
 	AND F_VerifySBValveStatuses(stExpStatus := stFinExpValveStatus, bEnforce := FALSE)
 	AND F_VerifySBGaugeReadings(stExpReadings := stFinExpGaugeReadings, stReadingsOp := stFinGaugeReadingsOp)
-	AND F_VerifyTransportTubeStatuses(stExpStatus := stFinExpBO4Status, 
-		stStatusOp := stFinBO4Op, 
-		eTransportTube := E_TransportTube.BO4,
-		bEnforce := FALSE)
-	AND F_VerifyTransportTubeStatuses(stExpStatus := stFinExpBI1Status, 
-		stStatusOp := stFinBI1Op, 
-		eTransportTube := E_TransportTube.BI1,
+	AND F_VerifyAllTransportTubeStatuses(stExpStatus := stFinExpTTStatus, 
+		stStatusOp := stFinTTOp,
 		bEnforce := FALSE)
 	THEN
 		M_Finish();
@@ -155,7 +139,8 @@ END_CASE
       <LineId Id="55" Count="0" />
       <LineId Id="91" Count="0" />
       <LineId Id="89" Count="0" />
-      <LineId Id="183" Count="17" />
+      <LineId Id="183" Count="6" />
+      <LineId Id="195" Count="5" />
       <LineId Id="94" Count="0" />
       <LineId Id="112" Count="1" />
       <LineId Id="294" Count="0" />
@@ -179,7 +164,8 @@ END_CASE
       <LineId Id="317" Count="0" />
       <LineId Id="316" Count="0" />
       <LineId Id="126" Count="1" />
-      <LineId Id="318" Count="14" />
+      <LineId Id="318" Count="4" />
+      <LineId Id="328" Count="4" />
       <LineId Id="128" Count="0" />
       <LineId Id="93" Count="0" />
       <LineId Id="11" Count="0" />

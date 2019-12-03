@@ -11,8 +11,8 @@ STRUCT
 	bGateValveOpen : BOOL;
 	
 	// Gauge statuses
-	fPiraniGaugeVal : REAL;
-	ePiraniGaugeState : E_PressureState;
+	fPiraniVal : REAL;
+	ePiraniState : E_PressureState;
 	fColdCathodeVal : REAL;
 	eColdCathodeState : E_PressureState;
 	

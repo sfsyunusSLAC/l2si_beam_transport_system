@@ -4,11 +4,11 @@
     <Declaration><![CDATA[FUNCTION_BLOCK ABSTRACT FB_Operation
 VAR_INPUT
 	i_bExecute : BOOL; // Flag that indicates the operation should be ran
-	I_bCancel : BOOL; // Cancel operation
+	i_bCancel : BOOL; // Cancel operation
 END_VAR
 VAR_OUTPUT
-	q_bBusy : BOOL; // Whether the current operation is executing
 	q_bError : BOOL;
+	q_bBusy : BOOL; // Whether the current operation is executing
 END_VAR
 VAR
 	nStep : E_OpStep := E_OpStep.IDLE;
@@ -23,15 +23,15 @@ VAR CONSTANT
 	PUMP_TIMEOUT : TIME := T#20S; // How long to try to turn on or off pump before failing
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF i_bCancel OR M_TimeoutExpired() THEN // If a timeout has expired, trigger a fatal error
-	M_FatalError();
-END_IF
-
-IF nStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
+      <ST><![CDATA[IF nStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
 	// Start operation
 	nStep := E_OpStep.START;
 	q_bBusy := TRUE;
 	q_bError := FALSE;
+END_IF
+
+IF i_bCancel OR M_TimeoutExpired() THEN // If a timeout has expired, trigger a fatal error
+	M_FatalError();
 END_IF]]></ST>
     </Implementation>
     <Method Name="M_FatalError" Id="{a9657383-9b85-4461-93cb-61ac9678587c}">
@@ -88,11 +88,12 @@ M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_Operation">
-      <LineId Id="134" Count="2" />
-      <LineId Id="114" Count="1" />
+      <LineId Id="115" Count="0" />
       <LineId Id="184" Count="0" />
       <LineId Id="116" Count="2" />
       <LineId Id="49" Count="0" />
+      <LineId Id="211" Count="2" />
+      <LineId Id="210" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_FatalError">
       <LineId Id="15" Count="2" />

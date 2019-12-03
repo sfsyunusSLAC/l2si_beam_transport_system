@@ -30,11 +30,8 @@ VAR CONSTANT
 		ePumpStationPirani2Op:= E_GaugeCompOp.ATM, 
 		ePumpStationColdCathodeOp:= E_GaugeCompOp.STATE);
 		
-	stExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
-		
-	stExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+	stExpTTStatus : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
+	stTTOp : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Expected system states after operation finishes *)
 	stFinExpPumpStatus : ST_SBPumpStatuses := (
@@ -55,29 +52,22 @@ VAR CONSTANT
 		eDPPiraniState:= E_PressureState.ValidLo,
 		fDPColdCathodeVal := 1E-5,
 		ePumpStationPirani1State:= E_PressureState.ValidLo,
+		ePumpStationPirani2State:= E_PressureState.ValidLo,
 		fPumpStationColdCathodeVal := 1E-5
 	);
 	stFinGaugeReadingsOp : ST_SBGaugeReadingsOp := (
 		eDPPiraniOp:= E_GaugeCompOp.STATE, 
 		eDPColdCathodeOp:= E_GaugeCompOp._LTE, 
 		ePumpStationPirani1Op:= E_GaugeCompOp.STATE, 
-		ePumpStationPirani2Op:= E_GaugeCompOp.IGNORE, 
+		ePumpStationPirani2Op:= E_GaugeCompOp.STATE, 
 		ePumpStationColdCathodeOp:= E_GaugeCompOp._LTE);
 		
-	stFinExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
-		
-	stFinExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+	stFinExpTTStatus : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
+	stFinTTOp : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Pressure constants *)
 	TURBO_READY_PRESS : REAL := 1E-4; // Pressure at which to initiate turbo pump
 	ION_READY_PRESS : REAL := 1E-5; // Pressure at which to initiate ion pump
-END_VAR
-
-VAR
-	ROUGH_PUMP_TIMEOUT: INT;
-	TURBO_TIMEOUT: INT;
 END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[SUPER^();
@@ -88,13 +78,8 @@ E_OpStep.START: // System Status Check
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpBO4Status, 
-			stStatusOp := stBO4Op, 
-			eTransportTube := E_TransportTube.BO4, 
-			bEnforce := TRUE)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpBI1Status, 
-			stStatusOp := stBI1Op, 
-			eTransportTube := E_TransportTube.BI1, 
+		AND F_VerifyAllTransportTubeStatuses(stExpStatus := stExpTTStatus, 
+			stStatusOp := stTTOp, 
 			bEnforce := TRUE)
 	THEN // System status check passed
 		M_ResetTimeoutTimer();
@@ -191,13 +176,8 @@ E_OpStep.PSB_FINISH: // System Status Check
 	IF F_VerifySBPumpStatuses(stExpStatus := stFinExpPumpStatus, bEnforce := FALSE)
 		AND F_VerifySBValveStatuses(stExpStatus := stFinExpValveStatus, bEnforce := FALSE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stFinExpGaugeReadings, stReadingsOp := stFinGaugeReadingsOp)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stFinExpBO4Status, 
-			stStatusOp := stFinBO4Op, 
-			eTransportTube := E_TransportTube.BO4,
-			bEnforce := FALSE)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stFinExpBI1Status, 
-			stStatusOp := stFinBI1Op, 
-			eTransportTube := E_TransportTube.BI1,
+		AND F_VerifyAllTransportTubeStatuses(stExpStatus := stFinExpTTStatus, 
+			stStatusOp := stFinTTOp, 
 			bEnforce := FALSE)
 	THEN
 		M_Finish();
@@ -214,9 +194,8 @@ END_CASE
       <LineId Id="65" Count="0" />
       <LineId Id="103" Count="1" />
       <LineId Id="251" Count="0" />
-      <LineId Id="446" Count="2" />
-      <LineId Id="146" Count="0" />
-      <LineId Id="449" Count="2" />
+      <LineId Id="446" Count="0" />
+      <LineId Id="451" Count="0" />
       <LineId Id="252" Count="0" />
       <LineId Id="299" Count="0" />
       <LineId Id="579" Count="0" />
@@ -281,9 +260,8 @@ END_CASE
       <LineId Id="307" Count="0" />
       <LineId Id="197" Count="0" />
       <LineId Id="431" Count="3" />
-      <LineId Id="452" Count="2" />
-      <LineId Id="199" Count="0" />
-      <LineId Id="455" Count="2" />
+      <LineId Id="452" Count="0" />
+      <LineId Id="457" Count="0" />
       <LineId Id="195" Count="0" />
       <LineId Id="439" Count="0" />
       <LineId Id="670" Count="1" />

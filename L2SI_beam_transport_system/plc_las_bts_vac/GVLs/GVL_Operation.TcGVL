@@ -3,9 +3,10 @@
   <GVL Name="GVL_Operation" Id="{2dd51a79-7824-0563-37ec-bbc7ba082317}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	(* Execute flags for vacuum system operations *)
-	nOperation : E_Op;
-	bBusy : BOOL;
+	// Execute flags for vacuum system operations
+	i_bCancel : BOOL;
+	i_nOperation : E_Op;
+	q_bBusy : BOOL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

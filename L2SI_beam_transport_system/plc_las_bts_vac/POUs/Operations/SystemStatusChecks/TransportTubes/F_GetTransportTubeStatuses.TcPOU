@@ -6,43 +6,27 @@ VAR_INPUT
 	eTransportTube : E_TransportTube;
 END_VAR
 VAR
-	stStatus : ST_TransportTubeStatuses;
+	refTTDev : REFERENCE TO ST_TransportTubeDevices;
+	stStatus : ST_TransportTubeStatuses := ();
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CASE eTransportTube OF
-E_TransportTube.BI1:
-	stStatus.bIonPumpOn := GVL_BTS_VAC.fb_BI1_PIP.q_xHVEna_DO;
-	stStatus.bGateValveOpen := GVL_BTS_VAC.fb_BI1_VGC.M_IsOpen();
-	stStatus.fPiraniGaugeVal := GVL_BTS_VAC.fb_BI1_GPI.PG.rPRESS;
-	stStatus.ePiraniGaugeState := GVL_BTS_VAC.fb_BI1_GPI.PG.eState;
-	stStatus.fColdCathodeVal := GVL_BTS_VAC.fb_BI1_GCC.IG.rPRESS;
-	stStatus.eColdCathodeState := GVL_BTS_VAC.fb_BI1_GCC.IG.eState;
-	
-E_TransportTube.BO4:
-	stStatus.bIonPumpOn := GVL_BTS_VAC.fb_BO4_PIP.q_xHVEna_DO;
-	stStatus.bGateValveOpen := GVL_BTS_VAC.fb_BO4_VGC.M_IsOpen();
-	stStatus.fPiraniGaugeVal := GVL_BTS_VAC.fb_BO4_GPI.PG.rPRESS;
-	stStatus.ePiraniGaugeState := GVL_BTS_VAC.fb_BO4_GPI.PG.eState;
-	stStatus.fColdCathodeVal := GVL_BTS_VAC.fb_BO4_GCC.IG.rPRESS;
-	stStatus.eColdCathodeState := GVL_BTS_VAC.fb_BO4_GCC.IG.eState;
-END_CASE
+      <ST><![CDATA[refTTDev := F_GetTransportTubeDevices(eTransportTube);
 
+stStatus.bIonPumpOn := refTTDev.refIonPump.q_xHVEna_DO;
+stStatus.bGateValveOpen := refTTDev.refGateValve.M_IsOpen();
+stStatus.fPiraniGaugeVal := refTTDev.refPiraniGauge.PG.rPRESS;
+stStatus.fColdCathodeVal := refTTDev.refColdCathode.IG.rPRESS;
 
 F_GetTransportTubeStatuses := stStatus;]]></ST>
     </Implementation>
     <LineIds Name="F_GetTransportTubeStatuses">
-      <LineId Id="32" Count="0" />
-      <LineId Id="36" Count="0" />
-      <LineId Id="39" Count="0" />
-      <LineId Id="41" Count="3" />
-      <LineId Id="38" Count="0" />
-      <LineId Id="47" Count="0" />
-      <LineId Id="46" Count="0" />
-      <LineId Id="49" Count="4" />
-      <LineId Id="48" Count="0" />
-      <LineId Id="37" Count="0" />
-      <LineId Id="33" Count="1" />
+      <LineId Id="49" Count="0" />
+      <LineId Id="71" Count="0" />
+      <LineId Id="68" Count="0" />
+      <LineId Id="50" Count="1" />
+      <LineId Id="53" Count="0" />
+      <LineId Id="34" Count="0" />
       <LineId Id="7" Count="0" />
     </LineIds>
   </POU>

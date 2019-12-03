@@ -6,13 +6,13 @@
 TYPE E_Op :
 (
 	NONE := 0, // No operation
-	PSB := 1, // Pump switchbox
-	VSB := 2, // Vent switchbox
-	VPS := 3, // Vent pumping station
-	POT1 := 4, // Transport tube pump down
-	VOT1 := 5, // Transport tube vent
-	SPSB := 6, // Slow Pump Switchbox
-	SVSB := 7 // Slow Vent switchbox
+	PSB, // Pump switchbox
+	VSB, // Vent switchbox
+	VPS, // Vent pumping station
+	POT1, // Transport tube pump down
+	VOT1, // Transport tube vent
+	SPSB, // Slow Pump Switchbox
+	SVSB // Slow Vent switchbox
 );
 END_TYPE
 ]]></Declaration>
