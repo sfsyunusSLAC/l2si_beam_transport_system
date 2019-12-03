@@ -70,7 +70,7 @@ VAR CONSTANT
 	stFinTTOp : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Timeout constants *)
-	VENT_TIMEOUT : TIME := T#20S;
+	VENT_TIMEOUT : TIME := T#20M;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -107,7 +107,7 @@ E_OpStep.VSB_CLOSE_FORELINE_VALVE:
 	// Close valves to pumping station to isolate pumps
 	GVL_BTS_VAC.fb_PP_VRC_2.M_Set_OPN_SW(FALSE);
 	
-	IF GVL_BTS_VAC.fb_PP_VRC_2.iq_stValve.eState = E_ValvePositionState.OPEN THEN
+	IF GVL_BTS_VAC.fb_PP_VRC_2.iq_stValve.eState = E_ValvePositionState.CLOSED THEN
 		M_ResetTimeoutTimer();
 		nStep := E_OpStep.VSB_TURN_OFF_PUMPS;
 	END_IF
@@ -119,7 +119,7 @@ E_OpStep.VSB_TURN_OFF_PUMPS:
 	GVL_BTS_VAC.fb_PP_PMF.M_Run(FALSE);
 	GVL_BTS_VAC.fb_PP_PIP.M_Run(FALSE);
 	
-	IF GVL_BTS_VAC.fb_PP_PMF.q_stPump.eState = E_PumpState.pumpSTOPPED AND GVL_BTS_VAC.fb_PP_PIP.stPump.i_xSP_DI THEN
+	IF GVL_BTS_VAC.fb_PP_PMF.q_stPump.eState = E_PumpState.pumpSTOPPED AND NOT GVL_BTS_VAC.fb_PP_PIP.stPump.i_xSP_DI THEN
 		M_ResetTimeoutTimer();
 		nStep := E_OpStep.VSB_CLOSE_ORING_VALVE;
 	END_IF

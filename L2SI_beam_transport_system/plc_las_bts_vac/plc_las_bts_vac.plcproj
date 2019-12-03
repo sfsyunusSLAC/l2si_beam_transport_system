@@ -93,10 +93,10 @@
     <Compile Include="POUs\Operations\FB_SlowPumpSwitchbox.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Operations\FB_VentTransportTube.TcPOU">
+    <Compile Include="POUs\Operations\FB_SlowVentSwitchbox.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Operations\FB_SlowVentSwitchbox.TcPOU">
+    <Compile Include="POUs\Operations\FB_VentTransportTube.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Operations\FB_VentPumpStation.TcPOU">

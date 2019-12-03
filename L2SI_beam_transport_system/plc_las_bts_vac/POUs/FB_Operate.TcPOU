@@ -18,6 +18,7 @@ VAR
 	fbSlowPumpSwitchbox : FB_SlowPumpSwitchbox;
 	fbVentPumpStation : FB_VentPumpStation;
 	fbVentSwitchbox : FB_VentSwitchbox;
+	fbSlowVentSwitchbox : FB_SlowVentSwitchbox;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -59,6 +60,10 @@ fbVentSwitchbox(i_bExecute := q_nOperation = E_Op.VSB,
 	i_bCancel := i_bCancel);
 q_bBusy := q_bBusy OR fbVentSwitchbox.q_bBusy;
 
+fbVentSwitchbox(i_bExecute := q_nOperation = E_Op.SVSB,
+	i_bCancel := i_bCancel);
+q_bBusy := q_bBusy OR fbSlowVentSwitchbox.q_bBusy;
+
 // If there isn't an operation running, then set opertion to none
 IF NOT q_bBusy THEN
 	q_nOperation := E_Op.NONE;
@@ -89,6 +94,8 @@ END_IF]]></ST>
       <LineId Id="120" Count="0" />
       <LineId Id="156" Count="0" />
       <LineId Id="167" Count="0" />
+      <LineId Id="179" Count="2" />
+      <LineId Id="178" Count="0" />
       <LineId Id="157" Count="0" />
       <LineId Id="124" Count="2" />
       <LineId Id="75" Count="0" />
