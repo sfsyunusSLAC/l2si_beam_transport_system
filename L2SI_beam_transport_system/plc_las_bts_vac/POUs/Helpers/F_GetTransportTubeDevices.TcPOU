@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <POU Name="F_GetTransportTubeDevices" Id="{b2f27124-2dc4-4005-bbf3-37530c30c972}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION F_GetTransportTubeDevices : REFERENCE TO ST_TransportTubeDevices
+    <Declaration><![CDATA[FUNCTION F_GetTransportTubeDevices : ST_TransportTubeDevices
 VAR_INPUT
 	eTransportTube : E_TransportTube;
 END_VAR]]></Declaration>

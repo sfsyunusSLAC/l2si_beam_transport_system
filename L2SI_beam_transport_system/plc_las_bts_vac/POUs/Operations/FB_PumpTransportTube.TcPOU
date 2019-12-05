@@ -9,7 +9,7 @@ VAR_OUTPUT
 END_VAR
 VAR
 	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	stTTDevices : REFERENCE TO ST_TransportTubeDevices;
+	stTTDevices : ST_TransportTubeDevices;
 END_VAR
 VAR CONSTANT
 	(* Expected system states before operation starts*)		
@@ -38,7 +38,7 @@ VAR CONSTANT
 	ION_PUMP_TIMEOUT : TIME := T#15M;
 	
 	(* Pressure constants *)
-	ION_READY_PRESS : REAL := 1E-2; // Pressure at which to initiate ion pump
+	ION_READY_PRESS : REAL := 1E-4; // Pressure at which to initiate ion pump
 	ION_FINISHED_PRESS : REAL := 1E-5; // Pressure at which pressure has reached desired state
 END_VAR
 

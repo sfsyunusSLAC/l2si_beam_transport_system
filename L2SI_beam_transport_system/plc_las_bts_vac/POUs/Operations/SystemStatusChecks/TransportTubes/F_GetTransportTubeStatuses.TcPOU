@@ -6,27 +6,22 @@ VAR_INPUT
 	eTransportTube : E_TransportTube;
 END_VAR
 VAR
-	refTTDev : REFERENCE TO ST_TransportTubeDevices;
+	stTTDev : ST_TransportTubeDevices;
 	stStatus : ST_TransportTubeStatuses := ();
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[refTTDev := F_GetTransportTubeDevices(eTransportTube);
+      <ST><![CDATA[stTTDev := F_GetTransportTubeDevices(eTransportTube);
 
-stStatus.bIonPumpOn := refTTDev.refIonPump.q_xHVEna_DO;
-stStatus.bGateValveOpen := refTTDev.refGateValve.M_IsOpen();
-stStatus.fPiraniGaugeVal := refTTDev.refPiraniGauge.PG.rPRESS;
-stStatus.fColdCathodeVal := refTTDev.refColdCathode.IG.rPRESS;
+stStatus.bIonPumpOn := stTTDev.refIonPump.q_xHVEna_DO;
+stStatus.bGateValveOpen := stTTDev.refGateValve.M_IsOpen();
+stStatus.fPiraniVal := stTTDev.refPiraniGauge.PG.rPRESS;
+stStatus.fColdCathodeVal := stTTDev.refColdCathode.IG.rPRESS;
 
 F_GetTransportTubeStatuses := stStatus;]]></ST>
     </Implementation>
     <LineIds Name="F_GetTransportTubeStatuses">
-      <LineId Id="49" Count="0" />
-      <LineId Id="71" Count="0" />
-      <LineId Id="68" Count="0" />
-      <LineId Id="50" Count="1" />
-      <LineId Id="53" Count="0" />
-      <LineId Id="34" Count="0" />
+      <LineId Id="88" Count="6" />
       <LineId Id="7" Count="0" />
     </LineIds>
   </POU>

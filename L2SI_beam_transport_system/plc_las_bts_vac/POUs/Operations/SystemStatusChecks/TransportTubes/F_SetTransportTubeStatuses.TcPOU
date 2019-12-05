@@ -8,22 +8,21 @@ VAR_INPUT
 	stStatusOp : ST_TransportTubeOps;
 END_VAR
 VAR
-	refTTDev : REFERENCE TO ST_TransportTubeDevices;
+	stTTDev : ST_TransportTubeDevices;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[refTTDev := F_GetTransportTubeDevices(eTransportTube);
+      <ST><![CDATA[stTTDev := F_GetTransportTubeDevices(eTransportTube);
 
 IF NOT stStatusOp.bIonPumpIgnore THEN
-	refTTDev.refIonPump.M_Run(stExpStatus.bIonPumpOn);
+	stTTDev.refIonPump.M_Run(stExpStatus.bIonPumpOn);
 END_IF
 IF NOT stStatusOp.bGateValveIgnore THEN
-	refTTDev.refGateValve.M_Set_OPN_SW(stExpStatus.bGateValveOpen);
+	stTTDev.refGateValve.M_Set_OPN_SW(stExpStatus.bGateValveOpen);
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="F_SetTransportTubeStatuses">
-      <LineId Id="7" Count="0" />
-      <LineId Id="29" Count="5" />
+      <LineId Id="53" Count="6" />
       <LineId Id="27" Count="0" />
     </LineIds>
   </POU>

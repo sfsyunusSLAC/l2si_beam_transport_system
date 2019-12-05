@@ -9,7 +9,7 @@ VAR_OUTPUT
 END_VAR
 VAR
 	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	stTTDevices : REFERENCE TO ST_TransportTubeDevices;
+	stTTDevices : ST_TransportTubeDevices;
 END_VAR
 VAR CONSTANT
 	(* Expected system states before operation starts*)		

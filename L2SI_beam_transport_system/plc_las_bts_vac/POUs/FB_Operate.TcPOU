@@ -43,6 +43,7 @@ fbVentTransportTube(
 	i_bCancel := i_bCancel,
 	i_eTransportTube := E_TransportTube.BI1
 );
+q_bBusy := q_bBusy OR fbVentTransportTube.q_bBusy;
 
 fbPumpSwitchbox(i_bExecute := q_nOperation = E_Op.PSB,
 	i_bCancel := i_bCancel);
@@ -80,6 +81,7 @@ END_IF]]></ST>
       <LineId Id="170" Count="0" />
       <LineId Id="169" Count="0" />
       <LineId Id="172" Count="3" />
+      <LineId Id="201" Count="0" />
       <LineId Id="161" Count="0" />
       <LineId Id="117" Count="0" />
       <LineId Id="151" Count="0" />
