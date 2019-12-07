@@ -59,6 +59,9 @@
 	</ImageDatas>
 	<Project ProjectGUID="{1CC01732-1234-43E4-A951-74578F6FE584}" Target64Bit="true" ShowHideConfigurations="#x106">
 		<System>
+			<Settings MaxCpus="8" NonWinCpus="1">
+				<Cpu CpuId="7"/>
+			</Settings>
 			<Licenses>
 				<Target>
 					<ManualSelect>{D59230D3-7C55-4138-859C-234C1C6CFDA8}</ManualSelect>
@@ -111,16 +114,16 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_BTS_VAC.fb_PP_VRC_2.i_xClsLS</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_1.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_2.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_PP_VRC_2.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -427,7 +430,7 @@
 			</Project>
 		</Plc>
 		<Io>
-			<Device Id="1" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="5.66.246.1.2.1" RemoteName="=+-EK1200_00_00-CPU/EtherCAT1">
+			<Device Id="1" Disabled="true" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="5.66.246.1.2.1" RemoteName="=+-EK1200_00_00-CPU/EtherCAT1">
 				<Name>=+-EK1200_00_00-CPU/EtherCAT1</Name>
 				<AddressInfo>
 					<Pnp>
@@ -2357,7 +2360,6 @@ Bit1: Value smaller than Limit2]]></Comment>
 		</Io>
 	</Project>
 	<Mappings>
-		<MappingInfo Identifier="{00000000-2001-0850-0020-500810000403}" Id="#x02030010"/>
 		<OwnerA Name="TIPC^plc_las_bts_vac^plc_las_bts_vac Instance">
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1100_01_00^=+-EL1124_01_28">
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_GCC.i_xDisc_Active" VarB="Channel 4^fb_BI1_GCC.i_xDisc_Active"/>

@@ -37,11 +37,8 @@ VAR CONSTANT
 		ePumpStationPirani2Op:= E_GaugeCompOp.STATE, 
 		ePumpStationColdCathodeOp:= E_GaugeCompOp._LTE);
 		
-	stExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
-		
-	stExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+	stExpTTStatus : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
+	stTTOp : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Expected system states after operation finishes *)
 	stFinExpPumpStatus : ST_SBPumpStatuses := (
@@ -69,14 +66,11 @@ VAR CONSTANT
 		ePumpStationPirani2Op:= E_GaugeCompOp.ATM, 
 		ePumpStationColdCathodeOp:= E_GaugeCompOp.STATE);
 		
-	stFinExpBO4Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBO4Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
-		
-	stFinExpBI1Status : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
-	stFinBI1Op : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
+	stFinExpTTStatus : ST_TransportTubeStatuses := (bGateValveOpen:= FALSE);
+	stFinTTOp : ST_TransportTubeOps := (bIonPumpIgnore:= TRUE);
 		
 	(* Timeout constants *)
-	VENT_TIMEOUT : TIME := T#20S;
+	VENT_TIMEOUT : TIME := T#20M;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -88,13 +82,8 @@ E_OpStep.START: // Verify system status
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpBO4Status, 
-			stStatusOp := stBO4Op, 
-			eTransportTube := E_TransportTube.BO4, 
-			bEnforce := TRUE)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpBI1Status, 
-			stStatusOp := stBI1Op, 
-			eTransportTube := E_TransportTube.BI1, 
+		AND F_VerifyAllTransportTubeStatuses(stExpStatus := stExpTTStatus, 
+			stStatusOp := stTTOp,
 			bEnforce := TRUE)
 	THEN // System status check 
 		M_ResetTimeoutTimer();
@@ -118,7 +107,7 @@ E_OpStep.VSB_CLOSE_FORELINE_VALVE:
 	// Close valves to pumping station to isolate pumps
 	GVL_BTS_VAC.fb_PP_VRC_2.M_Set_OPN_SW(FALSE);
 	
-	IF GVL_BTS_VAC.fb_PP_VRC_2.iq_stValve.eState = E_ValvePositionState.OPEN THEN
+	IF GVL_BTS_VAC.fb_PP_VRC_2.iq_stValve.eState = E_ValvePositionState.CLOSED THEN
 		M_ResetTimeoutTimer();
 		nStep := E_OpStep.VSB_TURN_OFF_PUMPS;
 	END_IF
@@ -130,7 +119,7 @@ E_OpStep.VSB_TURN_OFF_PUMPS:
 	GVL_BTS_VAC.fb_PP_PMF.M_Run(FALSE);
 	GVL_BTS_VAC.fb_PP_PIP.M_Run(FALSE);
 	
-	IF GVL_BTS_VAC.fb_PP_PMF.q_stPump.eState = E_PumpState.pumpSTOPPED AND GVL_BTS_VAC.fb_PP_PIP.stPump.i_xSP_DI THEN
+	IF GVL_BTS_VAC.fb_PP_PMF.q_stPump.eState = E_PumpState.pumpSTOPPED AND NOT GVL_BTS_VAC.fb_PP_PIP.stPump.i_xSP_DI THEN
 		M_ResetTimeoutTimer();
 		nStep := E_OpStep.VSB_CLOSE_ORING_VALVE;
 	END_IF
@@ -168,13 +157,8 @@ E_OpStep.VSB_FINISH:
 	IF F_VerifySBPumpStatuses(stExpStatus := stFinExpPumpStatus, bEnforce := FALSE)
 		AND F_VerifySBValveStatuses(stExpStatus := stFinExpValveStatus, bEnforce := FALSE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stFinExpGaugeReadings, stReadingsOp := stFinGaugeReadingsOp)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stFinExpBO4Status, 
-			stStatusOp := stFinBO4Op, 
-			eTransportTube := E_TransportTube.BO4,
-			bEnforce := FALSE)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stFinExpBI1Status, 
-			stStatusOp := stFinBI1Op, 
-			eTransportTube := E_TransportTube.BI1,
+		AND F_VerifyAllTransportTubeStatuses(stExpStatus := stFinExpTTStatus, 
+			stStatusOp := stFinTTOp,
 			bEnforce := FALSE)
 	THEN
 		M_Finish();
@@ -191,7 +175,7 @@ END_CASE]]></ST>
       <LineId Id="42" Count="0" />
       <LineId Id="102" Count="0" />
       <LineId Id="43" Count="1" />
-      <LineId Id="95" Count="6" />
+      <LineId Id="95" Count="1" />
       <LineId Id="94" Count="0" />
       <LineId Id="45" Count="0" />
       <LineId Id="103" Count="0" />
@@ -238,7 +222,8 @@ END_CASE]]></ST>
       <LineId Id="142" Count="0" />
       <LineId Id="432" Count="0" />
       <LineId Id="143" Count="2" />
-      <LineId Id="189" Count="14" />
+      <LineId Id="189" Count="4" />
+      <LineId Id="199" Count="4" />
       <LineId Id="146" Count="0" />
       <LineId Id="40" Count="0" />
     </LineIds>

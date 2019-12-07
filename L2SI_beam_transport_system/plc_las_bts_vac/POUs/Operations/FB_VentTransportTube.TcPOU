@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <POU Name="FB_VentTransportTube" Id="{2346f218-1e95-4da4-9396-1840f40cbfe3}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_VentTransportTube EXTENDS FB_Operation
+VAR_INPUT
+	i_eTransportTube : E_TransportTube;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
+	stTTDevices : ST_TransportTubeDevices;
+END_VAR
+VAR CONSTANT
+	(* Expected system states before operation starts*)		
+	stExpTTStatus : ST_TransportTubeStatuses := (
+		bIonPumpOn:= TRUE,
+		bGateValveOpen:= FALSE,
+		ePiraniState:= E_PressureState.ValidLo,
+		fColdCathodeVal:= 1E-5);
+	stTTOp : ST_TransportTubeOps := (
+		ePiraniOp := E_GaugeCompOp.STATE,
+		eColdCathodeOp := E_GaugeCompOp._LTE
+	);
+		
+	(* Expected system states after operation finishes *)		
+	stFinExpTTStatus : ST_TransportTubeStatuses := (
+		bIonPumpOn:= FALSE,
+		bGateValveOpen:= FALSE,
+		eColdCathodeState:= E_PressureState.Off);
+	stFinTTOp : ST_TransportTubeOps := (
+		ePiraniOp := E_GaugeCompOp.ATM,
+		eColdCathodeOp := E_GaugeCompOp.STATE
+	);
+	
+	(* Timeout constants *)
+	VENT_TIMEOUT : Time := T#15M;
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^();
+
+CASE nStep OF
+E_OpStep.START: // Verify system status
+	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
+	
+	eTransportTube := i_eTransportTube;
+	stTTDevices := F_GetTransportTubeDevices(i_eTransportTube);
+	
+	IF F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
+		eTransportTube := eTransportTube,
+		stStatusOp := stTTOp, 
+		bEnforce := TRUE)
+	THEN // System status check 
+		M_ResetTimeoutTimer();
+		nStep := E_OpStep.VOT_VENT;
+	END_IF
+	
+E_OpStep.VOT_VENT:
+	M_RunTimeoutTimer(VENT_TIMEOUT);
+	stTTDevices.refIonPump.M_Run(FALSE);
+	
+	// Vent until atmospheric pressure reached
+	IF F_Atm(stTTDevices.refPiraniGauge.PG.rPRESS) THEN
+		M_ResetTimeoutTimer();
+		nStep := E_OpStep.VOT_FINISH;
+	END_IF
+	
+E_OpStep.VOT_FINISH:
+	IF F_VerifyTransportTubeStatuses(stExpStatus := stFinExpTTStatus,
+		eTransportTube := eTransportTube,
+		stStatusOp := stFinTTOp, 
+		bEnforce := FALSE)
+	THEN
+		M_Finish();
+	ELSE
+		M_FatalError();
+	END_IF
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_VentTransportTube">
+      <LineId Id="171" Count="4" />
+      <LineId Id="193" Count="0" />
+      <LineId Id="251" Count="0" />
+      <LineId Id="195" Count="1" />
+      <LineId Id="176" Count="8" />
+      <LineId Id="295" Count="0" />
+      <LineId Id="298" Count="0" />
+      <LineId Id="296" Count="1" />
+      <LineId Id="306" Count="0" />
+      <LineId Id="302" Count="1" />
+      <LineId Id="305" Count="0" />
+      <LineId Id="304" Count="0" />
+      <LineId Id="237" Count="0" />
+      <LineId Id="249" Count="0" />
+      <LineId Id="242" Count="0" />
+      <LineId Id="252" Count="0" />
+      <LineId Id="243" Count="5" />
+      <LineId Id="238" Count="0" />
+      <LineId Id="20" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

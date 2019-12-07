@@ -24,10 +24,10 @@ END_IF
 F_VerifyTransportTubeStatuses := (stExpStatus.bIonPumpOn = stStatus.bIonPumpOn OR stStatusOp.bIonPumpIgnore)
 	AND (stExpStatus.bGateValveOpen = stStatus.bGateValveOpen OR stStatusOp.bGateValveIgnore)
 	AND F_CompareGauge(eCompOp := stStatusOp.ePiraniOp, 
-		fReading := stStatus.fPiraniGaugeVal, 
-		eState := stStatus.ePiraniGaugeState, 
-		fExpReading := stExpStatus.fPiraniGaugeVal, 
-		eExpState := stExpStatus.ePiraniGaugeState)
+		fReading := stStatus.fPiraniVal, 
+		eState := stStatus.ePiraniState, 
+		fExpReading := stExpStatus.fPiraniVal, 
+		eExpState := stExpStatus.ePiraniState)
 	AND F_CompareGauge(eCompOp := stStatusOp.eColdCathodeOp, 
 		fReading := stStatus.fColdCathodeVal, 
 		eState := stStatus.eColdCathodeState,

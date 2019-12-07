@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+  <GVL Name="GVL_TransportTubes" Id="{2d08e4d9-019a-40af-9ac5-58f5518fa595}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL CONSTANT
+	// When adding transport tubes make sure to update F_GetTransportTubeDevices!
+	
+	NUM_TRANSPORT_TUBES : UINT := 2;
+	
+	aTubes : ARRAY [1..NUM_TRANSPORT_TUBES] OF E_TransportTube := [
+		E_TransportTube.BO4,
+		E_TransportTube.BI1
+	];
+	
+	stBI1Dev : ST_TransportTubeDevices := (
+		refIonPump := GVL_BTS_VAC.fb_BI1_PIP,
+		refGateValve := GVL_BTS_VAC.fb_BI1_VGC,
+		refPiraniGauge := GVL_BTS_VAC.fb_BI1_GPI,
+		refColdCathode := GVL_BTS_VAC.fb_BI1_GCC
+	);
+	
+	stBO4Dev : ST_TransportTubeDevices := (
+		refIonPump := GVL_BTS_VAC.fb_BO4_PIP,
+		refGateValve := GVL_BTS_VAC.fb_BO4_VGC,
+		refPiraniGauge := GVL_BTS_VAC.fb_BO4_GPI,
+		refColdCathode := GVL_BTS_VAC.fb_BO4_GCC
+	);
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
