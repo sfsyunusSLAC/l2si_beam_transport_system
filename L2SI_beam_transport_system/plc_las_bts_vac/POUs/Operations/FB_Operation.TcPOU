@@ -9,6 +9,7 @@ END_VAR
 VAR_OUTPUT
 	q_bError : BOOL;
 	q_bBusy : BOOL; // Whether the current operation is executing
+	q_eCallOp : E_Op := E_Op.NONE; // Signal that another operation should begin executing
 END_VAR
 VAR
 	nStep : E_OpStep := E_OpStep.IDLE;
@@ -19,11 +20,12 @@ VAR CONSTANT
 	VALVE_TIMEOUT : TIME := T#10S; // How long system tries to open or close valve before failing
 	ROUGH_CHAMBER_TIMEOUT : TIME := T#5M; // How long to try rough pumping before failing
 	TURBO_CHAMBER_TIMEOUT : TIME := T#10M; // How long to try turbo pumping before failing
-	VENT_SWITCHBOX_TIMEOUT : TIME := T#20M; // How long to try venting switchbox before failing
 	PUMP_TIMEOUT : TIME := T#20S; // How long to try to turn on or off pump before failing
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF nStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
+      <ST><![CDATA[q_eCallOp := E_Op.NONE; // Make sure q_eCallOp is cleared before each operation to avoid accidently calling operation again
+
+IF nStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
 	// Start operation
 	nStep := E_OpStep.START;
 	q_bBusy := TRUE;
@@ -88,6 +90,7 @@ M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_Operation">
+      <LineId Id="236" Count="1" />
       <LineId Id="115" Count="0" />
       <LineId Id="184" Count="0" />
       <LineId Id="116" Count="2" />

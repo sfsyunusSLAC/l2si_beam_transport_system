@@ -114,16 +114,16 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_PP_VRC_2.i_xClsLS</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_1.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_2.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_PP_VRC_2.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>

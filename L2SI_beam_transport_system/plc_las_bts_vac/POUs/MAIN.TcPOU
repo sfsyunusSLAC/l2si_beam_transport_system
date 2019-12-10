@@ -9,24 +9,19 @@ END_VAR
     <Implementation>
       <ST><![CDATA[F_UpdateIO();
 
-fbOperate(i_nOperation := GVL_Operation.i_nOperation, // Requested operation
+fbOperate(iq_eOperation := GVL_Operation.iq_eOperation,
+	iq_eTransportTube := GVL_Operation.iq_eTransportTube,
 	i_bCancel := GVL_Operation.i_bCancel,
-	q_nOperation => GVL_Operation.i_nOperation,// Overwrite requested operation with current operation
 	q_bBusy => GVL_Operation.q_bBusy);
 	
 GVL_Operation.i_bCancel := FALSE; // Acknowledge the cancel flag
-	
-F_UpdateIO();
-	]]></ST>
+]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="350" Count="0" />
-      <LineId Id="349" Count="0" />
-      <LineId Id="173" Count="0" />
-      <LineId Id="361" Count="0" />
-      <LineId Id="341" Count="1" />
-      <LineId Id="359" Count="1" />
-      <LineId Id="353" Count="1" />
+      <LineId Id="366" Count="2" />
+      <LineId Id="378" Count="0" />
+      <LineId Id="369" Count="0" />
+      <LineId Id="371" Count="2" />
       <LineId Id="172" Count="0" />
     </LineIds>
   </POU>

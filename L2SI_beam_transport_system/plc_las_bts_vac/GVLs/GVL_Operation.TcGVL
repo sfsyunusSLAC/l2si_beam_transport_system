@@ -14,17 +14,27 @@ VAR_GLOBAL
 		pv: PLC_LAS_BTS_VAC:OPERATION
 		io: io
 	'}
-	i_nOperation : E_Op;
+	iq_eOperation : E_Op;
 	
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:OPERATION
+		pv: PLC_LAS_BTS_VAC:OPERATION:TRANSPORT_TUBE
+		io: io
+	'}
+	iq_eTransportTube : E_TransportTube;
+	
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:OPERATION:BUSY
 		io: o
+		field: ZNAM NOT_BUSY
+		field: ONAM BUSY
 	'}
 	q_bBusy : BOOL;
 	
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:LASER_OK
 		io: o
+		field: ZNAM error
+		field: ONAM OK
 	'}
 	q_bLaserOk : BOOL;
 END_VAR]]></Declaration>

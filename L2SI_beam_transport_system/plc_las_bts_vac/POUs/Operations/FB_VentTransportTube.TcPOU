@@ -46,7 +46,7 @@ E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	
 	eTransportTube := i_eTransportTube;
-	stTTDevices := F_GetTransportTubeDevices(i_eTransportTube);
+	stTTDevices := F_GetTransportTubeDevices(eTransportTube);
 	
 	IF F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
 		eTransportTube := eTransportTube,

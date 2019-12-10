@@ -60,7 +60,10 @@ TYPE E_OpStep :
 	
 	(* Vent Transport Tube *)
 	VOT_VENT,
-	VOT_FINISH
+	VOT_FINISH,
+	
+	(* Open Transport Tube Gate Valve *)
+	OTT_OPEN_VALVE
 );
 END_TYPE
 ]]></Declaration>
