@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_Operate" Id="{8ee47251-2ac9-09b7-2785-97e47b267431}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Operate
 VAR_INPUT
@@ -39,7 +39,7 @@ END_IF
 // Execute selected operation
 CASE eCurrOp OF
 E_Op.POT1:
-	refRunningOp := fbPumpTransportTube;
+	refRunningOp REF= fbPumpTransportTube;
 	fbPumpTransportTube(
 		i_bExecute := TRUE, 
 		i_bCancel := i_bCancel,
@@ -47,7 +47,7 @@ E_Op.POT1:
 	);
 
 E_Op.VOT1:
-	refRunningOp := fbVentTransportTube;
+	refRunningOp REF= fbVentTransportTube;
 	fbVentTransportTube(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel,
@@ -55,35 +55,35 @@ E_Op.VOT1:
 	);
 	
 E_Op.PSB:
-	refRunningOp := fbPumpSwitchbox;
+	refRunningOp REF= fbPumpSwitchbox;
 	fbPumpSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
 E_Op.SPSB:
-	refRunningOp := fbSlowPumpSwitchbox;
+	refRunningOp REF= fbSlowPumpSwitchbox;
 	fbSlowPumpSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
 E_Op.VPS:
-	refRunningOp := fbVentPumpStation;
+	refRunningOp REF= fbVentPumpStation;
 	fbVentPumpStation(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 
 E_Op.VSB:
-	refRunningOp := fbVentSwitchbox;
+	refRunningOp REF= fbVentSwitchbox;
 	fbVentSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
 E_Op.SVSB:
-	refRunningOp := fbSlowVentSwitchbox;
+	refRunningOp REF= fbSlowVentSwitchbox;
 	fbSlowVentSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel

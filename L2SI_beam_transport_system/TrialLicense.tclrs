@@ -2,18 +2,23 @@
 <TcLicenseInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2011/11/TcLicenseInfo">
 	<LicenseInfo>
 		<SystemId>{EEC90E04-C545-1B26-7693-2A61BAAC75EF}</SystemId>
-		<IssueTime>2019-12-04T06:59:00</IssueTime>
-		<ExpireTime>2019-12-12T00:00:00</ExpireTime>
-		<LicenseKey>f86f9220b5ddc7b3a043a9fa1585501bd99e42e21b45e33bb6b2c5f9857a2d05a48457c893530ccf3a6ce49a50b43c4e17288b33a167d40ad1a76d924eaa2aa0a44fa90f8f163d53344f50c1e417c53c5424525b71d5ac01e4d3750ccd26fc23a4861f90bd84bc307ae039092d200ae40facf1deb2dc5f35d61124c1c5b8751cc877b5e1a60b573d948585e29a1e60b1caee138085f8796e69f4b7b5d62627597370a9d53f44548e2a3b8cc7d6279915c2252648523e5c74be2c5365c0c2ee809a35565f80508ea6dbe3d3899188e4e83fb0fd47c742a3a999de837928d89f66e4f0cac1ee005a2f4e46bff1ccd42a49efb1c1688e20a87f2e6d4d2e708d2e1e</LicenseKey>
+		<IssueTime>2019-12-11T01:49:00</IssueTime>
+		<ExpireTime>2019-12-19T00:00:00</ExpireTime>
+		<LicenseKey>a1b05fd1fe5af334b0961bf2ea767a02bab5e8eca18b7da5eb6056da1935afdeb72ffc64325be9f42d87300edda70a631f189a31e87322402ad7a86a5e9aa986b5bbe65410f9abc8f98247a33930e2f6a77a8b39d960c3b1bc62445d6eac6c0f12c031fb0027a9f1755f03c5f3b5e3b60f69794668b80f07d5bacb84019858e0123304351b557cc07ad0c0c16a8af803aa01a8440e770163d661901ceb44c0e1a965af06579a53c15299714fbe191a8bb2f75807eebbe10fdb9cf53f60a90382e43ee57ce86aa7cb96254df9250b6fa8e65c39996ef1cc3dd6e13e72c8ea45bbfccb6e8b1f6e1e9b169e193a6f8806fdf2fe7bbda08a26c336f2088941971edf</LicenseKey>
+		<License>
+			<LicenseId>{BCA6EE0A-9CE1-4D3F-98CA-413ABC0D94FD}</LicenseId>
+			<Name>TC3 Serial-Communication</Name>
+			<OrderNo>TF6340</OrderNo>
+		</License>
 		<License>
 			<LicenseId>{4C256767-E6E6-4AF5-BD68-9F7ABAD0C200}</LicenseId>
 			<Name>TC3 ADS</Name>
 			<OrderNo>TC1000</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
-			<Name>TC3 IO</Name>
-			<OrderNo>TC1100</OrderNo>
+			<LicenseId>{D59230D3-7C55-4138-859C-234C1C6CFDA8}</LicenseId>
+			<Name>TC3 XCAD Interface</Name>
+			<OrderNo>TE1120</OrderNo>
 		</License>
 		<License>
 			<LicenseId>{66689887-CCBD-452C-AC9A-039D997C6E66}</LicenseId>
@@ -26,9 +31,9 @@
 			<OrderNo>TF1910</OrderNo>
 		</License>
 		<License>
-			<LicenseId>{D59230D3-7C55-4138-859C-234C1C6CFDA8}</LicenseId>
-			<Name>TC3 XCAD Interface</Name>
-			<OrderNo>TE1120</OrderNo>
+			<LicenseId>{3FF18E97-7754-401B-93FB-70544DE28A13}</LicenseId>
+			<Name>TC3 IO</Name>
+			<OrderNo>TC1100</OrderNo>
 		</License>
 	</LicenseInfo>
 </TcLicenseInfo>
