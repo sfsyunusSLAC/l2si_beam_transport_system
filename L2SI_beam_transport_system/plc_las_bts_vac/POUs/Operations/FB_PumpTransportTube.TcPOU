@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_PumpTransportTube" Id="{18af31ad-0ef4-4293-b083-bfbe97dbfcd2}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_PumpTransportTube EXTENDS FB_Operation
 VAR_INPUT
@@ -46,9 +46,10 @@ END_VAR
     <Implementation>
       <ST><![CDATA[SUPER^();
 
-CASE nStep OF
+CASE eStep OF
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
+	M_SetMessage('Verifying system status');
 	
 	eTransportTube := i_eTransportTube;
 	stTTDevices := F_GetTransportTubeDevices(eTransportTube);
@@ -59,7 +60,8 @@ E_OpStep.START: // Verify system status
 		bEnforce := TRUE)
 	THEN // System status check 
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.POT_WAIT_PUMP_CART;
+		M_SetMessage('OPERATOR: Rough chamber w/ pump cart'); 
+		eStep := E_OpStep.POT_WAIT_PUMP_CART;
 	END_IF
 	
 E_OpStep.POT_WAIT_PUMP_CART:
@@ -69,10 +71,10 @@ E_OpStep.POT_WAIT_PUMP_CART:
 	*)
 	
 	// Check that pressure is low enough to turn on ion pump
-	IF stTTDevices.refPiraniGauge.PG.rPRESS <= ION_READY_PRESS
-	THEN
+	IF stTTDevices.refPiraniGauge.PG.rPRESS <= ION_READY_PRESS THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.POT_TURN_ON_PUMP;
+		M_SetMessage('Turning on ion pump');
+		eStep := E_OpStep.POT_TURN_ON_PUMP;
 	END_IF
 	
 E_OpStep.POT_TURN_ON_PUMP:
@@ -84,7 +86,7 @@ E_OpStep.POT_TURN_ON_PUMP:
 	AND stTTDevices.refColdCathode.IG.rPRESS <= ION_FINISHED_PRESS
 	THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.POT_FINISH;
+		eStep := E_OpStep.POT_FINISH;
 	END_IF
 	
 E_OpStep.POT_FINISH:
@@ -95,23 +97,26 @@ E_OpStep.POT_FINISH:
 	THEN
 		M_Finish();
 	ELSE
-		M_FatalError();
+		M_FatalError('End system status check failed');
 	END_IF
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_PumpTransportTube">
       <LineId Id="171" Count="4" />
+      <LineId Id="295" Count="0" />
       <LineId Id="193" Count="0" />
       <LineId Id="251" Count="0" />
       <LineId Id="195" Count="1" />
-      <LineId Id="176" Count="11" />
+      <LineId Id="176" Count="5" />
+      <LineId Id="296" Count="0" />
+      <LineId Id="182" Count="5" />
       <LineId Id="214" Count="0" />
       <LineId Id="213" Count="0" />
       <LineId Id="188" Count="0" />
       <LineId Id="211" Count="0" />
       <LineId Id="189" Count="0" />
-      <LineId Id="204" Count="0" />
       <LineId Id="218" Count="0" />
+      <LineId Id="297" Count="0" />
       <LineId Id="217" Count="0" />
       <LineId Id="199" Count="0" />
       <LineId Id="191" Count="0" />

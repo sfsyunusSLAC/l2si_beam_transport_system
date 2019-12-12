@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_VentPumpStation" Id="{c9ceb88b-4172-4db0-aa81-a45d82eabc15}" SpecialFunc="None">
     <Declaration><![CDATA[(* Operation for venting the pumping station *)
 FUNCTION_BLOCK FB_VentPumpStation EXTENDS FB_Operation
@@ -74,9 +74,11 @@ END_VAR
     <Implementation>
       <ST><![CDATA[SUPER^();
 
-CASE nStep OF
+CASE eStep OF
 E_OpStep.START: // System Status Check
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
+	M_SetMessage('Verifying system status');
+	
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
@@ -85,9 +87,8 @@ E_OpStep.START: // System Status Check
 			bEnforce := TRUE)
 	THEN // System status check passed
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.VPS_VENT;
-	ELSIF M_TimeoutExpired() THEN // Timeout reached
-		M_FatalError();
+		M_SetMessage('Venting');
+		eStep := E_OpStep.VPS_VENT;
 	END_IF
 	
 E_OpStep.VPS_VENT: // Vent pump station to atmospheric pressure
@@ -103,10 +104,11 @@ E_OpStep.VPS_VENT: // Vent pump station to atmospheric pressure
 		// Vent until atmoshperic pressure reached
 		IF F_Atm(GVL_BTS_VAC.fb_PP_GPI_1.PG.rPRESS) THEN
 			M_ResetTimeoutTimer();
-			nStep := E_OpStep.VPS_CLOSE_VENT;
+			M_SetMessage('Venting finished. Closing vent');
+			eStep := E_OpStep.VPS_CLOSE_VENT;
 		END_IF
-	ELSE // Attempt to close PP_VGC
-		M_FatalError();
+	ELSE
+		M_FatalError('Gate valve is open');
 	END_IF
 	
 E_OpStep.VPS_CLOSE_VENT:
@@ -117,7 +119,7 @@ E_OpStep.VPS_CLOSE_VENT:
 	
 	IF GVL_BTS_VAC.fb_PP_VVC.M_IsClosed() THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.VPS_FINISH;
+		eStep := E_OpStep.VPS_FINISH;
 	END_IF
 	
 E_OpStep.VPS_FINISH: // System status check
@@ -130,7 +132,7 @@ E_OpStep.VPS_FINISH: // System status check
 	THEN
 		M_Finish();
 	ELSE
-		M_FatalError();
+		M_FatalError('End system status check failed');
 	END_IF
 END_CASE
 ]]></ST>
@@ -139,8 +141,12 @@ END_CASE
       <LineId Id="55" Count="0" />
       <LineId Id="91" Count="0" />
       <LineId Id="89" Count="0" />
-      <LineId Id="183" Count="6" />
-      <LineId Id="195" Count="5" />
+      <LineId Id="183" Count="1" />
+      <LineId Id="402" Count="1" />
+      <LineId Id="185" Count="4" />
+      <LineId Id="195" Count="2" />
+      <LineId Id="404" Count="0" />
+      <LineId Id="200" Count="0" />
       <LineId Id="94" Count="0" />
       <LineId Id="112" Count="1" />
       <LineId Id="294" Count="0" />
@@ -152,7 +158,9 @@ END_CASE
       <LineId Id="124" Count="0" />
       <LineId Id="297" Count="0" />
       <LineId Id="301" Count="1" />
-      <LineId Id="304" Count="1" />
+      <LineId Id="304" Count="0" />
+      <LineId Id="406" Count="0" />
+      <LineId Id="305" Count="0" />
       <LineId Id="298" Count="0" />
       <LineId Id="118" Count="1" />
       <LineId Id="114" Count="0" />

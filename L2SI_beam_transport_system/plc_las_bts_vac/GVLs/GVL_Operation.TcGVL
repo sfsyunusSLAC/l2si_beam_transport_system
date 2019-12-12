@@ -37,6 +37,12 @@ VAR_GLOBAL
 		field: ONAM OK
 	'}
 	q_bLaserOk : BOOL;
+	
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:OPERATION:MESSAGE
+		io: o
+	'}
+	q_sMessage : STRING(EPICS_STRING_SIZE);
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

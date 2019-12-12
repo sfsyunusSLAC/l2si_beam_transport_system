@@ -10,9 +10,10 @@ VAR_OUTPUT
 	q_bError : BOOL;
 	q_bBusy : BOOL; // Whether the current operation is executing
 	q_eCallOp : E_Op := E_Op.NONE; // Signal that another operation should begin executing
+	q_sMessage : STRING(EPICS_STRING_SIZE) := 'IDLE'; // Human readable description of the current step
 END_VAR
 VAR
-	nStep : E_OpStep := E_OpStep.IDLE;
+	eStep : E_OpStep := E_OpStep.IDLE;
 	fbTimeoutTimer : TON;
 END_VAR
 VAR CONSTANT
@@ -25,25 +26,31 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[q_eCallOp := E_Op.NONE; // Make sure q_eCallOp is cleared before each operation to avoid accidently calling operation again
 
-IF nStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
+IF eStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
 	// Start operation
-	nStep := E_OpStep.START;
+	eStep := E_OpStep.START;
 	q_bBusy := TRUE;
 	q_bError := FALSE;
 END_IF
 
-IF i_bCancel OR M_TimeoutExpired() THEN // If a timeout has expired, trigger a fatal error
-	M_FatalError();
+IF i_bCancel THEN
+	M_FatalError('Operation canceled');
+END_IF
+
+IF M_TimeoutExpired() THEN // If a timeout has expired, trigger a fatal error
+	M_FatalError('Timeout expired');
 END_IF]]></ST>
     </Implementation>
     <Method Name="M_FatalError" Id="{a9657383-9b85-4461-93cb-61ac9678587c}">
       <Declaration><![CDATA[METHOD PROTECTED M_FatalError
 VAR_INPUT
+	i_ErrorMessage : STRING;
 END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[M_ResetTimeoutTimer();
-nStep := E_OpStep.IDLE;
+M_SetMessage(i_ErrorMessage);
+eStep := E_OpStep.IDLE;
 q_bError := TRUE;
 q_bBusy := FALSE;]]></ST>
       </Implementation>
@@ -55,7 +62,8 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[M_ResetTimeoutTimer();
-nStep := E_OpStep.IDLE;
+eStep := E_OpStep.IDLE;
+M_SetMessage('Operation finished');
 q_bError := FALSE;
 q_bBusy := FALSE;]]></ST>
       </Implementation>
@@ -79,6 +87,16 @@ END_VAR
         <ST><![CDATA[fbTimeoutTimer(IN := TRUE, PT := i_tTime);]]></ST>
       </Implementation>
     </Method>
+    <Method Name="M_SetMessage" Id="{8436764f-a4c7-4c72-b1be-9a647d3d8896}">
+      <Declaration><![CDATA[METHOD PROTECTED M_SetMessage
+VAR_INPUT
+	i_sMessage : STRING(EPICS_STRING_SIZE);
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[q_sMessage := i_sMessage;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="M_TimeoutExpired" Id="{613a1767-fc71-4068-a0f9-f09d123b2cbd}">
       <Declaration><![CDATA[METHOD PROTECTED M_TimeoutExpired : BOOL
 VAR_INPUT
@@ -95,22 +113,32 @@ M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
       <LineId Id="184" Count="0" />
       <LineId Id="116" Count="2" />
       <LineId Id="49" Count="0" />
+      <LineId Id="261" Count="0" />
+      <LineId Id="260" Count="0" />
+      <LineId Id="262" Count="1" />
       <LineId Id="211" Count="2" />
       <LineId Id="210" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_FatalError">
-      <LineId Id="15" Count="2" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="26" Count="0" />
+      <LineId Id="16" Count="1" />
       <LineId Id="7" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_Finish">
       <LineId Id="11" Count="0" />
-      <LineId Id="6" Count="1" />
+      <LineId Id="6" Count="0" />
+      <LineId Id="15" Count="0" />
+      <LineId Id="7" Count="0" />
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_ResetTimeoutTimer">
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_RunTimeoutTimer">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Operation.M_SetMessage">
       <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_TimeoutExpired">

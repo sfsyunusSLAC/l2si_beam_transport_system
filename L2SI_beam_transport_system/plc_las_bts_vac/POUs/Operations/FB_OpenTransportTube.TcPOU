@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_OpenTransportTube" Id="{9853b0f7-0da2-457b-8c34-deca199bc8ef}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_OpenTransportTube EXTENDS FB_Operation
 VAR_INPUT
@@ -12,76 +12,30 @@ VAR
 	stTTDevices : ST_TransportTubeDevices;
 END_VAR
 VAR CONSTANT
-	(* Expected system states before operation starts*)		
-	stExpPumpStatus : ST_SBPumpStatuses := (
-		bRoughingPumpOn:= TRUE, 
-		bTurboPumpOn:= TRUE, 
-		bIonPumpOn:= TRUE);
-	
-	stExpValveStatus : ST_SBValveStatuses := (
-		bGateValveOpen:= TRUE, 
-		bVentValveOpen:= FALSE, 
-		bORingPumpValveOpen:= TRUE, 
-		bForelineValveOpen:= TRUE, 
-		bSlowPumpValveOpen:= FALSE,
-		bSBVentOpen:= FALSE,  
-		bSBSlowVentOpen:= FALSE);
-	
-	stExpGaugeReadings : ST_SBGaugeReadings := (
-		eDPPiraniState:= E_PressureState.ValidLo,
-		fDPColdCathodeVal:= 1E-5,
-		ePumpStationPirani1State:= E_PressureState.ValidLo,
-		fPumpStationPirani2Val:= 1E-2,
-		fPumpStationColdCathodeVal:= 1E-5
-	);
-	stGaugeReadingsOp : ST_SBGaugeReadingsOp := (
-		eDPPiraniOp:= E_GaugeCompOp.STATE, 
-		eDPColdCathodeOp:= E_GaugeCompOp._LTE, 
-		ePumpStationPirani1Op:= E_GaugeCompOp.STATE, 
-		ePumpStationPirani2Op:= E_GaugeCompOp._LTE, 
-		ePumpStationColdCathodeOp:= E_GaugeCompOp._LTE);
-		
-	stExpTTStatus : ST_TransportTubeStatuses := (
-		bIonPumpOn:= TRUE,
-		bGateValveOpen:= FALSE,
-		ePiraniState:= E_PressureState.ValidLo,
-		fColdCathodeVal:= 1E-5);
-	stTTOp : ST_TransportTubeOps := (
-		ePiraniOp := E_GaugeCompOp.STATE,
-		eColdCathodeOp := E_GaugeCompOp._LTE
-	);
 END_VAR
 
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[SUPER^();
 
-CASE nStep OF
+CASE eStep OF
 E_OpStep.START: // Verify system status	
+	M_SetMessage('Verifying System Status');
 	eTransportTube := i_eTransportTube;
 	stTTDevices := F_GetTransportTubeDevices(eTransportTube);
 	
-	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := FALSE)
-	AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := FALSE)
-	AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
-	AND F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
-		eTransportTube := eTransportTube,
-		stStatusOp := stTTOp, 
-		bEnforce := FALSE)
-	THEN // System status check passed
-		nStep := E_OpStep.OTT_OPEN_VALVE;
+	IF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS <= 1E-5 AND stTTDevices.refColdCathode.IG.rPRESS <= 1E-5 THEN 
+		// System status check passed
+		M_SetMessage('Opening gate valve');
+		eStep := E_OpStep.OTT_OPEN_VALVE;
 	// If either the switchbox or transport tube are not at base pressure, pump down the higher one
-	ELSIF NOT (GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS <= 1E-5 AND stTTDevices.refColdCathode.IG.rPRESS <= 1E-5) THEN
-		IF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS > stTTDevices.refColdCathode.IG.rPRESS THEN
-			// Pump down switchbox
-			q_eCallOp := E_Op.POT1;
-		ELSE
-			// Pump down transport tube
-			q_eCallOp := E_Op.PSB;
-		END_IF
+	ELSIF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS > stTTDevices.refColdCathode.IG.rPRESS THEN
+		// Pump down switchbox
+		q_eCallOp := E_Op.PSB;
 		M_Finish();
-	ELSE
-		M_FatalError();
+	ELSE // Pump down transport tube
+		q_eCallOp := E_Op.PTT;
+		M_Finish();
 	END_IF
 	
 E_OpStep.OTT_OPEN_VALVE:
@@ -98,7 +52,9 @@ E_OpStep.OTT_OPEN_VALVE:
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_OpenTransportTube">
-      <LineId Id="395" Count="40" />
+      <LineId Id="505" Count="9" />
+      <LineId Id="552" Count="0" />
+      <LineId Id="515" Count="21" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

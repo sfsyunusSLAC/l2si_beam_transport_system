@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_VentTransportTube" Id="{2346f218-1e95-4da4-9396-1840f40cbfe3}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_VentTransportTube EXTENDS FB_Operation
 VAR_INPUT
@@ -34,16 +34,18 @@ VAR CONSTANT
 	);
 	
 	(* Timeout constants *)
-	VENT_TIMEOUT : Time := T#15M;
+	WAIT_PUMPCART_TIMEOUT : TIME := T#20M;
+	VENT_TIMEOUT : TIME := T#20M;
 END_VAR
 
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[SUPER^();
 
-CASE nStep OF
+CASE eStep OF
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
+	M_SetMessage('Verifying system status');
 	
 	eTransportTube := i_eTransportTube;
 	stTTDevices := F_GetTransportTubeDevices(eTransportTube);
@@ -54,7 +56,20 @@ E_OpStep.START: // Verify system status
 		bEnforce := TRUE)
 	THEN // System status check 
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.VOT_VENT;
+		M_SetMessage('OPERATOR: Pump inlet port w/ pump cart');
+		eStep := E_OpStep.VOT_WAIT_PC;
+	END_IF
+	
+E_OpStep.VOT_WAIT_PC:
+	M_RunTimeoutTImer(WAIT_PUMPCART_TIMEOUT);
+	
+	(* At this point the system must wait for the inlet port of the transport tube to be pumped down by the pump cart. *)
+	
+	// @TODO. What should this check be???? Need a way to check P-GCC1
+	IF FALSE THEN
+		M_ResetTimeoutTImer();
+		M_SetMessage('Venting');
+		eStep := E_OpStep.VOT_VENT;
 	END_IF
 	
 E_OpStep.VOT_VENT:
@@ -64,7 +79,7 @@ E_OpStep.VOT_VENT:
 	// Vent until atmospheric pressure reached
 	IF F_Atm(stTTDevices.refPiraniGauge.PG.rPRESS) THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.VOT_FINISH;
+		eStep := E_OpStep.VOT_FINISH;
 	END_IF
 	
 E_OpStep.VOT_FINISH:
@@ -75,16 +90,28 @@ E_OpStep.VOT_FINISH:
 	THEN
 		M_Finish();
 	ELSE
-		M_FatalError();
+		M_FatalError('End system status check failed');
 	END_IF
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_VentTransportTube">
       <LineId Id="171" Count="4" />
+      <LineId Id="396" Count="0" />
       <LineId Id="193" Count="0" />
       <LineId Id="251" Count="0" />
       <LineId Id="195" Count="1" />
-      <LineId Id="176" Count="8" />
+      <LineId Id="176" Count="5" />
+      <LineId Id="398" Count="0" />
+      <LineId Id="182" Count="1" />
+      <LineId Id="346" Count="2" />
+      <LineId Id="355" Count="1" />
+      <LineId Id="350" Count="0" />
+      <LineId Id="358" Count="0" />
+      <LineId Id="351" Count="1" />
+      <LineId Id="397" Count="0" />
+      <LineId Id="354" Count="0" />
+      <LineId Id="353" Count="0" />
+      <LineId Id="184" Count="0" />
       <LineId Id="295" Count="0" />
       <LineId Id="298" Count="0" />
       <LineId Id="296" Count="1" />

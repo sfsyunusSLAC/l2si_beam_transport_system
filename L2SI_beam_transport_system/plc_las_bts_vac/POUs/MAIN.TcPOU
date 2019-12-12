@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="MAIN" Id="{e39c3acf-17bf-44fe-a884-c77329dee9c5}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -11,6 +11,7 @@ END_VAR
 
 fbOperate(iq_eOperation := GVL_Operation.iq_eOperation,
 	iq_eTransportTube := GVL_Operation.iq_eTransportTube,
+	iq_sMessageBuff := GVL_Operation.q_sMessage,
 	i_bCancel := GVL_Operation.i_bCancel,
 	q_bBusy => GVL_Operation.q_bBusy);
 	
@@ -20,6 +21,7 @@ GVL_Operation.i_bCancel := FALSE; // Acknowledge the cancel flag
     <LineIds Name="MAIN">
       <LineId Id="366" Count="2" />
       <LineId Id="378" Count="0" />
+      <LineId Id="389" Count="0" />
       <LineId Id="369" Count="0" />
       <LineId Id="371" Count="2" />
       <LineId Id="172" Count="0" />

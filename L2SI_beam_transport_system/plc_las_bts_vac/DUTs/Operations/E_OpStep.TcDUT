@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <DUT Name="E_OpStep" Id="{ec262c74-2984-43a5-9b67-138f9035ebaf}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
@@ -60,6 +60,7 @@ TYPE E_OpStep :
 	
 	(* Vent Transport Tube *)
 	VOT_VENT,
+	VOT_WAIT_PC,
 	VOT_FINISH,
 	
 	(* Open Transport Tube Gate Valve *)

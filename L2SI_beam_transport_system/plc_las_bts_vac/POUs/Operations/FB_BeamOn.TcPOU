@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_BeamOn" Id="{5437e5d8-4745-4193-bf7f-65f6c9441049}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_BeamOn EXTENDS FB_Operation
 VAR_INPUT
@@ -52,7 +52,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[SUPER^();
 
-CASE nStep OF
+CASE eStep OF
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	
@@ -69,12 +69,7 @@ E_OpStep.START: // Verify system status
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_BeamOn">
-      <LineId Id="171" Count="4" />
-      <LineId Id="193" Count="0" />
-      <LineId Id="251" Count="0" />
-      <LineId Id="195" Count="1" />
-      <LineId Id="176" Count="5" />
-      <LineId Id="238" Count="0" />
+      <LineId Id="315" Count="15" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

@@ -8,6 +8,7 @@ END_VAR
 VAR_IN_OUT
 	iq_eOperation : E_Op; // Select which operation to run, if any. Outputs the currently running operation
 	iq_eTransportTube : E_TransportTube; // Select which transport tube to run certain operations on
+	iq_sMessageBuff : STRING(EPICS_STRING_SIZE); // Buffer for current step in human readable form
 END_VAR
 VAR_OUTPUT
 	q_bBusy : BOOL := FALSE; // Flag for if an operation is running
@@ -20,6 +21,7 @@ VAR
 	(* Operations *)
 	fbPumpTransportTube : FB_PumpTransportTube;
 	fbVentTransportTube : FB_VentTransportTube;
+	fbOpenTransportTube : Fb_OpenTransportTube;
 	fbPumpSwitchbox : FB_PumpSwitchbox;
 	fbSlowPumpSwitchbox : FB_SlowPumpSwitchbox;
 	fbVentPumpStation : FB_VentPumpStation;
@@ -30,7 +32,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[(* Run operations, but don't start any new operations if another operation is still running *)
 
-// Don't start new operations if the system is already busy with another operation!
+// Only start new operations if the system is NOT busy with another operation!
 IF NOT q_bBusy THEN
 	eCurrOp := iq_eOperation;
 	eCurrTransportTube := iq_eTransportTube;
@@ -38,7 +40,7 @@ END_IF
 
 // Execute selected operation
 CASE eCurrOp OF
-E_Op.POT1:
+E_Op.PTT: // Pump transport tube
 	refRunningOp REF= fbPumpTransportTube;
 	fbPumpTransportTube(
 		i_bExecute := TRUE, 
@@ -46,7 +48,7 @@ E_Op.POT1:
 		i_eTransportTube := eCurrTransportTube
 	);
 
-E_Op.VOT1:
+E_Op.VTT: // Vent transport tube
 	refRunningOp REF= fbVentTransportTube;
 	fbVentTransportTube(
 		i_bExecute := TRUE,
@@ -54,35 +56,43 @@ E_Op.VOT1:
 		i_eTransportTube := eCurrTransportTube
 	);
 	
-E_Op.PSB:
+E_Op.OTT: // Open transport tube gate valve
+	refRunningOp REF= fbOpenTransportTube;
+	fbOpenTransportTube(
+		i_bExecute := TRUE,
+		i_bCancel := i_bCancel,
+		i_eTransportTube := eCurrTransportTube
+	);
+	
+E_Op.PSB: // Pump switchbox
 	refRunningOp REF= fbPumpSwitchbox;
 	fbPumpSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
-E_Op.SPSB:
+E_Op.SPSB: // Slow pump switchbox
 	refRunningOp REF= fbSlowPumpSwitchbox;
 	fbSlowPumpSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
-E_Op.VPS:
+E_Op.VPS: // Vent pump station
 	refRunningOp REF= fbVentPumpStation;
 	fbVentPumpStation(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 
-E_Op.VSB:
+E_Op.VSB: // Vent switchbox
 	refRunningOp REF= fbVentSwitchbox;
 	fbVentSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
-E_Op.SVSB:
+E_Op.SVSB: // Slow vent switchbox
 	refRunningOp REF= fbSlowVentSwitchbox;
 	fbSlowVentSwitchbox(
 		i_bExecute := TRUE,
@@ -90,13 +100,19 @@ E_Op.SVSB:
 	);
 END_CASE
 
-q_bBusy := __ISVALIDREF(refRunningOp) AND_THEN refRunningOp.q_bBusy;
-
-// Allow current operation to call other operations. Don't allow call if the current operation is still busy
-IF __ISVALIDREF(refRunningOp) AND_THEN refRunningOp.q_eCallOp <> E_Op.NONE AND_THEN NOT refRunningOp.q_bBusy THEN
-	eCurrOp := refRunningOp.q_eCallOp;
-	// Make sure busy signal stays on if we are going to be calling another operation
-	q_bBusy := TRUE;
+IF __ISVALIDREF(refRunningOp) THEN
+	STRNCPY(pDst := ADR(iq_sMessageBuff), pSrc := ADR(refRunningOp.q_sMessage), nDstSize := SIZEOF(iq_sMessageBuff));
+	q_bBusy := refRunningOp.q_bBusy;
+	
+	// Allow current operation to call other operations. Don't allow call if the current operation is still busy
+	IF refRunningOp.q_eCallOp <> E_Op.NONE AND NOT refRunningOp.q_bBusy THEN
+		eCurrOp := refRunningOp.q_eCallOp;
+		// Make sure busy signal stays on if we are going to be calling another operation
+		q_bBusy := TRUE;
+	END_IF 
+ELSE
+	iq_sMessageBuff := 'IDLE';
+	q_bBusy := FALSE;
 END_IF
 
 // If all operation have finished then set operation to none
@@ -109,59 +125,7 @@ iq_eOperation := eCurrOp;
 iq_eTransportTube := eCurrTransportTube;]]></ST>
     </Implementation>
     <LineIds Name="FB_Operate">
-      <LineId Id="251" Count="0" />
-      <LineId Id="304" Count="0" />
-      <LineId Id="300" Count="2" />
-      <LineId Id="403" Count="0" />
-      <LineId Id="303" Count="0" />
-      <LineId Id="322" Count="0" />
-      <LineId Id="309" Count="0" />
-      <LineId Id="308" Count="0" />
-      <LineId Id="310" Count="0" />
-      <LineId Id="319" Count="0" />
-      <LineId Id="313" Count="3" />
-      <LineId Id="312" Count="0" />
-      <LineId Id="320" Count="0" />
-      <LineId Id="318" Count="0" />
-      <LineId Id="321" Count="0" />
-      <LineId Id="324" Count="3" />
-      <LineId Id="323" Count="0" />
-      <LineId Id="328" Count="1" />
-      <LineId Id="332" Count="0" />
-      <LineId Id="330" Count="1" />
-      <LineId Id="317" Count="0" />
-      <LineId Id="335" Count="3" />
-      <LineId Id="340" Count="1" />
-      <LineId Id="339" Count="0" />
-      <LineId Id="342" Count="0" />
-      <LineId Id="344" Count="0" />
-      <LineId Id="346" Count="3" />
-      <LineId Id="345" Count="0" />
-      <LineId Id="350" Count="0" />
-      <LineId Id="352" Count="0" />
-      <LineId Id="351" Count="0" />
-      <LineId Id="353" Count="0" />
-      <LineId Id="355" Count="1" />
-      <LineId Id="354" Count="0" />
-      <LineId Id="357" Count="0" />
-      <LineId Id="360" Count="2" />
-      <LineId Id="364" Count="1" />
-      <LineId Id="363" Count="0" />
-      <LineId Id="366" Count="0" />
-      <LineId Id="311" Count="0" />
-      <LineId Id="373" Count="1" />
-      <LineId Id="376" Count="0" />
-      <LineId Id="370" Count="0" />
-      <LineId Id="369" Count="0" />
-      <LineId Id="371" Count="0" />
-      <LineId Id="377" Count="0" />
-      <LineId Id="375" Count="0" />
-      <LineId Id="372" Count="0" />
-      <LineId Id="292" Count="3" />
-      <LineId Id="75" Count="0" />
-      <LineId Id="299" Count="0" />
-      <LineId Id="298" Count="0" />
-      <LineId Id="297" Count="0" />
+      <LineId Id="518" Count="91" />
       <LineId Id="404" Count="0" />
     </LineIds>
   </POU>
