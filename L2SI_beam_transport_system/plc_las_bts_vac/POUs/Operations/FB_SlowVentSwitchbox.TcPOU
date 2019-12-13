@@ -193,6 +193,9 @@ E_OpStep.SVSB_FINISH:
 	ELSE
 		M_FatalError('End system status check failed');
 	END_IF
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_SlowVentSwitchbox">
@@ -272,6 +275,9 @@ END_CASE]]></ST>
       <LineId Id="189" Count="4" />
       <LineId Id="199" Count="4" />
       <LineId Id="146" Count="0" />
+      <LineId Id="762" Count="0" />
+      <LineId Id="764" Count="0" />
+      <LineId Id="763" Count="0" />
       <LineId Id="40" Count="0" />
     </LineIds>
   </POU>

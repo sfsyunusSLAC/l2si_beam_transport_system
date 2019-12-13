@@ -12,11 +12,12 @@ VAR_IN_OUT
 END_VAR
 VAR_OUTPUT
 	q_bBusy : BOOL := FALSE; // Flag for if an operation is running
+	q_bError : BOOL := FALSE; // Whether there was an error with the last run operation
 END_VAR
 VAR
 	eCurrOp : E_Op; // The currently running operation
 	eCurrTransportTube : E_TransportTube; // The current transport tube being operated on (if operation involves transport tube)
-	refRunningOp : REFERENCE TO FB_Operation;
+	refRecentOp : REFERENCE TO FB_Operation; // The function block of the most recent run operation
 	
 	(* Operations *)
 	fbPumpTransportTube : FB_PumpTransportTube;
@@ -41,7 +42,7 @@ END_IF
 // Execute selected operation
 CASE eCurrOp OF
 E_Op.PTT: // Pump transport tube
-	refRunningOp REF= fbPumpTransportTube;
+	refRecentOp REF= fbPumpTransportTube;
 	fbPumpTransportTube(
 		i_bExecute := TRUE, 
 		i_bCancel := i_bCancel,
@@ -49,7 +50,7 @@ E_Op.PTT: // Pump transport tube
 	);
 
 E_Op.VTT: // Vent transport tube
-	refRunningOp REF= fbVentTransportTube;
+	refRecentOp REF= fbVentTransportTube;
 	fbVentTransportTube(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel,
@@ -57,7 +58,7 @@ E_Op.VTT: // Vent transport tube
 	);
 	
 E_Op.OTT: // Open transport tube gate valve
-	refRunningOp REF= fbOpenTransportTube;
+	refRecentOp REF= fbOpenTransportTube;
 	fbOpenTransportTube(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel,
@@ -65,54 +66,59 @@ E_Op.OTT: // Open transport tube gate valve
 	);
 	
 E_Op.PSB: // Pump switchbox
-	refRunningOp REF= fbPumpSwitchbox;
+	refRecentOp REF= fbPumpSwitchbox;
 	fbPumpSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
 E_Op.SPSB: // Slow pump switchbox
-	refRunningOp REF= fbSlowPumpSwitchbox;
+	refRecentOp REF= fbSlowPumpSwitchbox;
 	fbSlowPumpSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
 E_Op.VPS: // Vent pump station
-	refRunningOp REF= fbVentPumpStation;
+	refRecentOp REF= fbVentPumpStation;
 	fbVentPumpStation(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 
 E_Op.VSB: // Vent switchbox
-	refRunningOp REF= fbVentSwitchbox;
+	refRecentOp REF= fbVentSwitchbox;
 	fbVentSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 	
 E_Op.SVSB: // Slow vent switchbox
-	refRunningOp REF= fbSlowVentSwitchbox;
+	refRecentOp REF= fbSlowVentSwitchbox;
 	fbSlowVentSwitchbox(
 		i_bExecute := TRUE,
 		i_bCancel := i_bCancel
 	);
 END_CASE
 
-IF __ISVALIDREF(refRunningOp) THEN
-	STRNCPY(pDst := ADR(iq_sMessageBuff), pSrc := ADR(refRunningOp.q_sMessage), nDstSize := SIZEOF(iq_sMessageBuff));
-	q_bBusy := refRunningOp.q_bBusy;
+IF __ISVALIDREF(refRecentOp) THEN
+	// Check values from the most recently run operation	
+
+	STRNCPY(pDst := ADR(iq_sMessageBuff), pSrc := ADR(refRecentOp.q_sMessage), nDstSize := SIZEOF(iq_sMessageBuff));
+	q_bBusy := refRecentOp.q_bBusy;
+	q_bError := refRecentOp.q_bError;
 	
 	// Allow current operation to call other operations. Don't allow call if the current operation is still busy
-	IF refRunningOp.q_eCallOp <> E_Op.NONE AND NOT refRunningOp.q_bBusy THEN
-		eCurrOp := refRunningOp.q_eCallOp;
+	IF refRecentOp.q_eCallOp <> E_Op.NONE AND NOT refRecentOp.q_bBusy THEN
+		eCurrOp := refRecentOp.q_eCallOp;
 		// Make sure busy signal stays on if we are going to be calling another operation
 		q_bBusy := TRUE;
 	END_IF 
 ELSE
+	// No operation has been run yet. Stick with default values
 	iq_sMessageBuff := 'IDLE';
 	q_bBusy := FALSE;
+	q_bError := FALSE;
 END_IF
 
 // If all operation have finished then set operation to none
@@ -125,7 +131,7 @@ iq_eOperation := eCurrOp;
 iq_eTransportTube := eCurrTransportTube;]]></ST>
     </Implementation>
     <LineIds Name="FB_Operate">
-      <LineId Id="518" Count="91" />
+      <LineId Id="673" Count="96" />
       <LineId Id="404" Count="0" />
     </LineIds>
   </POU>

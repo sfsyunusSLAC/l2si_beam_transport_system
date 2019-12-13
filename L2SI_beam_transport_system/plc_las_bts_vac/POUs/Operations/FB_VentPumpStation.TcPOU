@@ -134,6 +134,9 @@ E_OpStep.VPS_FINISH: // System status check
 	ELSE
 		M_FatalError('End system status check failed');
 	END_IF
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
 END_CASE
 ]]></ST>
     </Implementation>
@@ -175,6 +178,9 @@ END_CASE
       <LineId Id="318" Count="4" />
       <LineId Id="328" Count="4" />
       <LineId Id="128" Count="0" />
+      <LineId Id="476" Count="0" />
+      <LineId Id="478" Count="0" />
+      <LineId Id="477" Count="0" />
       <LineId Id="93" Count="0" />
       <LineId Id="11" Count="0" />
     </LineIds>

@@ -49,12 +49,18 @@ E_OpStep.OTT_OPEN_VALVE:
 		M_ResetTimeoutTimer();
 		M_Finish();
 	END_IF
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_OpenTransportTube">
       <LineId Id="505" Count="9" />
       <LineId Id="552" Count="0" />
       <LineId Id="515" Count="21" />
+      <LineId Id="566" Count="0" />
+      <LineId Id="568" Count="0" />
+      <LineId Id="567" Count="0" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

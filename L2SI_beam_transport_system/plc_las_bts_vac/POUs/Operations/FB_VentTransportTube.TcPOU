@@ -92,6 +92,9 @@ E_OpStep.VOT_FINISH:
 	ELSE
 		M_FatalError('End system status check failed');
 	END_IF
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_VentTransportTube">
@@ -125,6 +128,9 @@ END_CASE]]></ST>
       <LineId Id="252" Count="0" />
       <LineId Id="243" Count="5" />
       <LineId Id="238" Count="0" />
+      <LineId Id="436" Count="0" />
+      <LineId Id="438" Count="0" />
+      <LineId Id="437" Count="0" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

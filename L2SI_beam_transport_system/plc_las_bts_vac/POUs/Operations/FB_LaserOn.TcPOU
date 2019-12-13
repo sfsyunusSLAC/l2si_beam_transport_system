@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
+  <POU Name="FB_LaserOn" Id="{5437e5d8-4745-4193-bf7f-65f6c9441049}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_LaserOn EXTENDS FB_Operation
+VAR_INPUT
+	i_eTransportTube : E_TransportTube;
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
+	stTTDevices : ST_TransportTubeDevices;
+END_VAR
+VAR CONSTANT
+	(* Expected system states before operation starts*)		
+	stExpPumpStatus : ST_SBPumpStatuses := (
+		bRoughingPumpOn:= TRUE, 
+		bTurboPumpOn:= FALSE, 
+		bIonPumpOn:= TRUE);
+	
+	stExpValveStatus : ST_SBValveStatuses := (
+		bGateValveOpen:= FALSE, 
+		bVentValveOpen:= FALSE, 
+		bORingPumpValveOpen:= TRUE, 
+		bForelineValveOpen:= TRUE, 
+		bSlowPumpValveOpen:= FALSE,
+		bSBVentOpen:= FALSE,  
+		bSBSlowVentOpen:= FALSE);
+	
+	stExpGaugeReadings : ST_SBGaugeReadings := (
+		eDPPiraniState:= E_PressureState.ValidLo,
+		fDPColdCathodeVal:= 1E-5,
+		ePumpStationPirani1State:= E_PressureState.ValidLo,
+		fPumpStationPirani2Val:= 1E-2,
+		fPumpStationColdCathodeVal:= 1E-5
+	);
+	stGaugeReadingsOp : ST_SBGaugeReadingsOp := (
+		eDPPiraniOp:= E_GaugeCompOp.STATE, 
+		eDPColdCathodeOp:= E_GaugeCompOp._LTE, 
+		ePumpStationPirani1Op:= E_GaugeCompOp.STATE, 
+		ePumpStationPirani2Op:= E_GaugeCompOp._LTE, 
+		ePumpStationColdCathodeOp:= E_GaugeCompOp._LTE);
+		
+	stExpTTStatus : ST_TransportTubeStatuses := (
+		bIonPumpOn:= TRUE,
+		bGateValveOpen:= TRUE,
+		ePiraniState:= E_PressureState.ValidLo,
+		fColdCathodeVal:= 1E-5);
+	stTTOp : ST_TransportTubeOps := (
+		ePiraniOp := E_GaugeCompOp.STATE,
+		eColdCathodeOp := E_GaugeCompOp._LTE
+	);
+END_VAR
+
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[SUPER^();
+
+CASE eStep OF
+E_OpStep.START: // Verify system status
+	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
+	M_SetMessage('Verifying system status');
+	
+	eTransportTube := i_eTransportTube;
+	stTTDevices := F_GetTransportTubeDevices(i_eTransportTube);
+	
+	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
+		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
+		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
+		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
+			eTransportTube := eTransportTube,
+			stStatusOp := stTTOp, 
+			bEnforce := TRUE)
+	THEN // System status check 
+		M_ResetTimeoutTimer();	
+	END_IF
+	
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
+END_CASE]]></ST>
+    </Implementation>
+    <LineIds Name="FB_LaserOn">
+      <LineId Id="315" Count="4" />
+      <LineId Id="436" Count="0" />
+      <LineId Id="320" Count="3" />
+      <LineId Id="431" Count="2" />
+      <LineId Id="430" Count="0" />
+      <LineId Id="325" Count="5" />
+      <LineId Id="543" Count="0" />
+      <LineId Id="489" Count="2" />
+      <LineId Id="20" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

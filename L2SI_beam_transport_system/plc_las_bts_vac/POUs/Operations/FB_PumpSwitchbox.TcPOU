@@ -193,6 +193,9 @@ E_OpStep.PSB_FINISH: // System Status Check
 	ELSE
 		M_FatalError('End system status check failed');
 	END_IF
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
 END_CASE
 ]]></ST>
     </Implementation>
@@ -284,6 +287,9 @@ END_CASE
       <LineId Id="439" Count="0" />
       <LineId Id="670" Count="1" />
       <LineId Id="436" Count="0" />
+      <LineId Id="816" Count="0" />
+      <LineId Id="818" Count="0" />
+      <LineId Id="817" Count="0" />
       <LineId Id="13" Count="0" />
       <LineId Id="672" Count="0" />
     </LineIds>

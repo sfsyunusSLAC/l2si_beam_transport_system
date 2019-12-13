@@ -23,6 +23,12 @@
     <Compile Include="DUTs\Operations\E_OpStep.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\ST_TransportTube.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\ST_TransportTubeDevices.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\SystemStatusChecks\E_GaugeCompOp.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -39,12 +45,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\SystemStatusChecks\TransportTubes\E_TransportTube.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\SystemStatusChecks\TransportTubes\ST_TransportTube.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\SystemStatusChecks\TransportTubes\ST_TransportTubeDevices.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\SystemStatusChecks\TransportTubes\ST_TransportTubeOps.TcDUT">
@@ -90,7 +90,7 @@
     <Compile Include="POUs\Operations\FB_Operation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Operations\FB_BeamOn.TcPOU">
+    <Compile Include="POUs\Operations\FB_LaserOn.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Operations\FB_OpenTransportTube.TcPOU">
