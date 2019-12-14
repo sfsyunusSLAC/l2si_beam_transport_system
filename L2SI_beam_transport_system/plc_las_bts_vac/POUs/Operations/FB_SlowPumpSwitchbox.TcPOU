@@ -3,7 +3,7 @@
   <POU Name="FB_SlowPumpSwitchbox" Id="{85c17bad-68a9-42d2-8800-44dcc39ac9f8}" SpecialFunc="None">
     <Declaration><![CDATA[(* Operation for pumping the switchbox *)
 FUNCTION_BLOCK FB_SlowPumpSwitchbox EXTENDS FB_Operation
-VAR CONSTANT
+VAR_STAT CONSTANT
 	(* Expected system states before operation starts*)
 	stExpPumpStatus : ST_SBPumpStatuses := (
 		bRoughingPumpOn:= FALSE, 
@@ -70,7 +70,7 @@ VAR CONSTANT
 	ION_READY_PRESS : REAL := 1E-5; // Pressure at which to initiate ion pump
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^();
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
 E_OpStep.START: // System Status Check

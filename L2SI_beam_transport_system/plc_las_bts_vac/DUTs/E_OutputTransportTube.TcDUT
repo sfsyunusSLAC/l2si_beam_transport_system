@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
+  <DUT Name="E_OutputTransportTube" Id="{a37874ab-0727-45ca-9ee0-71ca4ea7eb21}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_OutputTransportTube :
+(
+	BO4 := 1000 // Start at 1000 so output transport tube enums don't overlap with input transport tube enums
+) UINT;
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

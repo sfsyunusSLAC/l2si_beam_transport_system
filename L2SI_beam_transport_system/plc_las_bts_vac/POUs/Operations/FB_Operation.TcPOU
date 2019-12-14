@@ -6,11 +6,12 @@ VAR_INPUT
 	i_bExecute : BOOL; // Flag that indicates the operation should be ran
 	i_bCancel : BOOL; // Cancel operation
 END_VAR
+VAR_IN_OUT
+	iq_sMessageBuffer : STRING(EPICS_STRING_SIZE); // Human readable description of the current step
+END_VAR
 VAR_OUTPUT
 	q_bError : BOOL;
 	q_bBusy : BOOL; // Whether the current operation is executing
-	q_eCallOp : E_Op := E_Op.NONE; // Signal that another operation should begin executing
-	q_sMessage : STRING(EPICS_STRING_SIZE) := 'IDLE'; // Human readable description of the current step
 END_VAR
 VAR
 	eStep : E_OpStep := E_OpStep.IDLE;
@@ -24,9 +25,7 @@ VAR CONSTANT
 	PUMP_TIMEOUT : TIME := T#20S; // How long to try to turn on or off pump before failing
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[q_eCallOp := E_Op.NONE; // Make sure q_eCallOp is cleared before each operation to avoid accidently calling operation again
-
-IF eStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
+      <ST><![CDATA[IF eStep = E_OpStep.IDLE AND i_bExecute = TRUE THEN
 	// Start operation
 	eStep := E_OpStep.START;
 	q_bBusy := TRUE;
@@ -94,7 +93,7 @@ VAR_INPUT
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[q_sMessage := i_sMessage;]]></ST>
+        <ST><![CDATA[iq_sMessageBuffer := i_sMessage;]]></ST>
       </Implementation>
     </Method>
     <Method Name="M_TimeoutExpired" Id="{613a1767-fc71-4068-a0f9-f09d123b2cbd}">
@@ -108,7 +107,6 @@ M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_Operation">
-      <LineId Id="236" Count="1" />
       <LineId Id="115" Count="0" />
       <LineId Id="184" Count="0" />
       <LineId Id="116" Count="2" />

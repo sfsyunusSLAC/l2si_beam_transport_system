@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="F_VerifyTransportTubeStatuses" Id="{1541c929-edac-0f9d-296a-dec165f0fa68}" SpecialFunc="None">
     <Declaration><![CDATA[(* Verfiy that the state of the devices in the transport tube specified are in the expected state *)
 FUNCTION F_VerifyTransportTubeStatuses : BOOL
 VAR_INPUT
 	stExpStatus : ST_TransportTubeStatuses;
 	stStatusOp : ST_TransportTubeOps;
-	eTransportTube : E_TransportTube;
+	eTransportTube : T_TransportTube;
 	bEnforce : BOOL;
 END_VAR
 VAR

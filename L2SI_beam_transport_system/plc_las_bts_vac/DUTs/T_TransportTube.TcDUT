@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
+  <DUT Name="T_TransportTube" Id="{39aed121-ba92-4c86-a28b-34f6e10d06c2}">
+    <Declaration><![CDATA[TYPE T_TransportTube : UINT; END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

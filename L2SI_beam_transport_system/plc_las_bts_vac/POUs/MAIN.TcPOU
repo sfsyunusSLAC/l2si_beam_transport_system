@@ -11,7 +11,7 @@ END_VAR
 
 fbOperate(iq_eOperation := GVL_Operation.iq_eOperation,
 	iq_eTransportTube := GVL_Operation.iq_eTransportTube,
-	iq_sMessageBuff := GVL_Operation.q_sMessage,
+	iq_sMessageBuffer := GVL_Operation.q_sMessage,
 	i_bCancel := GVL_Operation.i_bCancel,
 	q_bBusy => GVL_Operation.q_bBusy);
 	

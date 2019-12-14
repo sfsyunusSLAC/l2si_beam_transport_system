@@ -3,11 +3,7 @@
   <POU Name="FB_VentSwitchbox" Id="{cc05ccf2-f224-45e9-ae68-6a84af39253c}" SpecialFunc="None">
     <Declaration><![CDATA[(* Operation for venting the switchbox *)
 FUNCTION_BLOCK FB_VentSwitchbox EXTENDS FB_Operation
-VAR_INPUT
-END_VAR
-VAR_OUTPUT
-END_VAR
-VAR CONSTANT
+VAR_STAT CONSTANT
 	(* Expected system states before operation starts*)
 	stExpPumpStatus : ST_SBPumpStatuses := (
 		bRoughingPumpOn:= TRUE, 
@@ -74,7 +70,7 @@ VAR CONSTANT
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^();
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
 E_OpStep.START: // Verify system status

@@ -64,7 +64,9 @@ TYPE E_OpStep :
 	VOT_FINISH,
 	
 	(* Open Transport Tube Gate Valve *)
-	OTT_OPEN_VALVE
+	OTT_OPEN_VALVE,
+	OTT_RUN_PSB,
+	OTT_RUN_PTT
 );
 END_TYPE
 ]]></Declaration>

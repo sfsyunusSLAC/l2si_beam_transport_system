@@ -3,15 +3,15 @@
   <POU Name="FB_VentTransportTube" Id="{2346f218-1e95-4da4-9396-1840f40cbfe3}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_VentTransportTube EXTENDS FB_Operation
 VAR_INPUT
-	i_eTransportTube : E_TransportTube;
+	i_eTransportTube : T_TransportTube;
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	stTTDevices : ST_TransportTubeDevices;
+	eTT : T_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
+	stTT : ST_TransportTube;
 END_VAR
-VAR CONSTANT
+VAR_STAT CONSTANT
 	(* Expected system states before operation starts*)		
 	stExpTTStatus : ST_TransportTubeStatuses := (
 		bIonPumpOn:= TRUE,
@@ -40,18 +40,18 @@ END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^();
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	M_SetMessage('Verifying system status');
 	
-	eTransportTube := i_eTransportTube;
-	stTTDevices := F_GetTransportTubeDevices(eTransportTube);
+	eTT := i_eTransportTube;
+	stTT := F_GetTransportTube(eTT);
 	
 	IF F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
-		eTransportTube := eTransportTube,
+		eTransportTube := eTT,
 		stStatusOp := stTTOp, 
 		bEnforce := TRUE)
 	THEN // System status check 
@@ -74,17 +74,17 @@ E_OpStep.VOT_WAIT_PC:
 	
 E_OpStep.VOT_VENT:
 	M_RunTimeoutTimer(VENT_TIMEOUT);
-	stTTDevices.refIonPump.M_Run(FALSE);
+	stTT.stDevices.refIonPump.M_Run(FALSE);
 	
 	// Vent until atmospheric pressure reached
-	IF F_Atm(stTTDevices.refPiraniGauge.PG.rPRESS) THEN
+	IF F_Atm(stTT.stDevices.refPiraniGauge.PG.rPRESS) THEN
 		M_ResetTimeoutTimer();
 		eStep := E_OpStep.VOT_FINISH;
 	END_IF
 	
 E_OpStep.VOT_FINISH:
 	IF F_VerifyTransportTubeStatuses(stExpStatus := stFinExpTTStatus,
-		eTransportTube := eTransportTube,
+		eTransportTube := eTT,
 		stStatusOp := stFinTTOp, 
 		bEnforce := FALSE)
 	THEN
@@ -98,39 +98,7 @@ ELSE
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_VentTransportTube">
-      <LineId Id="171" Count="4" />
-      <LineId Id="396" Count="0" />
-      <LineId Id="193" Count="0" />
-      <LineId Id="251" Count="0" />
-      <LineId Id="195" Count="1" />
-      <LineId Id="176" Count="5" />
-      <LineId Id="398" Count="0" />
-      <LineId Id="182" Count="1" />
-      <LineId Id="346" Count="2" />
-      <LineId Id="355" Count="1" />
-      <LineId Id="350" Count="0" />
-      <LineId Id="358" Count="0" />
-      <LineId Id="351" Count="1" />
-      <LineId Id="397" Count="0" />
-      <LineId Id="354" Count="0" />
-      <LineId Id="353" Count="0" />
-      <LineId Id="184" Count="0" />
-      <LineId Id="295" Count="0" />
-      <LineId Id="298" Count="0" />
-      <LineId Id="296" Count="1" />
-      <LineId Id="306" Count="0" />
-      <LineId Id="302" Count="1" />
-      <LineId Id="305" Count="0" />
-      <LineId Id="304" Count="0" />
-      <LineId Id="237" Count="0" />
-      <LineId Id="249" Count="0" />
-      <LineId Id="242" Count="0" />
-      <LineId Id="252" Count="0" />
-      <LineId Id="243" Count="5" />
-      <LineId Id="238" Count="0" />
-      <LineId Id="436" Count="0" />
-      <LineId Id="438" Count="0" />
-      <LineId Id="437" Count="0" />
+      <LineId Id="513" Count="54" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

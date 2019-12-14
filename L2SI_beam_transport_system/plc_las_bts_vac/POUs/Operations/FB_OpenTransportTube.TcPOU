@@ -3,49 +3,75 @@
   <POU Name="FB_OpenTransportTube" Id="{9853b0f7-0da2-457b-8c34-deca199bc8ef}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_OpenTransportTube EXTENDS FB_Operation
 VAR_INPUT
-	i_eTransportTube : E_TransportTube;
+	i_eTransportTube : T_TransportTube;
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	stTTDevices : ST_TransportTubeDevices;
-END_VAR
-VAR CONSTANT
+	stTT : ST_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
+	eTT : T_TransportTube;
+	fbPumpSwitchbox : FB_PumpSwitchbox;
+	fbPumpTransportTube : FB_PumpTransportTube;
 END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^();
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
 E_OpStep.START: // Verify system status	
-	M_SetMessage('Verifying System Status');
-	eTransportTube := i_eTransportTube;
-	stTTDevices := F_GetTransportTubeDevices(eTransportTube);
+	eTT := i_eTransportTube;
+	stTT := F_GetTransportTube(eTT);
 	
-	IF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS <= 1E-5 AND stTTDevices.refColdCathode.IG.rPRESS <= 1E-5 THEN 
+	M_SetMessage('Verifying System Status');
+	
+	IF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS <= 1E-5 AND stTT.stDevices.refColdCathode.IG.rPRESS <= 1E-5 THEN 
 		// System status check passed
 		M_SetMessage('Opening gate valve');
 		eStep := E_OpStep.OTT_OPEN_VALVE;
 	// If either the switchbox or transport tube are not at base pressure, pump down the higher one
-	ELSIF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS > stTTDevices.refColdCathode.IG.rPRESS THEN
+	ELSIF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS > stTT.stDevices.refColdCathode.IG.rPRESS THEN
 		// Pump down switchbox
-		q_eCallOp := E_Op.PSB;
-		M_Finish();
+		M_SetMessage('Pumping switchbox');
+		eStep := E_OpStep.OTT_RUN_PSB;
 	ELSE // Pump down transport tube
-		q_eCallOp := E_Op.PTT;
-		M_Finish();
+		M_SetMessage('Pumping transport tube');
+		eStep := E_OpStep.OTT_RUN_PTT;
+	END_IF
+	
+E_OpStep.OTT_RUN_PSB: // Pump down switchbox
+	fbPumpSwitchbox(i_bExecute := TRUE,
+		i_bCancel := i_bCancel,
+		iq_sMessageBuffer := iq_sMessageBuffer);
+		
+	IF fbPumpSwitchbox.q_bError THEN
+		M_FatalError('Error while pumping switchbox');
+	ELSIF NOT fbPumpSwitchbox.q_bBusy THEN
+		M_SetMessage('Retrying open transport tube');
+		eStep := E_OpStep.START;
+	END_IF
+	
+E_OpStep.OTT_RUN_PTT: // Pump transport tube
+	fbPumpTransportTube(i_bExecute := TRUE,
+		i_bCancel := i_bCancel,
+		iq_sMessageBuffer := iq_sMessageBuffer,
+		i_eTransportTube := eTT);
+		
+	IF fbPumpTransportTube.q_bError THEN
+		M_FatalError('Error while pumping transport tube');
+	ELSIF NOT fbPumpTransportTube.q_bBusy THEN
+		M_SetMessage('Retrying open transport tube');
+		eStep := E_OpStep.START;
 	END_IF
 	
 E_OpStep.OTT_OPEN_VALVE:
 	M_RunTimeoutTimer(VALVE_TIMEOUT);
 	
 	// Open the gate valve
-	stTTDevices.refGateValve.M_Set_OPN_SW(TRUE);
+	stTT.stDevices.refGateValve.M_Set_OPN_SW(TRUE);
 	
 	// Once the gate valve is open, finish the operation
-	IF stTTDevices.refGateValve.M_IsOpen() THEN
+	IF stTT.stDevices.refGateValve.M_IsOpen() THEN
 		M_ResetTimeoutTimer();
 		M_Finish();
 	END_IF
@@ -55,12 +81,29 @@ ELSE
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_OpenTransportTube">
-      <LineId Id="505" Count="9" />
-      <LineId Id="552" Count="0" />
-      <LineId Id="515" Count="21" />
-      <LineId Id="566" Count="0" />
-      <LineId Id="568" Count="0" />
-      <LineId Id="567" Count="0" />
+      <LineId Id="595" Count="3" />
+      <LineId Id="634" Count="0" />
+      <LineId Id="633" Count="0" />
+      <LineId Id="635" Count="0" />
+      <LineId Id="599" Count="0" />
+      <LineId Id="602" Count="7" />
+      <LineId Id="650" Count="0" />
+      <LineId Id="638" Count="0" />
+      <LineId Id="612" Count="0" />
+      <LineId Id="651" Count="0" />
+      <LineId Id="613" Count="0" />
+      <LineId Id="615" Count="0" />
+      <LineId Id="639" Count="4" />
+      <LineId Id="661" Count="0" />
+      <LineId Id="653" Count="0" />
+      <LineId Id="645" Count="1" />
+      <LineId Id="652" Count="0" />
+      <LineId Id="647" Count="1" />
+      <LineId Id="655" Count="5" />
+      <LineId Id="662" Count="0" />
+      <LineId Id="664" Count="4" />
+      <LineId Id="663" Count="0" />
+      <LineId Id="616" Count="14" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

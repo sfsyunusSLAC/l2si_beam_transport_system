@@ -20,7 +20,7 @@ VAR_GLOBAL
 		pv: PLC_LAS_BTS_VAC:OPERATION:TRANSPORT_TUBE
 		io: io
 	'}
-	iq_eTransportTube : E_TransportTube;
+	iq_eTransportTube : E_InputTransportTube;
 	
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:OPERATION:BUSY
@@ -39,16 +39,6 @@ VAR_GLOBAL
 		field: OSV MAJOR
 	'}
 	q_bError : BOOL;
-	
-	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:LASER_OK
-		io: o
-		field: ZNAM ERROR
-		field: ONAM OK
-		field: ZSV MAJOR
-		field: OSV NO_ALARM
-	'}
-	q_bLaserOk : BOOL;
 	
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:OPERATION:MESSAGE

@@ -3,15 +3,15 @@
   <POU Name="FB_LaserOn" Id="{5437e5d8-4745-4193-bf7f-65f6c9441049}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_LaserOn EXTENDS FB_Operation
 VAR_INPUT
-	i_eTransportTube : E_TransportTube;
+	i_eTransportTube : T_TransportTube;
 END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	stTTDevices : ST_TransportTubeDevices;
+	eTT : T_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
+	stTT : ST_TransportTube;
 END_VAR
-VAR CONSTANT
+VAR_STAT CONSTANT
 	(* Expected system states before operation starts*)		
 	stExpPumpStatus : ST_SBPumpStatuses := (
 		bRoughingPumpOn:= TRUE, 
@@ -54,25 +54,27 @@ END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^();
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
-	M_SetMessage('Verifying system status');
 	
-	eTransportTube := i_eTransportTube;
-	stTTDevices := F_GetTransportTubeDevices(i_eTransportTube);
+	eTT := i_eTransportTube;
+	stTT := F_GetTransportTube(eTT);
+	
+	M_SetMessage('Verifying system status');
 	
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
 		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
-			eTransportTube := eTransportTube,
+			eTransportTube := eTT,
 			stStatusOp := stTTOp, 
 			bEnforce := TRUE)
 	THEN // System status check 
-		M_ResetTimeoutTimer();	
+		M_ResetTimeoutTimer();
+		
 	END_IF
 	
 	
@@ -82,11 +84,16 @@ END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_LaserOn">
       <LineId Id="315" Count="4" />
+      <LineId Id="595" Count="0" />
+      <LineId Id="597" Count="1" />
+      <LineId Id="596" Count="0" />
       <LineId Id="436" Count="0" />
-      <LineId Id="320" Count="3" />
+      <LineId Id="323" Count="0" />
       <LineId Id="431" Count="2" />
       <LineId Id="430" Count="0" />
-      <LineId Id="325" Count="5" />
+      <LineId Id="325" Count="4" />
+      <LineId Id="599" Count="0" />
+      <LineId Id="330" Count="0" />
       <LineId Id="543" Count="0" />
       <LineId Id="489" Count="2" />
       <LineId Id="20" Count="0" />

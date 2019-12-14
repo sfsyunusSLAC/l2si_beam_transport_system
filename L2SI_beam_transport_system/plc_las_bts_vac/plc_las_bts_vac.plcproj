@@ -17,6 +17,12 @@
     <LibraryReferences>{dd36624e-f227-401d-9f04-428fdb350b4b}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\E_InputTransportTube.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\E_OutputTransportTube.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\Operations\E_Op.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -44,13 +50,13 @@
     <Compile Include="DUTs\SystemStatusChecks\Switchbox\ST_SBValveStatuses.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\SystemStatusChecks\TransportTubes\E_TransportTube.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\SystemStatusChecks\TransportTubes\ST_TransportTubeOps.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\SystemStatusChecks\TransportTubes\ST_TransportTubeStatuses.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DUTs\T_TransportTube.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GVLs\GVL_BTS_VAC.TcGVL">
@@ -81,7 +87,7 @@
     <Compile Include="POUs\Helpers\F_Atm.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Helpers\F_GetTransportTubeDevices.TcPOU">
+    <Compile Include="POUs\Helpers\F_GetTransportTube.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
