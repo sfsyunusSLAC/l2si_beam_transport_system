@@ -1,15 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_OpenTransportTube" Id="{9853b0f7-0da2-457b-8c34-deca199bc8ef}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_OpenTransportTube EXTENDS FB_Operation
-VAR_INPUT
-	i_eTransportTube : T_TransportTube;
-END_VAR
-VAR_OUTPUT
-END_VAR
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_OpenTransportTube EXTENDS FB_TTOperation
 VAR
-	stTT : ST_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	eTT : T_TransportTube;
 	fbPumpSwitchbox : FB_PumpSwitchbox;
 	fbPumpTransportTube : FB_PumpTransportTube;
 END_VAR
@@ -20,9 +13,6 @@ END_VAR
 
 CASE eStep OF
 E_OpStep.START: // Verify system status	
-	eTT := i_eTransportTube;
-	stTT := F_GetTransportTube(eTT);
-	
 	M_SetMessage('Verifying System Status');
 	
 	IF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS <= 1E-5 AND stTT.stDevices.refColdCathode.IG.rPRESS <= 1E-5 THEN 
@@ -40,26 +30,32 @@ E_OpStep.START: // Verify system status
 	END_IF
 	
 E_OpStep.OTT_RUN_PSB: // Pump down switchbox
+	M_DeferCancel(TRUE); // Make sure pump switchbox cancels before this operation does
 	fbPumpSwitchbox(i_bExecute := TRUE,
 		i_bCancel := i_bCancel,
 		iq_sMessageBuffer := iq_sMessageBuffer);
 		
 	IF fbPumpSwitchbox.q_bError THEN
+		M_DeferCancel(FALSE);
 		M_FatalError('Error while pumping switchbox');
 	ELSIF NOT fbPumpSwitchbox.q_bBusy THEN
+		M_DeferCancel(FALSE);
 		M_SetMessage('Retrying open transport tube');
 		eStep := E_OpStep.START;
 	END_IF
 	
 E_OpStep.OTT_RUN_PTT: // Pump transport tube
+	M_DeferCancel(TRUE); // Make sure pump transport tube cancels before this operation does
 	fbPumpTransportTube(i_bExecute := TRUE,
 		i_bCancel := i_bCancel,
 		iq_sMessageBuffer := iq_sMessageBuffer,
 		i_eTransportTube := eTT);
 		
 	IF fbPumpTransportTube.q_bError THEN
+		M_DeferCancel(FALSE);
 		M_FatalError('Error while pumping transport tube');
 	ELSIF NOT fbPumpTransportTube.q_bBusy THEN
+		M_DeferCancel(FALSE);
 		M_SetMessage('Retrying open transport tube');
 		eStep := E_OpStep.START;
 	END_IF
@@ -81,29 +77,11 @@ ELSE
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_OpenTransportTube">
-      <LineId Id="595" Count="3" />
-      <LineId Id="634" Count="0" />
-      <LineId Id="633" Count="0" />
-      <LineId Id="635" Count="0" />
-      <LineId Id="599" Count="0" />
-      <LineId Id="602" Count="7" />
-      <LineId Id="650" Count="0" />
-      <LineId Id="638" Count="0" />
-      <LineId Id="612" Count="0" />
-      <LineId Id="651" Count="0" />
-      <LineId Id="613" Count="0" />
-      <LineId Id="615" Count="0" />
-      <LineId Id="639" Count="4" />
-      <LineId Id="661" Count="0" />
-      <LineId Id="653" Count="0" />
-      <LineId Id="645" Count="1" />
-      <LineId Id="652" Count="0" />
-      <LineId Id="647" Count="1" />
-      <LineId Id="655" Count="5" />
-      <LineId Id="662" Count="0" />
-      <LineId Id="664" Count="4" />
-      <LineId Id="663" Count="0" />
-      <LineId Id="616" Count="14" />
+      <LineId Id="688" Count="3" />
+      <LineId Id="695" Count="25" />
+      <LineId Id="756" Count="0" />
+      <LineId Id="721" Count="0" />
+      <LineId Id="723" Count="32" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

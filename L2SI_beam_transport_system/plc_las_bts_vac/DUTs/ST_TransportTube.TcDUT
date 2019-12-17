@@ -3,7 +3,18 @@
   <DUT Name="ST_TransportTube" Id="{8992122d-47b4-43be-a476-1a9903008ec1}">
     <Declaration><![CDATA[TYPE ST_TransportTube :
 STRUCT
+	{attribute 'pytmc' := '
+		pv: NAME
+		io: o
+	'}
 	sName : STRING(10);
+	
+	{attribute 'pytmc' := '
+		pv: LASER_OK
+		io: o
+	'}
+	bLaserOk : BOOL;
+	
 	stDevices : ST_TransportTubeDevices;
 END_STRUCT
 END_TYPE

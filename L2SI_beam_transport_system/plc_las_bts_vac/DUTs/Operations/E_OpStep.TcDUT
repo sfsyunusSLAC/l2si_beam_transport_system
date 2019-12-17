@@ -66,7 +66,11 @@ TYPE E_OpStep :
 	(* Open Transport Tube Gate Valve *)
 	OTT_OPEN_VALVE,
 	OTT_RUN_PSB,
-	OTT_RUN_PTT
+	OTT_RUN_PTT,
+	
+	(* Laser Transport Tube On *)
+	LTT_RUN_PSB,
+	LTT_RUN_PTT
 );
 END_TYPE
 ]]></Declaration>

@@ -9,14 +9,19 @@ VAR_GLOBAL CONSTANT
 	
 	aTubes : ARRAY [1..NUM_TRANSPORT_TUBES] OF T_TransportTube := [
 		(* Input transport tubes *)
-		E_InputTransportTube.BI1, 
+		E_TransportTube.BI1, 
 		
 		(* Output transport tubes *)
-		E_OutputTransportTube.BO4
+		E_TransportTube.BO4
 	];
-	
+END_VAR
+VAR_GLOBAL
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI1
+	'}
 	stBI1 : ST_TransportTube := (
 		sName:= 'BI1',
+		bLaserOk := FALSE,
 		stDevices:= (
 			refIonPump := GVL_BTS_VAC.fb_BI1_PIP,
 			refGateValve := GVL_BTS_VAC.fb_BI1_VGC,
@@ -24,8 +29,12 @@ VAR_GLOBAL CONSTANT
 			refColdCathode := GVL_BTS_VAC.fb_BI1_GCC)
 	);
 	
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO4
+	'}
 	stBO4 : ST_TransportTube := (
 		sName:= 'BO4',
+		bLaserOk := FALSE,
 		stDevices:= (
 			refIonPump := GVL_BTS_VAC.fb_BO4_PIP,
 			refGateValve := GVL_BTS_VAC.fb_BO4_VGC,

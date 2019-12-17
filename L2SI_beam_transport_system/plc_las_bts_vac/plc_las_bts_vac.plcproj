@@ -17,10 +17,7 @@
     <LibraryReferences>{dd36624e-f227-401d-9f04-428fdb350b4b}</LibraryReferences>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DUTs\E_InputTransportTube.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\E_OutputTransportTube.TcDUT">
+    <Compile Include="DUTs\E_TransportTube.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DUTs\Operations\E_Op.TcDUT">
@@ -93,7 +90,10 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Operations\FB_Operation.TcPOU">
+    <Compile Include="POUs\Operations\Abstracts\FB_Operation.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Operations\Abstracts\FB_TTOperation.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Operations\FB_LaserOn.TcPOU">
@@ -178,6 +178,7 @@
     <Folder Include="GVLs" />
     <Folder Include="POUs\Helpers" />
     <Folder Include="POUs\Operations" />
+    <Folder Include="POUs\Operations\Abstracts" />
     <Folder Include="POUs\Operations\SystemStatusChecks" />
     <Folder Include="POUs\Operations\SystemStatusChecks\TransportTubes" />
     <Folder Include="POUs\Operations\SystemStatusChecks\Switchbox" />

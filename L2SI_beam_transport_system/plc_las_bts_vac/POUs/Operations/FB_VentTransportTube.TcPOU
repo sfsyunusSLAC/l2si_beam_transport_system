@@ -1,16 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_VentTransportTube" Id="{2346f218-1e95-4da4-9396-1840f40cbfe3}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_VentTransportTube EXTENDS FB_Operation
-VAR_INPUT
-	i_eTransportTube : T_TransportTube;
-END_VAR
-VAR_OUTPUT
-END_VAR
-VAR
-	eTT : T_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	stTT : ST_TransportTube;
-END_VAR
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_VentTransportTube EXTENDS FB_TTOperation
 VAR_STAT CONSTANT
 	(* Expected system states before operation starts*)		
 	stExpTTStatus : ST_TransportTubeStatuses := (
@@ -46,9 +37,6 @@ CASE eStep OF
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	M_SetMessage('Verifying system status');
-	
-	eTT := i_eTransportTube;
-	stTT := F_GetTransportTube(eTT);
 	
 	IF F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
 		eTransportTube := eTT,
@@ -98,7 +86,8 @@ ELSE
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_VentTransportTube">
-      <LineId Id="513" Count="54" />
+      <LineId Id="513" Count="5" />
+      <LineId Id="522" Count="45" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="F_GetTransportTube" Id="{1c225a2d-c668-4975-8e19-7e053353ec27}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION F_GetTransportTube : ST_TransportTube
+    <Declaration><![CDATA[FUNCTION F_GetTransportTube : REFERENCE TO ST_TransportTube
 VAR_INPUT
 	eTT : T_TransportTube;
 END_VAR
@@ -10,10 +10,12 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE eTT OF
-E_InputTransportTube.BI1:
-	F_GetTransportTube := GVL_TransportTubes.stBI1;
-E_OutputTransportTube.BO4:
-	F_GetTransportTube := GVL_TransportTubes.stBO4;
+E_TransportTube.BI1:
+	F_GetTransportTube REF= GVL_TransportTubes.stBI1;
+E_TransportTube.BO4:
+	F_GetTransportTube REF= GVL_TransportTubes.stBO4;
+ELSE // Invalid transport tube
+	F_GetTransportTube REF= 0;
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="F_GetTransportTube">
@@ -21,6 +23,7 @@ END_CASE]]></ST>
       <LineId Id="9" Count="0" />
       <LineId Id="11" Count="0" />
       <LineId Id="13" Count="1" />
+      <LineId Id="21" Count="1" />
       <LineId Id="10" Count="0" />
     </LineIds>
   </POU>

@@ -22,7 +22,8 @@ VAR
 	(* Operations *)
 	fbPumpTransportTube : FB_PumpTransportTube;
 	fbVentTransportTube : FB_VentTransportTube;
-	fbOpenTransportTube : Fb_OpenTransportTube;
+	fbOpenTransportTube : FB_OpenTransportTube;
+	fbLaseron : FB_LaserOn;
 	fbPumpSwitchbox : FB_PumpSwitchbox;
 	fbSlowPumpSwitchbox : FB_SlowPumpSwitchbox;
 	fbVentPumpStation : FB_VentPumpStation;
@@ -66,6 +67,15 @@ E_Op.OTT: // Open transport tube gate valve
 		i_bCancel := i_bCancel,
 		iq_sMessageBuffer := iq_sMessageBuffer,
 		i_eTransportTube := eCurrTransportTube
+	);
+	
+E_Op.LTT: // Turn laser on for transport tube
+	refRecentOp REF= fbLaserOn;
+	fbLaserOn(
+		i_bExecute := TRUE,
+		i_bCancel := i_bCancel,
+		iq_sMessageBuffer := iq_sMessageBuffer,
+		i_eTransporttube := eCurrTransportTube
 	);
 	
 E_Op.PSB: // Pump switchbox
@@ -131,6 +141,8 @@ iq_eTransportTube := eCurrTransportTube;]]></ST>
     <LineIds Name="FB_Operate">
       <LineId Id="1551" Count="5" />
       <LineId Id="1558" Count="29" />
+      <LineId Id="1684" Count="2" />
+      <LineId Id="1688" Count="5" />
       <LineId Id="1597" Count="57" />
       <LineId Id="801" Count="0" />
       <LineId Id="1655" Count="0" />

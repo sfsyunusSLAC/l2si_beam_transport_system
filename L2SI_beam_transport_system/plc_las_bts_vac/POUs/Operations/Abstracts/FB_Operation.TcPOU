@@ -10,14 +10,15 @@ VAR_IN_OUT
 	iq_sMessageBuffer : STRING(EPICS_STRING_SIZE); // Human readable description of the current step
 END_VAR
 VAR_OUTPUT
-	q_bError : BOOL;
+	q_bError : BOOL; // Whether a fatal error was encountered
 	q_bBusy : BOOL; // Whether the current operation is executing
 END_VAR
 VAR
-	eStep : E_OpStep := E_OpStep.IDLE;
-	fbTimeoutTimer : TON;
+	bDeferCancel : BOOL; // Setting to True prevents operation from being immediatly cancelled with i_bCancel. Resets to FALSE after operation finishes
+	eStep : E_OpStep := E_OpStep.IDLE; // The current operation step
+	fbTimeoutTimer : TON; // TImer used for tracking operation timeouts
 END_VAR
-VAR CONSTANT
+VAR_STAT CONSTANT
 	STATUS_CHECK_TIMEOUT : TIME := T#30S; // How long the system tries setting the desired state before failing
 	VALVE_TIMEOUT : TIME := T#10S; // How long system tries to open or close valve before failing
 	ROUGH_CHAMBER_TIMEOUT : TIME := T#5M; // How long to try rough pumping before failing
@@ -32,7 +33,7 @@ END_VAR]]></Declaration>
 	q_bError := FALSE;
 END_IF
 
-IF i_bCancel THEN
+IF NOT bDeferCancel AND i_bCancel THEN
 	M_FatalError('Operation canceled');
 END_IF
 
@@ -40,6 +41,17 @@ IF M_TimeoutExpired() THEN // If a timeout has expired, trigger a fatal error
 	M_FatalError('Timeout expired');
 END_IF]]></ST>
     </Implementation>
+    <Method Name="M_DeferCancel" Id="{c35e5c43-6ebf-4bbc-8a98-44ef22ff8a27}">
+      <Declaration><![CDATA[// Defer cancel signals until a later time
+METHOD PROTECTED M_DeferCancel
+VAR_INPUT
+	i_bDefer : BOOL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bDeferCancel := i_bDefer;]]></ST>
+      </Implementation>
+    </Method>
     <Method Name="M_FatalError" Id="{a9657383-9b85-4461-93cb-61ac9678587c}">
       <Declaration><![CDATA[METHOD PROTECTED M_FatalError
 VAR_INPUT
@@ -51,7 +63,8 @@ END_VAR
 M_SetMessage(i_ErrorMessage);
 eStep := E_OpStep.IDLE;
 q_bError := TRUE;
-q_bBusy := FALSE;]]></ST>
+q_bBusy := FALSE;
+M_DeferCancel(FALSE);]]></ST>
       </Implementation>
     </Method>
     <Method Name="M_Finish" Id="{88ea7fc5-59a3-48a8-88d0-e9fbd7406631}">
@@ -64,7 +77,8 @@ END_VAR
 eStep := E_OpStep.IDLE;
 M_SetMessage('Operation finished');
 q_bError := FALSE;
-q_bBusy := FALSE;]]></ST>
+q_bBusy := FALSE;
+M_DeferCancel(FALSE);]]></ST>
       </Implementation>
     </Method>
     <Method Name="M_ResetTimeoutTimer" Id="{c5848f2a-4ad0-4c43-bb15-e2835c5c0c6d}">
@@ -107,21 +121,18 @@ M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_Operation">
-      <LineId Id="115" Count="0" />
-      <LineId Id="184" Count="0" />
-      <LineId Id="116" Count="2" />
-      <LineId Id="49" Count="0" />
-      <LineId Id="261" Count="0" />
-      <LineId Id="260" Count="0" />
-      <LineId Id="262" Count="1" />
-      <LineId Id="211" Count="2" />
+      <LineId Id="310" Count="12" />
       <LineId Id="210" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Operation.M_DeferCancel">
+      <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_FatalError">
       <LineId Id="15" Count="0" />
       <LineId Id="26" Count="0" />
       <LineId Id="16" Count="1" />
       <LineId Id="7" Count="0" />
+      <LineId Id="31" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_Finish">
       <LineId Id="11" Count="0" />
@@ -129,6 +140,7 @@ M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
       <LineId Id="15" Count="0" />
       <LineId Id="7" Count="0" />
       <LineId Id="5" Count="0" />
+      <LineId Id="19" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_ResetTimeoutTimer">
       <LineId Id="5" Count="0" />

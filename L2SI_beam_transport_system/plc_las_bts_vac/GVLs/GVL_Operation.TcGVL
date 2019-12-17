@@ -20,7 +20,7 @@ VAR_GLOBAL
 		pv: PLC_LAS_BTS_VAC:OPERATION:TRANSPORT_TUBE
 		io: io
 	'}
-	iq_eTransportTube : E_InputTransportTube;
+	iq_eTransportTube : E_TransportTube;
 	
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:OPERATION:BUSY
