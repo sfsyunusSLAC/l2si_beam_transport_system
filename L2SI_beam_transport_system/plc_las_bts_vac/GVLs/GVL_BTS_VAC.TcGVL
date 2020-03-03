@@ -1,12 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <GVL Name="GVL_BTS_VAC" Id="{29e65882-4122-461a-9001-9faecd304aa4}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
 	(* Valves *)
+	fb_BO4_VGC_FFOut : FB_HardwareFFOutput;
 	{attribute 'pytmc' := 'pv: LT12LHN:BO4:VGC'}
 	fb_BO4_VGC : FB_VGC; // Gate valve, output tube 1
 	
+	fb_PP_VGC_FFOut : FB_HardwareFFOutput;
 	{attribute 'pytmc' := 'pv: LXLHN:PP:VGC'}
 	fb_PP_VGC : FB_VGC; // Gate valve, vacuum switchbox
 	
@@ -22,6 +24,7 @@ VAR_GLOBAL
 	{attribute 'pytmc' := 'pv: LXLHN:PP:VRC:3'}
 	fb_PP_VRC_3 : FB_VRC; // Slow pump valve
 	
+	fb_BI1_VGC_FFOut : FB_HardwareFFOutput;
 	{attribute 'pytmc' := 'pv: LT1LHN:BI1:VGC'}
 	fb_BI1_VGC : FB_VGC; // Gate valve, Input 1 laser Table
 	

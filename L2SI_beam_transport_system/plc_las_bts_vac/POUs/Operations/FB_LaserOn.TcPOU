@@ -52,17 +52,19 @@ END_VAR
       <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // Verify system status	
 	M_SetMessage('Verifying system status');
-	
+
 	IF F_Atm(GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS) OR GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS >= 1E-2 THEN
 		// Pressure in switchbox too high. Pump down switchbox.
 		M_SetMessage('Pumping switchbox');
 		eStep := E_OpStep.LTT_RUN_PSB;
 		
-	ELSIF ABS(GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS - stTT.stDevices.refColdCathode.IG.rPRESS) >= 5E-4 THEN
+	ELSIF ABS(GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS - fbTT.q_stConfig.stDevices.refColdCathode.IG.rPRESS) >= 5E-4 THEN
 		// Pressure difference between switchbox and transport tube too high
-		IF stTT.stDevices.refColdCathode.IG.rPRESS > GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS THEN
+		IF fbTT.q_stConfig.stDevices.refColdCathode.IG.rPRESS > GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS THEN
 			M_SetMessage('Pumping transport tube');
 			eStep := E_OpStep.LTT_RUN_PTT;
 		ELSE			
@@ -71,18 +73,17 @@ E_OpStep.START: // Verify system status
 		END_IF 
 		
 	ELSIF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := FALSE)
-		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := FALSE)
-		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
-		AND F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
-			eTransportTube := eTT,
-			stStatusOp := stTTOp, 
-			bEnforce := FALSE)
-	THEN // System status check passed
-		stTT.bLaserOk := TRUE; // Allow laser operations
-		M_Finish();
-		
-	ELSE // System status check failed
-		stTT.bLaserOk := FALSE; // Disallow laser operations
+	AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := FALSE)
+	AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
+	AND F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
+		eTransportTube := eTT,
+		stStatusOp := stTTOp, 
+		bEnforce := FALSE) 
+	THEN 
+		// System status check passed
+		fbTT.M_SetLaserOk(TRUE);		
+	ELSE 
+		// System status check failed
 		M_FatalError('Failed system status check');
 	END_IF
 	
@@ -122,7 +123,9 @@ ELSE
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_LaserOn">
-      <LineId Id="315" Count="3" />
+      <LineId Id="315" Count="2" />
+      <LineId Id="768" Count="1" />
+      <LineId Id="318" Count="0" />
       <LineId Id="436" Count="0" />
       <LineId Id="671" Count="0" />
       <LineId Id="651" Count="0" />
@@ -140,13 +143,13 @@ END_CASE]]></ST>
       <LineId Id="687" Count="0" />
       <LineId Id="679" Count="0" />
       <LineId Id="708" Count="0" />
-      <LineId Id="431" Count="2" />
-      <LineId Id="430" Count="0" />
-      <LineId Id="325" Count="3" />
-      <LineId Id="709" Count="1" />
-      <LineId Id="715" Count="0" />
+      <LineId Id="818" Count="5" />
+      <LineId Id="327" Count="0" />
+      <LineId Id="824" Count="0" />
+      <LineId Id="816" Count="0" />
+      <LineId Id="764" Count="0" />
       <LineId Id="711" Count="0" />
-      <LineId Id="713" Count="0" />
+      <LineId Id="817" Count="0" />
       <LineId Id="712" Count="0" />
       <LineId Id="330" Count="0" />
       <LineId Id="654" Count="1" />

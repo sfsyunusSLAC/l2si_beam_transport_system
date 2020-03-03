@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="F_VerifySBValveStatuses" Id="{7e9e080f-6367-40a9-93e1-9bb54b843059}" SpecialFunc="None">
     <Declaration><![CDATA[(* Verify that the statuses of the switchbox valves match the expected statuses *)
 FUNCTION F_VerifySBValveStatuses : BOOL

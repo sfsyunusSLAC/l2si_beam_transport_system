@@ -14,14 +14,12 @@ VAR_GLOBAL CONSTANT
 		(* Output transport tubes *)
 		E_TransportTube.BO4
 	];
-END_VAR
-VAR_GLOBAL
-	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI1
-	'}
-	stBI1 : ST_TransportTube := (
+	
+	(* Transport tube configs *)
+	
+	stBI1 : ST_TransportTubeConfig := (
 		sName:= 'BI1',
-		bLaserOk := FALSE,
+		bInput := TRUE,
 		stDevices:= (
 			refIonPump := GVL_BTS_VAC.fb_BI1_PIP,
 			refGateValve := GVL_BTS_VAC.fb_BI1_VGC,
@@ -29,18 +27,26 @@ VAR_GLOBAL
 			refColdCathode := GVL_BTS_VAC.fb_BI1_GCC)
 	);
 	
-	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO4
-	'}
-	stBO4 : ST_TransportTube := (
+	stBO4 : ST_TransportTubeConfig := (
 		sName:= 'BO4',
-		bLaserOk := FALSE,
+		bInput := FALSE,
 		stDevices:= (
 			refIonPump := GVL_BTS_VAC.fb_BO4_PIP,
 			refGateValve := GVL_BTS_VAC.fb_BO4_VGC,
 			refPiraniGauge := GVL_BTS_VAC.fb_BO4_GPI,
 			refColdCathode := GVL_BTS_VAC.fb_BO4_GCC)
 	);
+END_VAR
+VAR_GLOBAL
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI1
+	'}
+	fbBI1 : FB_TransportTube;
+
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO4
+	'}
+	fbBO4 : FB_TransportTube;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

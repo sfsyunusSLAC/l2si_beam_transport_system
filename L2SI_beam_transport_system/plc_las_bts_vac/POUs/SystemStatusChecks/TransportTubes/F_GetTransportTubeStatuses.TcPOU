@@ -6,17 +6,17 @@ VAR_INPUT
 	eTransportTube : T_TransportTube;
 END_VAR
 VAR
-	stTT : ST_TransportTube;
+	fbTT : REFERENCE TO FB_TransportTube;
 	stStatus : ST_TransportTubeStatuses := ();
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[stTT := F_GetTransportTube(eTransportTube);
+      <ST><![CDATA[fbTT REF= F_GetTransportTube(eTransportTube);
 
-stStatus.bIonPumpOn := stTT.stDevices.refIonPump.q_xHVEna_DO;
-stStatus.bGateValveOpen := stTT.stDevices.refGateValve.M_IsOpen();
-stStatus.fPiraniVal := stTT.stDevices.refPiraniGauge.PG.rPRESS;
-stStatus.fColdCathodeVal := stTT.stDevices.refColdCathode.IG.rPRESS;
+stStatus.bIonPumpOn := fbTT.q_stConfig.stDevices.refIonPump.q_xHVEna_DO;
+stStatus.bGateValveOpen := fbTT.q_stConfig.stDevices.refGateValve.M_IsOpen();
+stStatus.fPiraniVal := fbTT.q_stConfig.stDevices.refPiraniGauge.PG.rPRESS;
+stStatus.fColdCathodeVal := fbTT.q_stConfig.stDevices.refColdCathode.IG.rPRESS;
 
 F_GetTransportTubeStatuses := stStatus;]]></ST>
     </Implementation>

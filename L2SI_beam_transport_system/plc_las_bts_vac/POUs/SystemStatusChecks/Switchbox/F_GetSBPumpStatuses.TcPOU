@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="F_GetSBPumpStatuses" Id="{313da96e-dc11-40df-9e69-b509fa4c6f5a}" SpecialFunc="None">
     <Declaration><![CDATA[(* Get the status of the pumps for the switchbox *)
 FUNCTION F_GetSBPumpStatuses : ST_SBPumpStatuses

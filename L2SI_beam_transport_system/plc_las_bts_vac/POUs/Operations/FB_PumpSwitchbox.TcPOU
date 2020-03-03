@@ -73,6 +73,8 @@ END_VAR]]></Declaration>
       <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // System Status Check
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	M_SetMessage('Verifying system status');
@@ -201,7 +203,10 @@ END_CASE
     </Implementation>
     <LineIds Name="FB_PumpSwitchbox">
       <LineId Id="131" Count="1" />
-      <LineId Id="63" Count="1" />
+      <LineId Id="887" Count="0" />
+      <LineId Id="889" Count="0" />
+      <LineId Id="888" Count="0" />
+      <LineId Id="64" Count="0" />
       <LineId Id="297" Count="0" />
       <LineId Id="740" Count="0" />
       <LineId Id="742" Count="0" />

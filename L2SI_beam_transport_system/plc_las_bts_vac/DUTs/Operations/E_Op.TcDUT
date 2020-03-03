@@ -6,15 +6,15 @@
 TYPE E_Op :
 (
 	NONE := 0, // No operation
-	PSB, // Pump switchbox
-	VSB, // Vent switchbox
-	VPS, // Vent pumping station
-	PTT, // Transport tube pump down
-	VTT, // Transport tube vent
-	LTT, // Turn on laser for transport tube
-	OTT, // Open transport tube gate valve
-	SPSB, // Slow Pump Switchbox
-	SVSB // Slow Vent switchbox
+	PSB := 1, // Pump switchbox
+	VSB := 2, // Vent switchbox
+	VPS := 3, // Vent pumping station
+	PTT := 4, // Transport tube pump down
+	VTT := 5, // Transport tube vent
+	LTT := 6, // Turn on laser for transport tube
+	SPSB := 7, // Slow Pump Switchbox
+	SVSB := 8 // Slow Vent switchbox
+	//OTT, // Open transport tube gate valve
 );
 END_TYPE
 ]]></Declaration>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4022.28" TcVersionFixed="true">
+<?xml version="1.0"?>
+<TcSmProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4023.119" TcVersionFixed="true">
 	<DataTypes>
 		<DataType>
 			<Name GUID="{18071995-0000-0000-0000-000000000041}" TcBaseType="true" HideSubItems="true" CName="AmsNetId">AMSNETID</Name>
@@ -71,10 +71,13 @@
 				<Task Id="3" Priority="20" CycleTime="100000" AmsPort="350" AdtTasks="true">
 					<Name>PlcTask</Name>
 				</Task>
-				<Task Id="4" Priority="21" CycleTime="100000" AmsPort="351" AdtTasks="true">
-					<Name>SerialTask</Name>
+				<Task Id="5" Priority="22" CycleTime="100000" AmsPort="352" AdtTasks="true">
+					<Name>OperateTask</Name>
 				</Task>
 			</Tasks>
+			<Routes>
+				<Route Name="dev_env" Addr="192.168.74.145" NetId="192.168.74.145.1.1" TransType="1"/>
+			</Routes>
 		</System>
 		<Plc>
 			<Project GUID="{EAC29CE2-4106-4C9F-BF31-2F7AF9AD94F3}" Name="plc_las_bts_vac" PrjFilePath="plc_las_bts_vac\plc_las_bts_vac.plcproj" TmcFilePath="plc_las_bts_vac\plc_las_bts_vac.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
@@ -84,10 +87,18 @@
 					<Vars VarGrpType="1">
 						<Name>PlcTask Inputs</Name>
 						<Var>
+							<Name>L2SI_Vacuum_Library.Global_Variables.g_stSystem.I_EcatMaster1</Name>
+							<Comment><![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]></Comment>
+							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+						</Var>
+						<Var>
+							<Name>LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
+							<Comment><![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]></Comment>
+							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
+						</Var>
+						<Var>
 							<Name>GVL_BTS_VAC.fb_BO4_VGC.i_xOpnLS</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -96,9 +107,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VGC.i_xOpnLS</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -107,9 +116,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_1.i_xOpnLS</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -118,9 +125,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_2.i_xOpnLS</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -129,9 +134,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_3.i_xOpnLS</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -140,9 +143,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BI1_VGC.i_xOpnLS</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -150,21 +151,8 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_PP_PTM.i_xAtSpd</Name>
-							<Comment>
-								<![CDATA[ Normaml operation when true]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PTM.i_xFaultNC</Name>
-							<Comment>
-								<![CDATA[ Error]]>
-							</Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_PP_PTM.i_xWarn</Name>
+							<Comment><![CDATA[ Error]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -172,10 +160,17 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
+							<Name>GVL_BTS_VAC.fb_PP_PTM.i_xAtSpd</Name>
+							<Comment><![CDATA[ Normaml operation when true]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_PP_PTM.i_xWarn</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PMF.i_xLocal</Name>
-							<Comment>
-								<![CDATA[ Input ]]>
-							</Comment>
+							<Comment><![CDATA[ Input ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -196,9 +191,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BO4_PIP.i_xSP_DI</Name>
-							<Comment>
-								<![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -207,9 +200,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PIP.i_xSP_DI</Name>
-							<Comment>
-								<![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -218,135 +209,99 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BI1_PIP.i_xSP_DI</Name>
-							<Comment>
-								<![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_GPI_1.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ input Pressure // Link to analog Input]]>
-							</Comment>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_GPI_2.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ input Pressure // Link to analog Input]]>
-							</Comment>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_DP_GPI.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ input Pressure // Link to analog Input]]>
-							</Comment>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BO4_GPI.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ input Pressure // Link to analog Input]]>
-							</Comment>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BI1_GPI.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ input Pressure // Link to analog Input]]>
-							</Comment>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_GCC.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ Controls and I/Os]]>
-							</Comment>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_GCC.i_xHV_ON</Name>
-							<Comment>
-								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_GCC.i_xDisc_Active</Name>
-							<Comment>
-								<![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BO4_GCC.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ Controls and I/Os]]>
-							</Comment>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BO4_GCC.i_xHV_ON</Name>
-							<Comment>
-								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BO4_GCC.i_xDisc_Active</Name>
-							<Comment>
-								<![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BI1_GCC.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ Controls and I/Os]]>
-							</Comment>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BI1_GCC.i_xHV_ON</Name>
-							<Comment>
-								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BI1_GCC.i_xDisc_Active</Name>
-							<Comment>
-								<![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_DP_GCC.i_iPRESS_R</Name>
-							<Comment>
-								<![CDATA[ Controls and I/Os]]>
-							</Comment>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_DP_GCC.i_xHV_ON</Name>
-							<Comment>
-								<![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Name>GVL_BTS_VAC.fb_DP_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_DP_GCC.i_xDisc_Active</Name>
-							<Comment>
-								<![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Name>GVL_BTS_VAC.fb_DP_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>PlcTask Outputs</Name>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_VGC.io_fbFFHWO.q_xFastFaultOut</Name>
+							<Name>GVL_BTS_VAC.fb_BO4_VGC_FFOut.q_xFastFaultOut</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -354,7 +309,7 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_PP_VGC.io_fbFFHWO.q_xFastFaultOut</Name>
+							<Name>GVL_BTS_VAC.fb_PP_VGC_FFOut.q_xFastFaultOut</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -363,9 +318,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VVC.q_xOPN_DO</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -381,7 +334,7 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_VGC.io_fbFFHWO.q_xFastFaultOut</Name>
+							<Name>GVL_BTS_VAC.fb_BI1_VGC_FFOut.q_xFastFaultOut</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -390,30 +343,22 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_VP_VVC_1.xCLS_DO</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_VP_VVC_2.xCLS_DO</Name>
-							<Comment>
-								<![CDATA[IO]]>
-							</Comment>
+							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PTM.q_RunDO</Name>
-							<Comment>
-								<![CDATA[ Start/Stop]]>
-							</Comment>
+							<Comment><![CDATA[ Start/Stop]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PTM.q_PumpingStation</Name>
-							<Comment>
-								<![CDATA[ Start/Stop interlock]]>
-							</Comment>
+							<Comment><![CDATA[ Start/Stop interlock]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -422,9 +367,7 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PMF.q_xRunDO</Name>
-							<Comment>
-								<![CDATA[ Output ]]>
-							</Comment>
+							<Comment><![CDATA[ Output ]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -437,115 +380,79 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BO4_PIP.q_xHVEna_DO</Name>
-							<Comment>
-								<![CDATA[ Enable High Voltage when FALSE // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PIP.q_xHVEna_DO</Name>
-							<Comment>
-								<![CDATA[ Enable High Voltage when FALSE // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BI1_PIP.q_xHVEna_DO</Name>
-							<Comment>
-								<![CDATA[ Enable High Voltage when FALSE // 'TcLinkTo' (EL1124) ^Input]]>
-							</Comment>
+							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_GCC.q_xHV_DIS</Name>
-							<Comment>
-								<![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]>
-							</Comment>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BO4_GCC.q_xHV_DIS</Name>
-							<Comment>
-								<![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]>
-							</Comment>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_BI1_GCC.q_xHV_DIS</Name>
-							<Comment>
-								<![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]>
-							</Comment>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_DP_GCC.q_xHV_DIS</Name>
-							<Comment>
-								<![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]>
-							</Comment>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
-					<Vars VarGrpType="1">
-						<Name>SerialTask Inputs</Name>
-						<Var>
-							<Name>L2SI_Vacuum_Library.Global_Variables.g_stSystem.I_EcatMaster1</Name>
-							<Comment>
-								<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
-							</Comment>
-							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
-						</Var>
-						<Var>
-							<Name>LCLS_General.DefaultGlobals.stSys.I_EcatMaster1</Name>
-							<Comment>
-								<![CDATA[ AMS Net ID used for FB_EcatDiag, among others ]]>
-							</Comment>
-							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
-						</Var>
-					</Vars>
 					<Vars VarGrpType="8">
-						<Name>SerialTask Retains</Name>
+						<Name>PlcTask Retains</Name>
 						<Var>
 							<Name>PMPS_GVL.SuccessfulPreemption</Name>
-							<Comment>
-								<![CDATA[ Any time BPTM applies a new BP request which is confirmed]]>
-							</Comment>
+							<Comment><![CDATA[ Any time BPTM applies a new BP request which is confirmed]]></Comment>
 							<Type>ULINT</Type>
 							<InOut>7</InOut>
 						</Var>
 						<Var>
 							<Name>PMPS_GVL.AccumulatedFF</Name>
-							<Comment>
-								<![CDATA[ Any time a FF occurs]]>
-							</Comment>
+							<Comment><![CDATA[ Any time a FF occurs]]></Comment>
 							<Type>ULINT</Type>
 							<InOut>7</InOut>
 						</Var>
 					</Vars>
 					<TaskPouOids>
-						<TaskPouOid Prio="21" OTCID="#x08502002"/>
 						<TaskPouOid Prio="20" OTCID="#x08502001"/>
 					</TaskPouOids>
 				</Instance>
 			</Project>
 		</Plc>
 		<Io>
-			<Device Disabled="true" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="5.66.246.1.2.1" RemoteName="=+-EK1200_00_00-CPU/EtherCAT1" Id="1">
+			<Device Id="1" Disabled="true" DevType="111" DevFlags="#x0003" AmsPort="28673" AmsNetId="5.66.246.1.2.1" RemoteName="=+-EK1200_00_00-CPU/EtherCAT1">
 				<Name>=+-EK1200_00_00-CPU/EtherCAT1</Name>
 				<AddressInfo>
 					<Pnp>
-						<DeviceDesc/>
-						<DeviceName/>
+						<DeviceDesc></DeviceDesc>
+						<DeviceName></DeviceName>
 						<DeviceData>000000000000</DeviceData>
 					</Pnp>
 				</AddressInfo>
 				<Image Id="1" AddrType="9" ImageType="3">
 					<Name>Image</Name>
 				</Image>
-				<Box BoxType="9099" Id="1">
+				<Box Id="1" BoxType="9099">
 					<Name>=+-EK1200_00_00</Name>
 					<ImageId>1000</ImageId>
 					<EtherCAT PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04b02c52" RevisionNo="#x00001388" InfoDataState="false" PortPhys="49" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1200-5000 EtherCAT Power supply (2A E-Bus)" Desc="EK1200" PortABoxInfo="#x00ffffff"/>
-					<Box BoxType="9099" Id="2">
+					<Box Id="2" BoxType="9099">
 						<Name>=+-EL2794_00_01</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0aea3052" RevisionNo="#x00100000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2794 4Ch. Dig. Output 24V AC/DC, 2A, short-circuit-proof" Desc="EL2794" PortABoxInfo="#x01000001">
@@ -554,25 +461,19 @@
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BO4_PIP.q_xHVEna_DO" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_PIP.q_xHVEna_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_PIP.q_xHVEna_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BI1_PIP.q_xHVEna_DO" Index="#x7010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_PIP.q_xHVEna_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_PIP.q_xHVEna_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PIP.q_xHVEna_DO" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PIP.q_xHVEna_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PIP.q_xHVEna_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
@@ -582,7 +483,7 @@
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="3">
+					<Box Id="3" BoxType="9099">
 						<Name>=+-ES1004_00_02</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03ec3052" RevisionNo="#x00130000" RepeatSupport="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1004 4Ch. Dig. Input 24V, 3ms" Desc="EL1004" PortABoxInfo="#x01000002">
@@ -591,25 +492,19 @@
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BO4_PIP.i_xSP_DI" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_PIP.i_xSP_DI]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_PIP.i_xSP_DI]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BI1_PIP.i_xSP_DI" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_PIP.i_xSP_DI]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_PIP.i_xSP_DI]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PIP.i_xSP_DI" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PIP.i_xSP_DI]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PIP.i_xSP_DI]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
@@ -619,7 +514,7 @@
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" BoxFlags="#x00000020" Id="4">
+					<Box Id="4" BoxType="9099" BoxFlags="#x00000020">
 						<Name>=+-ES3064_00_03</Name>
 						<ImageId>1002</ImageId>
 						<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x0bf83052" RevisionNo="#x00140000" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3064 4Ch. Ana. Input 0-10V" Desc="EL3064" PortABoxInfo="#x01000003">
@@ -634,35 +529,25 @@
 								<ExcludePdo>#x1a01</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Underrange event active]]>
-									</Comment>
+									<Comment><![CDATA[Underrange event active]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6000" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Overrange event active]]>
-									</Comment>
+									<Comment><![CDATA[Overrange event active]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6000" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value smaller/equal Limit1
-Bit1: Value bigger/equal Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value smaller/equal Limit1
+Bit1: Value bigger/equal Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6000" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value smaller/equal Limit2
-Bit1: Value bigger/equal Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value smaller/equal Limit2
+Bit1: Value bigger/equal Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6000" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -672,21 +557,15 @@ Bit1: Value bigger/equal Limit2]]>
 								</Entry>
 								<Entry Name="Status__TxPDO State" Index="#x6000" Sub="#x0f">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[TRUE when this TxPDO is not valid]]>
-									</Comment>
+									<Comment><![CDATA[TRUE when this TxPDO is not valid]]></Comment>
 								</Entry>
 								<Entry Name="Status__TxPDO Toggle" Index="#x6000" Sub="#x10">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit toggles everytime when new value available]]>
-									</Comment>
+									<Comment><![CDATA[Bit toggles everytime when new value available]]></Comment>
 								</Entry>
 								<Entry Name="fb_BO4_PIP.i_iPRESS" Index="#x6000" Sub="#x11" Flags="#x00020000">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_PIP.i_iPRESS]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_PIP.i_iPRESS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 1" Index="#x1a01" Flags="#x0010">
@@ -699,35 +578,25 @@ Bit1: Value bigger/equal Limit2]]>
 								<ExcludePdo>#x1a03</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Underrange event active]]>
-									</Comment>
+									<Comment><![CDATA[Underrange event active]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6010" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Overrange event active]]>
-									</Comment>
+									<Comment><![CDATA[Overrange event active]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6010" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value smaller/equal Limit1
-Bit1: Value bigger/equal Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value smaller/equal Limit1
+Bit1: Value bigger/equal Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6010" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value smaller/equal Limit2
-Bit1: Value bigger/equal Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value smaller/equal Limit2
+Bit1: Value bigger/equal Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6010" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -737,21 +606,15 @@ Bit1: Value bigger/equal Limit2]]>
 								</Entry>
 								<Entry Name="Status__TxPDO State" Index="#x6010" Sub="#x0f">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[TRUE when this TxPDO is not valid]]>
-									</Comment>
+									<Comment><![CDATA[TRUE when this TxPDO is not valid]]></Comment>
 								</Entry>
 								<Entry Name="Status__TxPDO Toggle" Index="#x6010" Sub="#x10">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit toggles everytime when new value available]]>
-									</Comment>
+									<Comment><![CDATA[Bit toggles everytime when new value available]]></Comment>
 								</Entry>
 								<Entry Name="fb_BI1_PIP.i_iPRESS" Index="#x6010" Sub="#x11" Flags="#x00020000">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_PIP.i_iPRESS]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_PIP.i_iPRESS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 2" Index="#x1a03" Flags="#x0010">
@@ -764,35 +627,25 @@ Bit1: Value bigger/equal Limit2]]>
 								<ExcludePdo>#x1a05</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Underrange event active]]>
-									</Comment>
+									<Comment><![CDATA[Underrange event active]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6020" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Overrange event active]]>
-									</Comment>
+									<Comment><![CDATA[Overrange event active]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6020" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value smaller/equal Limit1
-Bit1: Value bigger/equal Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value smaller/equal Limit1
+Bit1: Value bigger/equal Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6020" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value smaller/equal Limit2
-Bit1: Value bigger/equal Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value smaller/equal Limit2
+Bit1: Value bigger/equal Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6020" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -802,21 +655,15 @@ Bit1: Value bigger/equal Limit2]]>
 								</Entry>
 								<Entry Name="Status__TxPDO State" Index="#x6020" Sub="#x0f">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[TRUE when this TxPDO is not valid]]>
-									</Comment>
+									<Comment><![CDATA[TRUE when this TxPDO is not valid]]></Comment>
 								</Entry>
 								<Entry Name="Status__TxPDO Toggle" Index="#x6020" Sub="#x10">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit toggles everytime when new value available]]>
-									</Comment>
+									<Comment><![CDATA[Bit toggles everytime when new value available]]></Comment>
 								</Entry>
 								<Entry Name="fb_PP_PIP.i_iPRESS" Index="#x6020" Sub="#x11" Flags="#x00020000">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PIP.i_iPRESS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PIP.i_iPRESS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 3" Index="#x1a05" Flags="#x0010">
@@ -829,35 +676,25 @@ Bit1: Value bigger/equal Limit2]]>
 								<ExcludePdo>#x1a07</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Underrange event active]]>
-									</Comment>
+									<Comment><![CDATA[Underrange event active]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6030" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Overrange event active]]>
-									</Comment>
+									<Comment><![CDATA[Overrange event active]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6030" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value smaller/equal Limit1
-Bit1: Value bigger/equal Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value smaller/equal Limit1
+Bit1: Value bigger/equal Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6030" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value smaller/equal Limit2
-Bit1: Value bigger/equal Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value smaller/equal Limit2
+Bit1: Value bigger/equal Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6030" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -867,15 +704,11 @@ Bit1: Value bigger/equal Limit2]]>
 								</Entry>
 								<Entry Name="Status__TxPDO State" Index="#x6030" Sub="#x0f">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[TRUE when this TxPDO is not valid]]>
-									</Comment>
+									<Comment><![CDATA[TRUE when this TxPDO is not valid]]></Comment>
 								</Entry>
 								<Entry Name="Status__TxPDO Toggle" Index="#x6030" Sub="#x10">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit toggles everytime when new value available]]>
-									</Comment>
+									<Comment><![CDATA[Bit toggles everytime when new value available]]></Comment>
 								</Entry>
 								<Entry Name="Value" Index="#x6030" Sub="#x11" Flags="#x00020000">
 									<Type>INT</Type>
@@ -893,7 +726,7 @@ Bit1: Value bigger/equal Limit2]]>
 							<CoeProfile ProfileNo="19665801"/>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="5">
+					<Box Id="5" BoxType="9099">
 						<Name>=+-EL1004_00_04</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03ec3052" RevisionNo="#x00130000" RepeatSupport="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1004 4Ch. Dig. Input 24V, 3ms" Desc="EL1004" PortABoxInfo="#x01000004">
@@ -902,38 +735,30 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BI1_VGC.i_xClsLS" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_VGC.i_xClsLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_VGC.i_xClsLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BI1_VGC.i_xOpnLS" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_VGC.i_xOpnLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_VGC.i_xOpnLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BO4_VGC.i_xClsLS" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_VGC.i_xClsLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_VGC.i_xClsLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BO4_VGC.i_xOpnLS" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_VGC.i_xOpnLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_VGC.i_xOpnLS]]></Comment>
 								</Entry>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="6">
+					<Box Id="6" BoxType="9099">
 						<Name>=+-EL1004_00_05</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03ec3052" RevisionNo="#x00130000" RepeatSupport="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1004 4Ch. Dig. Input 24V, 3ms" Desc="EL1004" PortABoxInfo="#x01000005">
@@ -942,38 +767,30 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_1.i_xClsLS" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_1.i_xClsLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_1.i_xClsLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_1.i_xOpnLS" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_1.i_xOpnLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_1.i_xOpnLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VGC.i_xClsLS" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VGC.i_xClsLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VGC.i_xClsLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VGC.i_xOpnLS" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VGC.i_xOpnLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VGC.i_xOpnLS]]></Comment>
 								</Entry>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="7">
+					<Box Id="7" BoxType="9099">
 						<Name>=+-EL2004_00_06</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d43052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2004 4Ch. Dig. Output 24V, 0.5A" Desc="EL2004" PortABoxInfo="#x01000006">
@@ -982,9 +799,7 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BI1_VGC.q_xOPN_DO" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_VGC.q_xOPN_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_VGC.q_xOPN_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
@@ -995,9 +810,7 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BO4_VGC.q_xOPN_DO" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_VGC.q_xOPN_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_VGC.q_xOPN_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
@@ -1007,7 +820,7 @@ Bit1: Value bigger/equal Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="8">
+					<Box Id="8" BoxType="9099">
 						<Name>=+-EL1004_00_07</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03ec3052" RevisionNo="#x00130000" RepeatSupport="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1004 4Ch. Dig. Input 24V, 3ms" Desc="EL1004" PortABoxInfo="#x01000007">
@@ -1016,38 +829,30 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_2.i_xClsLS" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_2.i_xClsLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_2.i_xClsLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_2.i_xOpnLS" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_2.i_xOpnLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_2.i_xOpnLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_3.i_xClsLS" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_3.i_xClsLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_3.i_xClsLS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_3.i_xOpnLS" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_3.i_xOpnLS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_3.i_xOpnLS]]></Comment>
 								</Entry>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="9">
+					<Box Id="9" BoxType="9099">
 						<Name>=+-EL2004_00_08</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d43052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2004 4Ch. Dig. Output 24V, 0.5A" Desc="EL2004" PortABoxInfo="#x01000008">
@@ -1056,38 +861,30 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_1.q_xOPN_DO" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_1.q_xOPN_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_1.q_xOPN_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VGC.q_xOPN_DO" Index="#x7010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VGC.q_xOPN_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VGC.q_xOPN_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_2.q_xOPN_DO" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_2.q_xOPN_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_2.q_xOPN_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VRC_3.q_xOPN_DO" Index="#x7030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VRC_3.q_xOPN_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VRC_3.q_xOPN_DO]]></Comment>
 								</Entry>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="10">
+					<Box Id="10" BoxType="9099">
 						<Name>=+-EL2004_00_09</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d43052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2004 4Ch. Dig. Output 24V, 0.5A" Desc="EL2004" PortABoxInfo="#x01000009">
@@ -1096,25 +893,19 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_VP_VVC_1.xCLS_DO" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_VP_VVC_1.xCLS_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_VP_VVC_1.xCLS_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_VP_VVC_2.xCLS_DO" Index="#x7010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_VP_VVC_2.xCLS_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_VP_VVC_2.xCLS_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_VVC.q_xOPN_DO" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_VVC.q_xOPN_DO]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_VVC.q_xOPN_DO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
@@ -1124,7 +915,7 @@ Bit1: Value bigger/equal Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="11">
+					<Box Id="11" BoxType="9099">
 						<Name>=+-EL1004_00_10</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03ec3052" RevisionNo="#x00130000" RepeatSupport="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1004 4Ch. Dig. Input 24V, 3ms" Desc="EL1004" PortABoxInfo="#x0100000a">
@@ -1133,38 +924,30 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PMF.i_xIsRun" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PMF.i_xIsRun]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PMF.i_xIsRun]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PMF.i_xLocal" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PMF.i_xLocal]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PMF.i_xLocal]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PMF.i_xAlarm" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PMF.i_xAlarm]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PMF.i_xAlarm]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PMF.i_xWarning" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PMF.i_xWarning]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PMF.i_xWarning]]></Comment>
 								</Entry>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="12">
+					<Box Id="12" BoxType="9099">
 						<Name>=+-EL2794_00_11</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0aea3052" RevisionNo="#x00100000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2794 4Ch. Dig. Output 24V AC/DC, 2A, short-circuit-proof" Desc="EL2794" PortABoxInfo="#x0100000b">
@@ -1173,25 +956,19 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PMF.q_xRunDO" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PMF.q_xRunDO]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PMF.q_xRunDO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PMF.q_xLspdDo" Index="#x7010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PMF.q_xLspdDo]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PMF.q_xLspdDo]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PMF.q_xResetDo" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PMF.q_xResetDo]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PMF.q_xResetDo]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
@@ -1201,7 +978,7 @@ Bit1: Value bigger/equal Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="13">
+					<Box Id="13" BoxType="9099">
 						<Name>=+-EL1004_00_12</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03ec3052" RevisionNo="#x00130000" RepeatSupport="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1004 4Ch. Dig. Input 24V, 3ms" Desc="EL1004" PortABoxInfo="#x0100000c">
@@ -1210,25 +987,19 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PTM.i_xAtSpd" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PTM.i_xAtSpd]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PTM.i_xAtSpd]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PTM.i_xRemote" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PTM.i_xRemote]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PTM.i_xRemote]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PTM.i_xFaultNC" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PTM.i_xFaultNC]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PTM.i_xFaultNC]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
@@ -1238,7 +1009,7 @@ Bit1: Value bigger/equal Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="14">
+					<Box Id="14" BoxType="9099">
 						<Name>=+-EL2004_00_13</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d43052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2004 4Ch. Dig. Output 24V, 0.5A" Desc="EL2004" PortABoxInfo="#x0100000d">
@@ -1247,25 +1018,19 @@ Bit1: Value bigger/equal Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PTM.q_RunDO" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PTM.q_RunDO]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PTM.q_RunDO]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PTM.q_xRemote" Index="#x7010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PTM.q_xRemote]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PTM.q_xRemote]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_PTM.q_PumpingStation" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_PTM.q_PumpingStation]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_PTM.q_PumpingStation]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
@@ -1275,7 +1040,7 @@ Bit1: Value bigger/equal Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9103" BoxFlags="#x00000020" Id="15">
+					<Box Id="15" BoxType="9103" BoxFlags="#x00000020">
 						<Name>=+-EL6021_00_14</Name>
 						<ImageId>1003</ImageId>
 						<EtherCAT SlaveType="7" PdiType="#x0005" CycleMBoxPolling="true" CoeType="15" FoeType="1" VendorId="#x00000002" ProductCode="#x17853052" InfoDataAddr="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL6021 Interface (RS422/485)" Desc="EL6021" PortABoxInfo="#x0100000e">
@@ -1511,7 +1276,7 @@ Bit1: Value bigger/equal Limit2]]>
 							<EL60xxComPort BaudRate="9600" ByteSize="8" EnableRtsCts="true" LocalComPort="true" RxFifoFullThreshold="864"/>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="16">
+					<Box Id="16" BoxType="9099">
 						<Name>=+-EL2202_00_15</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x089a3052" RevisionNo="#x00130000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2202 2Ch. Dig. Output 24V, 0.5A" Desc="EL2202" PortABoxInfo="#x0100000f">
@@ -1535,7 +1300,7 @@ Bit1: Value bigger/equal Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="17">
+					<Box Id="17" BoxType="9099">
 						<Name>=+-EL1008_00_16</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03f03052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1008 8Ch. Dig. Input 24V, 3ms" Desc="EL1008" PortABoxInfo="#x01000010">
@@ -1583,7 +1348,7 @@ Bit1: Value bigger/equal Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="18">
+					<Box Id="18" BoxType="9099">
 						<Name>=+-EL2008_00_17</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x07d83052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2008 8Ch. Dig. Output 24V, 0.5A" Desc="EL2008" PortABoxInfo="#x01000011">
@@ -1631,17 +1396,17 @@ Bit1: Value bigger/equal Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="19">
+					<Box Id="19" BoxType="9099">
 						<Name>=+-EK1110_00_18</Name>
 						<ImageId>1004</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04562c52" RevisionNo="#x00110000" PortPhys="19" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1110 EtherCAT extension" Desc="EK1110" PortABoxInfo="#x01000012"/>
 					</Box>
 				</Box>
-				<Box BoxType="9099" Id="20">
+				<Box Id="20" BoxType="9099">
 					<Name>=+-EK1100_01_00</Name>
 					<ImageId>1005</ImageId>
 					<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x044c2c52" RevisionNo="#x00120000" PortPhys="305" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1100 EtherCAT Coupler (2A E-Bus)" Desc="EK1100" PortABoxInfo="#x01000013"/>
-					<Box BoxType="9099" BoxFlags="#x00000020" Id="21">
+					<Box Id="21" BoxType="9099" BoxFlags="#x00000020">
 						<Name>=+-EL3174_01_18</Name>
 						<ImageId>1002</ImageId>
 						<EtherCAT SlaveType="2" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x0c663052" RevisionNo="#x00110002" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3174-0002 4Ch. Ana. Input +/-10V, +/-20mA 16 Bit, Isolated Channels" Desc="EL3174-0002" PortABoxInfo="#x01000014">
@@ -1658,35 +1423,25 @@ Bit1: Value bigger/equal Limit2]]>
 								<ExcludePdo>#x1a01</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6000" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6000" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6000" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6000" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -1705,9 +1460,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_BO4_GPI.i_iPRESS_R" Index="#x6000" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_GPI.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_GPI.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 1" Index="#x1a01" Flags="#x0010">
@@ -1720,35 +1473,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a03</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6010" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6010" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6010" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6010" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -1767,9 +1510,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_PP_GPI_1.i_iPRESS_R" Index="#x6010" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_PP_GPI_1.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_GPI_1.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 2" Index="#x1a03" Flags="#x0010">
@@ -1782,35 +1523,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a05</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6020" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6020" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6020" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6020" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -1829,9 +1560,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_BI1_GPI.i_iPRESS_R" Index="#x6020" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_GPI.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_GPI.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 3" Index="#x1a05" Flags="#x0010">
@@ -1844,35 +1573,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a07</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6030" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6030" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6030" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6030" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -1891,9 +1610,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_DP_GPI.i_iPRESS_R" Index="#x6030" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_DP_GPI.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_DP_GPI.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 4" Index="#x1a07" Flags="#x0010">
@@ -1908,7 +1625,7 @@ Bit1: Value smaller than Limit2]]>
 							<CoeProfile ProfileNo="19665801"/>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" BoxFlags="#x00000020" Id="22">
+					<Box Id="22" BoxType="9099" BoxFlags="#x00000020">
 						<Name>=+-EL3174_01_19</Name>
 						<ImageId>1002</ImageId>
 						<EtherCAT SlaveType="2" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x0c663052" RevisionNo="#x00110002" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3174-0002 4Ch. Ana. Input +/-10V, +/-20mA 16 Bit, Isolated Channels" Desc="EL3174-0002" PortABoxInfo="#x01000015">
@@ -1925,35 +1642,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a01</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6000" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6000" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6000" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6000" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -1972,9 +1679,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_PP_GPI_2.i_iPRESS_R" Index="#x6000" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_PP_GPI_2.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_GPI_2.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 1" Index="#x1a01" Flags="#x0010">
@@ -1987,35 +1692,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a03</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6010" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6010" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6010" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6010" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -2046,35 +1741,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a05</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6020" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6020" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6020" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6020" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -2105,35 +1790,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a07</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6030" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6030" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6030" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6030" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -2166,22 +1841,22 @@ Bit1: Value smaller than Limit2]]>
 							<CoeProfile ProfileNo="19665801"/>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="23">
+					<Box Id="23" BoxType="9099">
 						<Name>=+-EL9184_01_20</Name>
 						<ImageId>1006</ImageId>
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23e03050" InfoDataState="false" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9184 Potential Connection, 8 x 24V, 8 x Ground" Desc="EL9184" PortABoxInfo="#x01000016"/>
 					</Box>
-					<Box BoxType="9099" Id="24">
+					<Box Id="24" BoxType="9099">
 						<Name>=+-EL9070_01_21</Name>
 						<ImageId>1006</ImageId>
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x236e3050" InfoDataState="false" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9070 Shield terminal" Desc="EL9070" PortABoxInfo="#x01000016"/>
 					</Box>
-					<Box BoxType="9099" Id="25">
+					<Box Id="25" BoxType="9099">
 						<Name>=+-EL9070_01_22</Name>
 						<ImageId>1006</ImageId>
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x236e3050" InfoDataState="false" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9070 Shield terminal" Desc="EL9070" PortABoxInfo="#x01000016"/>
 					</Box>
-					<Box BoxType="9099" BoxFlags="#x00000020" Id="26">
+					<Box Id="26" BoxType="9099" BoxFlags="#x00000020">
 						<Name>=+-EL3174_01_23</Name>
 						<ImageId>1002</ImageId>
 						<EtherCAT SlaveType="2" PdiType="#x0405" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="7" FoeType="1" VendorId="#x00000002" ProductCode="#x0c663052" RevisionNo="#x00110002" InfoDataAddr="true" TimeoutMailbox2="2000" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL3174-0002 4Ch. Ana. Input +/-10V, +/-20mA 16 Bit, Isolated Channels" Desc="EL3174-0002" PortABoxInfo="#x01000016">
@@ -2198,35 +1873,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a01</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6000" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6000" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6000" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6000" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -2245,9 +1910,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_BO4_GCC.i_iPRESS_R" Index="#x6000" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_GCC.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_GCC.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 1" Index="#x1a01" Flags="#x0010">
@@ -2260,35 +1923,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a03</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6010" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6010" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6010" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6010" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -2307,9 +1960,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_PP_GCC.i_iPRESS_R" Index="#x6010" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_PP_GCC.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_GCC.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 2" Index="#x1a03" Flags="#x0010">
@@ -2322,35 +1973,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a05</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6020" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6020" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6020" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6020" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -2369,9 +2010,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_BI1_GCC.i_iPRESS_R" Index="#x6020" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_GCC.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_GCC.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 3" Index="#x1a05" Flags="#x0010">
@@ -2384,35 +2023,25 @@ Bit1: Value smaller than Limit2]]>
 								<ExcludePdo>#x1a07</ExcludePdo>
 								<Entry Name="Status__Underrange" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when upper value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when upper value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Overrange" Index="#x6030" Sub="#x02">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when lower value limit exceeded]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when lower value limit exceeded]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 1" Index="#x6030" Sub="#x03">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit1
-Bit1: Value smaller than Limit1]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit1
+Bit1: Value smaller than Limit1]]></Comment>
 								</Entry>
 								<Entry Name="Status__Limit 2" Index="#x6030" Sub="#x05">
 									<Type>BIT2</Type>
-									<Comment>
-										<![CDATA[Bit0: Value greater than Limit2
-Bit1: Value smaller than Limit2]]>
-									</Comment>
+									<Comment><![CDATA[Bit0: Value greater than Limit2
+Bit1: Value smaller than Limit2]]></Comment>
 								</Entry>
 								<Entry Name="Status__Error" Index="#x6030" Sub="#x07">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[Bit set when Over- or Underrange]]>
-									</Comment>
+									<Comment><![CDATA[Bit set when Over- or Underrange]]></Comment>
 								</Entry>
 								<Entry Name="Status__">
 									<Type GUID="{18071995-0000-0000-0000-002000000001}">ARRAY [0..0] OF BIT</Type>
@@ -2431,9 +2060,7 @@ Bit1: Value smaller than Limit2]]>
 								</Entry>
 								<Entry Name="fb_DP_GCC.i_iPRESS_R" Index="#x6030" Sub="#x11">
 									<Type>INT</Type>
-									<Comment>
-										<![CDATA[fb_DP_GCC.i_iPRESS_R]]>
-									</Comment>
+									<Comment><![CDATA[fb_DP_GCC.i_iPRESS_R]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="AI Compact Channel 4" Index="#x1a07" Flags="#x0010">
@@ -2448,12 +2075,12 @@ Bit1: Value smaller than Limit2]]>
 							<CoeProfile ProfileNo="19665801"/>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="27">
+					<Box Id="27" BoxType="9099">
 						<Name>=+-EL9184_01_24</Name>
 						<ImageId>1006</ImageId>
 						<EtherCAT CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x23e03050" InfoDataState="false" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9184 Potential Connection, 8 x 24V, 8 x Ground" Desc="EL9184" PortABoxInfo="#x0100001a"/>
 					</Box>
-					<Box BoxType="9099" Id="28">
+					<Box Id="28" BoxType="9099">
 						<Name>=+-EL2624_01_25</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0a403052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2624 4Ch. Relay Output, NO (125V AC / 30V DC)" Desc="EL2624" PortABoxInfo="#x0100001a">
@@ -2481,7 +2108,7 @@ Bit1: Value smaller than Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="29">
+					<Box Id="29" BoxType="9099">
 						<Name>=+-EL2624_01_26</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0a403052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2624 4Ch. Relay Output, NO (125V AC / 30V DC)" Desc="EL2624" PortABoxInfo="#x0100001c">
@@ -2490,38 +2117,30 @@ Bit1: Value smaller than Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1600" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BO4_GCC.q_xHV_DIS" Index="#x7000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_GCC.q_xHV_DIS]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_GCC.q_xHV_DIS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1601" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_GCC.q_xHV_DIS" Index="#x7010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_GCC.q_xHV_DIS]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_GCC.q_xHV_DIS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1602" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BI1_GCC.q_xHV_DIS" Index="#x7020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_GCC.q_xHV_DIS]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_GCC.q_xHV_DIS]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1603" InOut="1" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_DP_GCC.q_xHV_DIS" Index="#x7030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_DP_GCC.q_xHV_DIS]]>
-									</Comment>
+									<Comment><![CDATA[fb_DP_GCC.q_xHV_DIS]]></Comment>
 								</Entry>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="30">
+					<Box Id="30" BoxType="9099">
 						<Name>=+-EL9505_01_27</Name>
 						<ImageId>1006</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x25213052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9505 Power supply terminal 5V" Desc="EL9505" PortABoxInfo="#x0100001d">
@@ -2537,7 +2156,7 @@ Bit1: Value smaller than Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="31">
+					<Box Id="31" BoxType="9099">
 						<Name>=+-EL1124_01_28</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04643052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1124 4Ch. Dig. Input 5V, 10µs, Sensor Power" Desc="EL1124" PortABoxInfo="#x0100001e">
@@ -2546,38 +2165,30 @@ Bit1: Value smaller than Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_GCC.i_xHV_ON" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_GCC.i_xHV_ON]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_GCC.i_xHV_ON]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_PP_GCC.i_xDisc_Active" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_PP_GCC.i_xDisc_Active]]>
-									</Comment>
+									<Comment><![CDATA[fb_PP_GCC.i_xDisc_Active]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BI1_GCC.i_xHV_ON" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_GCC.i_xHV_ON]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_GCC.i_xHV_ON]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BI1_GCC.i_xDisc_Active" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BI1_GCC.i_xDisc_Active]]>
-									</Comment>
+									<Comment><![CDATA[fb_BI1_GCC.i_xDisc_Active]]></Comment>
 								</Entry>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="32">
+					<Box Id="32" BoxType="9099">
 						<Name>=+-EL1124_01_29</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04643052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1124 4Ch. Dig. Input 5V, 10µs, Sensor Power" Desc="EL1124" PortABoxInfo="#x0100001f">
@@ -2586,38 +2197,30 @@ Bit1: Value smaller than Limit2]]>
 							<Pdo Name="Channel 1" Index="#x1a00" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BO4_GCC.i_xHV_ON" Index="#x6000" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_GCC.i_xHV_ON]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_GCC.i_xHV_ON]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 2" Index="#x1a01" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_BO4_GCC.i_xDisc_Active" Index="#x6010" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_BO4_GCC.i_xDisc_Active]]>
-									</Comment>
+									<Comment><![CDATA[fb_BO4_GCC.i_xDisc_Active]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 3" Index="#x1a02" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_DP_GCC.i_xHV_ON" Index="#x6020" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_DP_GCC.i_xHV_ON]]>
-									</Comment>
+									<Comment><![CDATA[fb_DP_GCC.i_xHV_ON]]></Comment>
 								</Entry>
 							</Pdo>
 							<Pdo Name="Channel 4" Index="#x1a03" Flags="#x0011" SyncMan="0">
 								<Entry Name="fb_DP_GCC.i_xDisc_Active" Index="#x6030" Sub="#x01">
 									<Type>BIT</Type>
-									<Comment>
-										<![CDATA[fb_DP_GCC.i_xDisc_Active]]>
-									</Comment>
+									<Comment><![CDATA[fb_DP_GCC.i_xDisc_Active]]></Comment>
 								</Entry>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="33">
+					<Box Id="33" BoxType="9099">
 						<Name>=+-EL1124_01_30</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04643052" RevisionNo="#x00120000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1124 4Ch. Dig. Input 5V, 10µs, Sensor Power" Desc="EL1124" PortABoxInfo="#x01000020">
@@ -2645,7 +2248,7 @@ Bit1: Value smaller than Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="34">
+					<Box Id="34" BoxType="9099">
 						<Name>=+-EL9410_01_31</Name>
 						<ImageId>1006</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x24c23052" RevisionNo="#x00110000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL9410 E-Bus Power Supplier  (Diagnostics)" Desc="EL9410" PortABoxInfo="#x01000021">
@@ -2663,7 +2266,7 @@ Bit1: Value smaller than Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="35">
+					<Box Id="35" BoxType="9099">
 						<Name>=+-EL1004_01_32</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03ec3052" RevisionNo="#x00130000" RepeatSupport="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1004 4Ch. Dig. Input 24V, 3ms" Desc="EL1004" PortABoxInfo="#x01000022">
@@ -2691,7 +2294,7 @@ Bit1: Value smaller than Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="36">
+					<Box Id="36" BoxType="9099">
 						<Name>=+-EL1004_01_33</Name>
 						<ImageId>7</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x03ec3052" RevisionNo="#x00130000" RepeatSupport="true" CheckRevisionNoType="3" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL1004 4Ch. Dig. Input 24V, 3ms" Desc="EL1004" PortABoxInfo="#x01000023">
@@ -2719,7 +2322,7 @@ Bit1: Value smaller than Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="37">
+					<Box Id="37" BoxType="9099">
 						<Name>=+-EL2794_01_34</Name>
 						<ImageId>1001</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0104" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x0aea3052" RevisionNo="#x00100000" RepeatSupport="true" PortPhys="51" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EL2794 4Ch. Dig. Output 24V AC/DC, 2A, short-circuit-proof" Desc="EL2794" PortABoxInfo="#x01000024">
@@ -2747,12 +2350,12 @@ Bit1: Value smaller than Limit2]]>
 							</Pdo>
 						</EtherCAT>
 					</Box>
-					<Box BoxType="9099" Id="38">
+					<Box Id="38" BoxType="9099">
 						<Name>=+-EK1122_01_35</Name>
 						<ImageId>1007</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0d00" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04622c52" RevisionNo="#x00120050" PortPhys="17219" TimeoutOpenLink1="150" TimeoutOpenLink3="150" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1122-0080 2 port EtherCAT junction (Fast Hot Connect)" Desc="EK1122-0080" PortABoxInfo="#x01000025"/>
 					</Box>
-					<Box BoxType="9099" Id="39">
+					<Box Id="39" BoxType="9099">
 						<Name>=+-EK1110_01_36</Name>
 						<ImageId>1004</ImageId>
 						<EtherCAT SlaveType="1" PdiType="#x0100" CycleMBoxPollingTime="0" VendorId="#x00000002" ProductCode="#x04562c52" RevisionNo="#x00110000" PortPhys="19" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="EK1110 EtherCAT extension" Desc="EK1110" PortABoxInfo="#x02000026"/>

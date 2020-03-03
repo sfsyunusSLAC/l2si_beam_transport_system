@@ -8,17 +8,17 @@ VAR_INPUT
 	stStatusOp : ST_TransportTubeOps;
 END_VAR
 VAR
-	stTT : ST_TransportTube;
+	fbTT : REFERENCE TO FB_TransportTube;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[stTT := F_GetTransportTube(eTransportTube);
+      <ST><![CDATA[fbTT REF= F_GetTransportTube(eTransportTube);
 
 IF NOT stStatusOp.bIonPumpIgnore THEN
-	stTT.stDevices.refIonPump.M_Run(stExpStatus.bIonPumpOn);
+	fbTT.q_stConfig.stDevices.refIonPump.M_Run(stExpStatus.bIonPumpOn);
 END_IF
 IF NOT stStatusOp.bGateValveIgnore THEN
-	stTT.stDevices.refGateValve.M_Set_OPN_SW(stExpStatus.bGateValveOpen);
+	fbTT.q_stConfig.stDevices.refGateValve.M_Set_OPN_SW(stExpStatus.bGateValveOpen);
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="F_SetTransportTubeStatuses">

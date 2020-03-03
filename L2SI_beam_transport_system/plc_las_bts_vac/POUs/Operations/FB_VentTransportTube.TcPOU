@@ -34,6 +34,8 @@ END_VAR
       <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	M_SetMessage('Verifying system status');
@@ -62,10 +64,10 @@ E_OpStep.VOT_WAIT_PC:
 	
 E_OpStep.VOT_VENT:
 	M_RunTimeoutTimer(VENT_TIMEOUT);
-	stTT.stDevices.refIonPump.M_Run(FALSE);
+	fbTT.q_stConfig.stDevices.refIonPump.M_Run(FALSE);
 	
 	// Vent until atmospheric pressure reached
-	IF F_Atm(stTT.stDevices.refPiraniGauge.PG.rPRESS) THEN
+	IF F_Atm(fbTT.q_stConfig.stDevices.refPiraniGauge.PG.rPRESS) THEN
 		M_ResetTimeoutTimer();
 		eStep := E_OpStep.VOT_FINISH;
 	END_IF
@@ -86,7 +88,9 @@ ELSE
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_VentTransportTube">
-      <LineId Id="513" Count="5" />
+      <LineId Id="513" Count="2" />
+      <LineId Id="596" Count="1" />
+      <LineId Id="516" Count="2" />
       <LineId Id="522" Count="45" />
       <LineId Id="20" Count="0" />
     </LineIds>

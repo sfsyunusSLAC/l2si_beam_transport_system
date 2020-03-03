@@ -75,6 +75,8 @@ END_VAR
       <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // System Status Check
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	M_SetMessage('Verifying system status');
@@ -144,6 +146,7 @@ END_CASE
       <LineId Id="55" Count="0" />
       <LineId Id="91" Count="0" />
       <LineId Id="89" Count="0" />
+      <LineId Id="548" Count="1" />
       <LineId Id="183" Count="1" />
       <LineId Id="402" Count="1" />
       <LineId Id="185" Count="4" />

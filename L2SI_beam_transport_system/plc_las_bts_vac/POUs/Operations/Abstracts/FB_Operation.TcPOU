@@ -4,7 +4,7 @@
     <Declaration><![CDATA[FUNCTION_BLOCK FB_Operation
 VAR_INPUT
 	i_bExecute : BOOL; // Flag that indicates the operation should be ran
-	i_bCancel : BOOL; // Cancel operation
+	i_bCancel : BOOL; // Cancel operation input signal
 END_VAR
 VAR_IN_OUT
 	iq_sMessageBuffer : STRING(EPICS_STRING_SIZE); // Human readable description of the current step
@@ -14,6 +14,7 @@ VAR_OUTPUT
 	q_bBusy : BOOL; // Whether the current operation is executing
 END_VAR
 VAR
+	bCancel : BOOL; // Saved cancel operation signal
 	bDeferCancel : BOOL; // Setting to True prevents operation from being immediatly cancelled with i_bCancel. Resets to FALSE after operation finishes
 	eStep : E_OpStep := E_OpStep.IDLE; // The current operation step
 	fbTimeoutTimer : TON; // TImer used for tracking operation timeouts
@@ -30,10 +31,18 @@ END_VAR]]></Declaration>
 	// Start operation
 	eStep := E_OpStep.START;
 	q_bBusy := TRUE;
-	q_bError := FALSE;
+	M_ResetError();
 END_IF
 
-IF NOT bDeferCancel AND i_bCancel THEN
+(* Save the input i_bCancel signal since cancelling can take multiple cycles *)
+IF i_bCancel THEN
+	bCancel := TRUE;
+END_IF
+
+(* Allow operation to be cancelled from an input signal.
+ The cancel input signal can be deferred by the operation if the 
+ operation is not at a good point to finish cancelling. *)
+IF eStep <> E_OpStep.IDLE AND NOT bDeferCancel AND bCancel THEN
 	M_FatalError('Operation canceled');
 END_IF
 
@@ -64,6 +73,7 @@ M_SetMessage(i_ErrorMessage);
 eStep := E_OpStep.IDLE;
 q_bError := TRUE;
 q_bBusy := FALSE;
+bCancel := FALSE;
 M_DeferCancel(FALSE);]]></ST>
       </Implementation>
     </Method>
@@ -74,11 +84,20 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[M_ResetTimeoutTimer();
-eStep := E_OpStep.IDLE;
 M_SetMessage('Operation finished');
-q_bError := FALSE;
+eStep := E_OpStep.IDLE;
 q_bBusy := FALSE;
+bCancel := FALSE;
 M_DeferCancel(FALSE);]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="M_ResetError" Id="{f3475c54-8361-453d-b5be-01159442bfe4}">
+      <Declaration><![CDATA[METHOD PUBLIC M_ResetError
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[q_bError := FALSE;]]></ST>
       </Implementation>
     </Method>
     <Method Name="M_ResetTimeoutTimer" Id="{c5848f2a-4ad0-4c43-bb15-e2835c5c0c6d}">
@@ -121,7 +140,16 @@ M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
       </Implementation>
     </Method>
     <LineIds Name="FB_Operation">
-      <LineId Id="310" Count="12" />
+      <LineId Id="310" Count="5" />
+      <LineId Id="354" Count="0" />
+      <LineId Id="351" Count="0" />
+      <LineId Id="350" Count="0" />
+      <LineId Id="352" Count="1" />
+      <LineId Id="346" Count="0" />
+      <LineId Id="316" Count="0" />
+      <LineId Id="347" Count="0" />
+      <LineId Id="355" Count="0" />
+      <LineId Id="317" Count="5" />
       <LineId Id="210" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_DeferCancel">
@@ -132,15 +160,19 @@ M_TimeoutExpired := fbTimeoutTimer.Q;]]></ST>
       <LineId Id="26" Count="0" />
       <LineId Id="16" Count="1" />
       <LineId Id="7" Count="0" />
+      <LineId Id="36" Count="0" />
       <LineId Id="31" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_Finish">
       <LineId Id="11" Count="0" />
+      <LineId Id="23" Count="0" />
       <LineId Id="6" Count="0" />
-      <LineId Id="15" Count="0" />
-      <LineId Id="7" Count="0" />
       <LineId Id="5" Count="0" />
+      <LineId Id="27" Count="0" />
       <LineId Id="19" Count="0" />
+    </LineIds>
+    <LineIds Name="FB_Operation.M_ResetError">
+      <LineId Id="5" Count="0" />
     </LineIds>
     <LineIds Name="FB_Operation.M_ResetTimeoutTimer">
       <LineId Id="5" Count="0" />

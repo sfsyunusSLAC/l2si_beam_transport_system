@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="F_VerifySBGaugeReadings" Id="{a066cf66-9a1e-46cb-b56b-9c11a5162294}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_VerifySBGaugeReadings : BOOL
 VAR_INPUT

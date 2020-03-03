@@ -38,6 +38,8 @@ END_VAR
       <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	
@@ -60,7 +62,7 @@ E_OpStep.POT_WAIT_PUMP_CART:
 	*)
 	
 	// Check that pressure is low enough to turn on ion pump
-	IF stTT.stDevices.refPiraniGauge.PG.rPRESS <= ION_READY_PRESS THEN
+	IF fbTT.q_stConfig.stDevices.refPiraniGauge.PG.rPRESS <= ION_READY_PRESS THEN
 		M_ResetTimeoutTimer();
 		M_SetMessage('Turning on ion pump');
 		eStep := E_OpStep.POT_TURN_ON_PUMP;
@@ -69,10 +71,10 @@ E_OpStep.POT_WAIT_PUMP_CART:
 E_OpStep.POT_TURN_ON_PUMP:
 	M_RunTimeoutTimer(ION_PUMP_TIMEOUT);
 	
-	stTT.stDevices.refIonPump.M_Run(TRUE);
+	fbTT.q_stConfig.stDevices.refIonPump.M_Run(TRUE);
 	// Check that desired pressure has been reached
-	IF stTT.stDevices.refColdCathode.IG.eState <> E_PressureState.Off
-	AND stTT.stDevices.refColdCathode.IG.rPRESS <= ION_FINISHED_PRESS
+	IF fbTT.q_stConfig.stDevices.refColdCathode.IG.eState <> E_PressureState.Off
+	AND fbTT.q_stConfig.stDevices.refColdCathode.IG.rPRESS <= ION_FINISHED_PRESS
 	THEN
 		M_ResetTimeoutTimer();
 		eStep := E_OpStep.POT_FINISH;
@@ -94,7 +96,10 @@ ELSE
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_PumpTransportTube">
-      <LineId Id="171" Count="4" />
+      <LineId Id="171" Count="2" />
+      <LineId Id="420" Count="0" />
+      <LineId Id="419" Count="0" />
+      <LineId Id="174" Count="1" />
       <LineId Id="386" Count="0" />
       <LineId Id="295" Count="0" />
       <LineId Id="196" Count="0" />

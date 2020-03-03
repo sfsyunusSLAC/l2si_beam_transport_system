@@ -9,18 +9,21 @@ END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
+      <ST><![CDATA[(*
+SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
 CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // Verify system status	
 	M_SetMessage('Verifying System Status');
 	
-	IF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS <= 1E-5 AND stTT.stDevices.refColdCathode.IG.rPRESS <= 1E-5 THEN 
+	IF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS <= 1E-5 AND fbTT.q_stConfig.stDevices.refColdCathode.IG.rPRESS <= 1E-5 THEN 
 		// System status check passed
 		M_SetMessage('Opening gate valve');
 		eStep := E_OpStep.OTT_OPEN_VALVE;
 	// If either the switchbox or transport tube are not at base pressure, pump down the higher one
-	ELSIF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS > stTT.stDevices.refColdCathode.IG.rPRESS THEN
+	ELSIF GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS > fbTT.q_stConfig.stDevices.refColdCathode.IG.rPRESS THEN
 		// Pump down switchbox
 		M_SetMessage('Pumping switchbox');
 		eStep := E_OpStep.OTT_RUN_PSB;
@@ -64,25 +67,30 @@ E_OpStep.OTT_OPEN_VALVE:
 	M_RunTimeoutTimer(VALVE_TIMEOUT);
 	
 	// Open the gate valve
-	stTT.stDevices.refGateValve.M_Set_OPN_SW(TRUE);
+	fbTT.q_stConfig.stDevices.refGateValve.M_Set_OPN_SW(TRUE);
 	
 	// Once the gate valve is open, finish the operation
-	IF stTT.stDevices.refGateValve.M_IsOpen() THEN
+	IF fbTT.q_stConfig.stDevices.refGateValve.M_IsOpen() THEN
 		M_ResetTimeoutTimer();
 		M_Finish();
 	END_IF
 	
 ELSE
 	M_FatalError('Operation is in invalid state');
-END_CASE]]></ST>
+END_CASE
+*)]]></ST>
     </Implementation>
     <LineIds Name="FB_OpenTransportTube">
-      <LineId Id="688" Count="3" />
+      <LineId Id="777" Count="0" />
+      <LineId Id="688" Count="2" />
+      <LineId Id="768" Count="1" />
+      <LineId Id="691" Count="0" />
       <LineId Id="695" Count="25" />
       <LineId Id="756" Count="0" />
       <LineId Id="721" Count="0" />
       <LineId Id="723" Count="32" />
       <LineId Id="20" Count="0" />
+      <LineId Id="776" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

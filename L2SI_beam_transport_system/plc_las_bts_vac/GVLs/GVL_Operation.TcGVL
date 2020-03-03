@@ -6,7 +6,7 @@ VAR_GLOBAL
 	// Execute flags for vacuum system operations
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:OPERATION:CANCEL
-		io: i		
+		io: o
 	'}
 	i_bCancel : BOOL;
 	
@@ -24,7 +24,7 @@ VAR_GLOBAL
 	
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:OPERATION:BUSY
-		io: o
+		io: i
 		field: ZNAM NOT_BUSY
 		field: ONAM BUSY
 	'}
@@ -32,7 +32,7 @@ VAR_GLOBAL
 	
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:OPERATION:ERROR
-		io: o
+		io: i
 		field: ZNAM OK
 		field: ONAM ERROR
 		field: ZSV NO_ALARM
@@ -42,7 +42,7 @@ VAR_GLOBAL
 	
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:OPERATION:MESSAGE
-		io: o
+		io: i
 	'}
 	q_sMessage : STRING(EPICS_STRING_SIZE);
 END_VAR]]></Declaration>
