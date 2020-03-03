@@ -107,8 +107,12 @@ bSwitchboxStatusOk :=
 
 (* Additional checks for switchbox for when there is not a pump failure. When a pump failure happens, these checks are no longer valid *)
 IF nPumpFailures = 0 THEN
-	bSwitchboxStatusOk := F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := FALSE)
+	bSwitchboxStatusOk := bSwitchboxStatusOk AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := FALSE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp);
+END_IF
+
+IF NOT bSwitchboxStatusOk THEN
+	GVL_Maintainlaser.q_sMessage := 'Error detected in SwitchBox';
 END_IF
 
 GVL_MaintainLaser.q_bShutoffLatch := GVL_MaintainLaser.q_bShutoffLatch
@@ -154,6 +158,10 @@ END_FOR
       <LineId Id="498" Count="5" />
       <LineId Id="505" Count="3" />
       <LineId Id="510" Count="1" />
+      <LineId Id="764" Count="0" />
+      <LineId Id="763" Count="0" />
+      <LineId Id="768" Count="0" />
+      <LineId Id="766" Count="0" />
       <LineId Id="707" Count="0" />
       <LineId Id="706" Count="0" />
       <LineId Id="708" Count="1" />
