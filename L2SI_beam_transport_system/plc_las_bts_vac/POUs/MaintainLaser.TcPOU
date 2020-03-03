@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <POU Name="MaintainLaser" Id="{46559531-d8de-49c9-8173-8613b0eb73e5}" SpecialFunc="None">
     <Declaration><![CDATA[(* The job of FB_LaserMaintainer is to keep the LASER_OK signal for each
 transport tube on for as long as safely possible. This involves shutting down
@@ -71,6 +71,7 @@ END_VAR]]></Declaration>
 	GVL_MaintainLaser.q_bOperationInProgress := FALSE;
 	GVL_MaintainLaser.i_bShutoff := FALSE;
 	GVL_MaintainLaser.i_bReset := FALSE;
+	GVL_MaintainLaser.q_bShutoffLatch := FALSE;
 END_IF
 
 // Look for pump failures. Once a pump failure is detected, latch the error until reset
@@ -106,18 +107,20 @@ bSwitchboxStatusOk :=
 
 (* Additional checks for switchbox for when there is not a pump failure. When a pump failure happens, these checks are no longer valid *)
 IF nPumpFailures = 0 THEN
-	bSwitchboxStatusOk := bSwitchboxStatusOk
-		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := FALSE)
+	bSwitchboxStatusOk := F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := FALSE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp);
 END_IF
+
+GVL_MaintainLaser.q_bShutoffLatch := GVL_MaintainLaser.q_bShutoffLatch
+	OR GVL_MaintainLaser.i_bShutoff
+	OR NOT bSwitchboxStatusOk;
 		
 FOR nIter := 1 TO GVL_TransportTubes.NUM_TRANSPORT_TUBES DO
 	eTT := GVL_TransportTubes.aTubes[nIter];
 	fbTT REF= F_GetTransportTube(eTT);
 	
 	(* Disable Laser Ok signal if transport tube or switchbox is in bad state *)
-	IF GVL_MaintainLaser.i_bShutoff
-	OR NOT bSwitchboxStatusOk
+	IF GVL_MaintainLaser.q_bShutoffLatch
 	OR NOT F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
 		eTransportTube := eTT,
 		stStatusOp := stTTOp, 
@@ -140,6 +143,7 @@ END_FOR
       <LineId Id="535" Count="1" />
       <LineId Id="591" Count="0" />
       <LineId Id="537" Count="0" />
+      <LineId Id="705" Count="0" />
       <LineId Id="477" Count="12" />
       <LineId Id="597" Count="2" />
       <LineId Id="490" Count="2" />
@@ -148,7 +152,13 @@ END_FOR
       <LineId Id="497" Count="0" />
       <LineId Id="531" Count="1" />
       <LineId Id="498" Count="5" />
-      <LineId Id="505" Count="21" />
+      <LineId Id="505" Count="3" />
+      <LineId Id="510" Count="1" />
+      <LineId Id="707" Count="0" />
+      <LineId Id="706" Count="0" />
+      <LineId Id="708" Count="1" />
+      <LineId Id="512" Count="6" />
+      <LineId Id="520" Count="6" />
       <LineId Id="5" Count="0" />
       <LineId Id="530" Count="0" />
     </LineIds>

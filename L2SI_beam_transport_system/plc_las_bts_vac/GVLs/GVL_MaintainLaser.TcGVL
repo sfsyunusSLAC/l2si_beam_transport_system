@@ -55,6 +55,15 @@ VAR_GLOBAL
 		io: i
 	'}
 	q_sMessage : STRING(EPICS_STRING_SIZE) := 'No issues';
+	
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:LASER_MAINTAINER:SHUTOFF_LATCH
+		io: i
+		field: ZNAM OK
+		field: ONAM LASERS_SHUTOFF
+		field: OSV MAJOR
+	'}
+	q_bShutoffLatch : BOOL;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

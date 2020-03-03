@@ -91,6 +91,12 @@
     <Compile Include="POUs\Helpers\F_GetTransportTube.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Helpers\F_PumpStationTurboPumpInterlock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Helpers\F_SBVentInterlock.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
