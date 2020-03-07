@@ -1,13 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <GVL Name="GVL_BTS_VAC" Id="{29e65882-4122-461a-9001-9faecd304aa4}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-	(* Valves *)
-	fb_BO4_VGC_FFOut : FB_HardwareFFOutput;
-	{attribute 'pytmc' := 'pv: LT12LHN:BO4:VGC'}
-	fb_BO4_VGC : FB_VGC; // Gate valve, output tube 1
-	
+	(* Valves *)	
 	fb_PP_VGC_FFOut : FB_HardwareFFOutput;
 	{attribute 'pytmc' := 'pv: LXLHN:PP:VGC'}
 	fb_PP_VGC : FB_VGC; // Gate valve, vacuum switchbox
@@ -23,10 +19,6 @@ VAR_GLOBAL
 	
 	{attribute 'pytmc' := 'pv: LXLHN:PP:VRC:3'}
 	fb_PP_VRC_3 : FB_VRC; // Slow pump valve
-	
-	fb_BI1_VGC_FFOut : FB_HardwareFFOutput;
-	{attribute 'pytmc' := 'pv: LT1LHN:BI1:VGC'}
-	fb_BI1_VGC : FB_VGC; // Gate valve, Input 1 laser Table
 	
 	st_VP_VVC_1 : ST_VCC_NO;
 	{attribute 'pytmc' := 'pv: LXLHN:VP:VVC:1'}
@@ -44,14 +36,8 @@ VAR_GLOBAL
 	{attribute 'pytmc' := 'pv: LXLHN:PP:PMF'}
 	fb_PP_PMF : FB_KashiyamaPump; // Roughing Pump
 	
-	{attribute 'pytmc' := 'pv: LT12LHN:BO4:PIP'}
-	fb_BO4_PIP : FB_PIP_Gamma; // Ion Pump, output tube 1
-	
 	{attribute 'pytmc' := 'pv: LXLHN:PP:PIP'}
-	fb_PP_PIP : FB_PIP_Gamma; // Ion Pump, SWB
-	
-	{attribute 'pytmc' := 'pv: LT1LHN:BI1:PIP'}
-	fb_BI1_PIP : FB_PIP_Gamma; // Ion Pump, input tube 1
+	fb_PP_PIP : FB_PIP_Gamma; // Ion Pump, SW
 	
 	(* Gauges *)
 	{attribute 'pytmc' := 'pv: LXLHN:PP:GPI:1'}
@@ -63,23 +49,133 @@ VAR_GLOBAL
 	{attribute 'pytmc' := 'pv: LXLHN:DP:GPI'}
 	fb_DP_GPI : FB_MKS275; // Switchbox gauge
 	
-	{attribute 'pytmc' := 'pv: LT12LHN:BO4:GPI'}
-	fb_BO4_GPI : FB_MKS275; // Output tube 1 ATM gauge
-	
-	{attribute 'pytmc' := 'pv: LT1LHN:BI1:GPI '}
-	fb_BI1_GPI : FB_MKS275; // Input tube 1 ATM gauge
-	
 	{attribute 'pytmc' := 'pv: LXLHN:PP:GCC'}
 	fb_PP_GCC : FB_MKS500; // Switchbox pumpline Cold Cathode gauge
 	
-	{attribute 'pytmc' := 'pv: LT12LHN:BO4:GCC'}
-	fb_BO4_GCC : FB_MKS500; // Output tube 1, Cold Cathode gauge
+	{attribute 'pytmc' := 'pv: LXLHN:DP:GCC'}
+	fb_DP_GCC : FB_MKS500; // Switchbox Cold Cathode gauge
 	
+	(* Transport Tubes *)
+	// BI1
+	fb_BI1_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT1LHN:BI1:VGC'}
+	fb_BI1_VGC : FB_VGC; // Gate valve, Input 1 laser Table
+	{attribute 'pytmc' := 'pv: LT1LHN:BI1:PIP'}
+	fb_BI1_PIP : FB_PIP_Gamma; // Ion Pump, input tube 1
+	{attribute 'pytmc' := 'pv: LT1LHN:BI1:GPI '}
+	fb_BI1_GPI : FB_MKS275; // Input tube 1 ATM gauge
 	{attribute 'pytmc' := 'pv: LT1LHN:BI1:GCC'}
 	fb_BI1_GCC : FB_MKS500; // Input tube 1, Cold Cathode gauge
 	
-	{attribute 'pytmc' := 'pv: LXLHN:DP:GCC'}
-	fb_DP_GCC : FB_MKS500; // Switchbox Cold Cathode gauge
+	// BI5
+	fb_BI5_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT5LHN:BI5:VGC'}
+	fb_BI5_VGC : FB_VGC; // Gate valve, Input 5 laser Table
+	{attribute 'pytmc' := 'pv: LT5LHN:BI5:PIP'}
+	fb_BI5_PIP : FB_PIP_Gamma; // Ion Pump, input tube 5
+	{attribute 'pytmc' := 'pv: LT5LHN:BI5:GPI '}
+	fb_BI5_GPI : FB_MKS275; // Input tube 5 ATM gauge
+	{attribute 'pytmc' := 'pv: LT5LHN:BI5:GCC'}
+	fb_BI5_GCC : FB_MKS500; // Input tube 5, Cold Cathode gauge
+	
+	// BI8
+	fb_BI8_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT8LHN:BI8:VGC'}
+	fb_BI8_VGC : FB_VGC; // Gate valve, Input 8 laser Table
+	{attribute 'pytmc' := 'pv: LT8LHN:BI8:PIP'}
+	fb_BI8_PIP : FB_PIP_Gamma; // Ion Pump, input tube 8
+	{attribute 'pytmc' := 'pv: LT8LHN:BI8:GPI '}
+	fb_BI8_GPI : FB_MKS275; // Input tube 8 ATM gauge
+	{attribute 'pytmc' := 'pv: LT8LHN:BI8:GCC'}
+	fb_BI8_GCC : FB_MKS500; // Input tube 8, Cold Cathode gauge
+
+	// BO4
+	fb_BO4_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT12LHN:BO4:VGC'}
+	fb_BO4_VGC : FB_VGC; // Gate valve, Output tube 4 laser Table
+	{attribute 'pytmc' := 'pv: LT12LHN:BO4:PIP'}
+	fb_BO4_PIP : FB_PIP_Gamma; // Ion Pump, output tube 4
+	{attribute 'pytmc' := 'pv: LT12LHN:BO4:GPI '}
+	fb_BO4_GPI : FB_MKS275; // Output tube 4 ATM gauge
+	{attribute 'pytmc' := 'pv: LT12LHN:BO4:GCC'}
+	fb_BO4_GCC : FB_MKS500; // Output tube 4, Cold Cathode gauge
+	
+	// BO5
+	fb_BO5_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT13LHN:BO5:VGC'}
+	fb_BO5_VGC : FB_VGC; // Gate valve, Output tube 5 laser Table
+	{attribute 'pytmc' := 'pv: LT13LHN:BO5:PIP'}
+	fb_BO5_PIP : FB_PIP_Gamma; // Ion Pump, output tube 5
+	{attribute 'pytmc' := 'pv: LT13LHN:BO5:GPI '}
+	fb_BO5_GPI : FB_MKS275; // Output tube 5 ATM gauge
+	{attribute 'pytmc' := 'pv: LT13LHN:BO5:GCC'}
+	fb_BO5_GCC : FB_MKS500; // Output tube 5, Cold Cathode gauge
+	
+	// BO6
+	fb_BO6_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT14LHN:BO6:VGC'}
+	fb_BO6_VGC : FB_VGC; // Gate valve, Output tube 6 laser Table
+	{attribute 'pytmc' := 'pv: LT14LHN:BO6:PIP'}
+	fb_BO6_PIP : FB_PIP_Gamma; // Ion Pump, output tube 6
+	{attribute 'pytmc' := 'pv: LT14LHN:BO6:GPI '}
+	fb_BO6_GPI : FB_MKS275; // Output tube 6 ATM gauge
+	{attribute 'pytmc' := 'pv: LT14LHN:BO6:GCC'}
+	fb_BO6_GCC : FB_MKS500; // Output tube 6, Cold Cathode gauge
+	
+	// BO9
+	fb_BO9_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT17LHN:BO9:VGC'}
+	fb_BO9_VGC : FB_VGC; // Gate valve, Output tube 9 laser Table
+	{attribute 'pytmc' := 'pv: LT17LHN:BO9:PIP'}
+	fb_BO9_PIP : FB_PIP_Gamma; // Ion Pump, output tube 9
+	{attribute 'pytmc' := 'pv: LT17LHN:BO9:GPI '}
+	fb_BO9_GPI : FB_MKS275; // Output tube 9 ATM gauge
+	{attribute 'pytmc' := 'pv: LT17LHN:BO9:GCC'}
+	fb_BO9_GCC : FB_MKS500; // Output tube 9, Cold Cathode gauge
+	
+	// BO10
+	fb_BO10_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT18LHN:BO10:VGC'}
+	fb_BO10_VGC : FB_VGC; // Gate valve, Output tube 10 laser Table
+	{attribute 'pytmc' := 'pv: LT18LHN:BO10:PIP'}
+	fb_BO10_PIP : FB_PIP_Gamma; // Ion Pump, output tube 10
+	{attribute 'pytmc' := 'pv: LT18LHN:BO10:GPI '}
+	fb_BO10_GPI : FB_MKS275; // Output tube 10 ATM gauge
+	{attribute 'pytmc' := 'pv: LT18LHN:BO10:GCC'}
+	fb_BO10_GCC : FB_MKS500; // Output tube 10, Cold Cathode gauge
+	
+	// BO12
+	fb_BO12_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT20LHN:BO12:VGC'}
+	fb_BO12_VGC : FB_VGC; // Gate valve, Output tube 12 laser Table
+	{attribute 'pytmc' := 'pv: LT20LHN:BO12:PIP'}
+	fb_BO12_PIP : FB_PIP_Gamma; // Ion Pump, output tube 12
+	{attribute 'pytmc' := 'pv: LT20LHN:BO12:GPI '}
+	fb_BO12_GPI : FB_MKS275; // Output tube 12 ATM gauge
+	{attribute 'pytmc' := 'pv: LT20LHN:BO12:GCC'}
+	fb_BO12_GCC : FB_MKS500; // Output tube 12, Cold Cathode gauge
+	
+	// BO13
+	fb_BO13_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT21LHN:BO13:VGC'}
+	fb_BO13_VGC : FB_VGC; // Gate valve, Output tube 13 laser Table
+	{attribute 'pytmc' := 'pv: LT21LHN:BO13:PIP'}
+	fb_BO13_PIP : FB_PIP_Gamma; // Ion Pump, output tube 13
+	{attribute 'pytmc' := 'pv: LT21LHN:BO13:GPI '}
+	fb_BO13_GPI : FB_MKS275; // Output tube 13 ATM gauge
+	{attribute 'pytmc' := 'pv: LT21LHN:BO13:GCC'}
+	fb_BO13_GCC : FB_MKS500; // Output tube 13, Cold Cathode gauge
+	
+	// BO14
+	fb_BO14_VGC_FFOut : FB_HardwareFFOutput;
+	{attribute 'pytmc' := 'pv: LT22LHN:BO14:VGC'}
+	fb_BO14_VGC : FB_VGC; // Gate valve, Output tube 14 laser Table
+	{attribute 'pytmc' := 'pv: LT22LHN:BO14:PIP'}
+	fb_BO14_PIP : FB_PIP_Gamma; // Ion Pump, output tube 14
+	{attribute 'pytmc' := 'pv: LT22LHN:BO14:GPI '}
+	fb_BO14_GPI : FB_MKS275; // Output tube 14 ATM gauge
+	{attribute 'pytmc' := 'pv: LT22LHN:BO14:GCC'}
+	fb_BO14_GCC : FB_MKS500; // Output tube 14, Cold Cathode gauge
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <POU Name="F_GetTransportTube" Id="{1c225a2d-c668-4975-8e19-7e053353ec27}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION F_GetTransportTube : REFERENCE TO FB_TransportTube
 VAR_INPUT
@@ -12,8 +12,27 @@ END_VAR
       <ST><![CDATA[CASE eTT OF
 E_TransportTube.BI1:
 	F_GetTransportTube REF= GVL_TransportTubes.fbBI1;
+E_TransportTube.BI5:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBI5;
+E_TransportTube.BI8:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBI8;
+
 E_TransportTube.BO4:
 	F_GetTransportTube REF= GVL_TransportTubes.fbBO4;
+E_TransportTube.BO5:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBO5;
+E_TransportTube.BO6:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBO6;
+E_TransportTube.BO9:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBO9;
+E_TransportTube.BO10:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBO10;
+E_TransportTube.BO12:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBO12;
+E_TransportTube.BO13:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBO13;
+E_TransportTube.BO14:
+	F_GetTransportTube REF= GVL_TransportTubes.fbBO14;
 ELSE // Invalid transport tube
 	F_GetTransportTube REF= 0;
 END_CASE]]></ST>
@@ -22,7 +41,26 @@ END_CASE]]></ST>
       <LineId Id="7" Count="0" />
       <LineId Id="9" Count="0" />
       <LineId Id="11" Count="0" />
+      <LineId Id="30" Count="0" />
+      <LineId Id="29" Count="0" />
+      <LineId Id="32" Count="0" />
+      <LineId Id="31" Count="0" />
+      <LineId Id="33" Count="0" />
       <LineId Id="13" Count="1" />
+      <LineId Id="35" Count="0" />
+      <LineId Id="34" Count="0" />
+      <LineId Id="37" Count="0" />
+      <LineId Id="36" Count="0" />
+      <LineId Id="39" Count="0" />
+      <LineId Id="38" Count="0" />
+      <LineId Id="41" Count="0" />
+      <LineId Id="40" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="42" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="44" Count="0" />
+      <LineId Id="47" Count="0" />
+      <LineId Id="46" Count="0" />
       <LineId Id="21" Count="1" />
       <LineId Id="10" Count="0" />
     </LineIds>

@@ -15,28 +15,11 @@ GVL_BTS_VAC.fb_PP_GPI_2();
 
 GVL_BTS_VAC.fb_DP_GPI();
 
-GVL_BTS_VAC.fb_BO4_GPI();
-
-GVL_BTS_VAC.fb_BI1_GPI();
-
 GVL_BTS_VAC.fb_PP_GCC(PG := GVL_BTS_VAC.fb_PP_GPI_1.PG);
-
-GVL_BTS_VAC.fb_BO4_GCC(PG := GVL_BTS_VAC.fb_BO4_GPI.PG);
-
-GVL_BTS_VAC.fb_BI1_GCC(PG := GVL_BTS_VAC.fb_BI1_GPI.PG);
 
 GVL_BTS_VAC.fb_DP_GCC(PG := GVL_BTS_VAC.fb_DP_GPI.PG);
 
 (* Update vacuum gauge controllers *)
-GVL_BTS_VAC.fb_BO4_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO4_GCC.IG,
-	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
-	i_xEPS_OK := TRUE,
-	i_xPMPS_OK := TRUE,
-	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO4_VGC_FFOut
-);
-
 GVL_BTS_VAC.fb_PP_VGC(
 	i_stUSG := GVL_BTS_VAC.fb_PP_GCC.IG,
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
@@ -65,16 +48,6 @@ GVL_BTS_VAC.fb_PP_VRC_3(
 	i_xExtILK_OK := GVL_BTS_VAC.fb_PP_PMF.q_stPump.eState = E_PumpState.pumpRUNNING
 );
 
-GVL_BTS_VAC.fb_BI1_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BI1_GCC.IG, 
-	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
-	i_xDis_DPIlk := FALSE,
-	i_xEPS_OK := TRUE,
-	i_xPMPS_OK := TRUE,
-	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BI1_VGC_FFOut
-);
-
 GVL_BTS_VAC.fb_VP_VVC_1(
 	iq_stValve := GVL_BTS_VAC.st_VP_VVC_1,
 	i_xExtILK_OK := F_SBVentInterlock()
@@ -90,31 +63,217 @@ GVL_BTS_VAC.fb_PP_PMF();
 
 GVL_BTS_VAC.fb_PP_PTM(i_xExtRunOk := F_PumpStationTurboPumpInterlock());
 
-GVL_BTS_VAC.fb_BO4_PIP(i_stGauge := GVL_BTS_VAC.fb_BO4_GCC.IG);
-
 GVL_BTS_VAC.fb_PP_PIP(i_stGauge := GVL_BTS_VAC.fb_DP_GCC.IG);
 
-GVL_BTS_VAC.fb_BI1_PIP(i_stGauge := GVL_BTS_VAC.fb_BI1_GCC.IG);]]></ST>
+
+
+(* Update Transport Tubes *)
+// BI1
+GVL_BTS_VAC.fb_BI1_GPI();
+GVL_BTS_VAC.fb_BI1_GCC(PG := GVL_BTS_VAC.fb_BI1_GPI.PG);
+GVL_BTS_VAC.fb_BI1_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BI1_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BI1_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BI1_PIP(i_stGauge := GVL_BTS_VAC.fb_BI1_GCC.IG);
+
+// BI5
+GVL_BTS_VAC.fb_BI5_GPI();
+GVL_BTS_VAC.fb_BI5_GCC(PG := GVL_BTS_VAC.fb_BI5_GPI.PG);
+GVL_BTS_VAC.fb_BI5_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BI5_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BI5_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BI5_PIP(i_stGauge := GVL_BTS_VAC.fb_BI5_GCC.IG);
+
+// BI8
+GVL_BTS_VAC.fb_BI8_GPI();
+GVL_BTS_VAC.fb_BI8_GCC(PG := GVL_BTS_VAC.fb_BI8_GPI.PG);
+GVL_BTS_VAC.fb_BI8_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BI8_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BI8_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BI8_PIP(i_stGauge := GVL_BTS_VAC.fb_BI8_GCC.IG);
+
+// BO4
+GVL_BTS_VAC.fb_BO4_GPI();
+GVL_BTS_VAC.fb_BO4_GCC(PG := GVL_BTS_VAC.fb_BO4_GPI.PG);
+GVL_BTS_VAC.fb_BO4_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BO4_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BO4_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BO4_PIP(i_stGauge := GVL_BTS_VAC.fb_BO4_GCC.IG);
+
+// BO5
+GVL_BTS_VAC.fb_BO5_GPI();
+GVL_BTS_VAC.fb_BO5_GCC(PG := GVL_BTS_VAC.fb_BO5_GPI.PG);
+GVL_BTS_VAC.fb_BO5_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BO5_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BO5_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BO5_PIP(i_stGauge := GVL_BTS_VAC.fb_BO5_GCC.IG);
+
+// BO6
+GVL_BTS_VAC.fb_BO6_GPI();
+GVL_BTS_VAC.fb_BO6_GCC(PG := GVL_BTS_VAC.fb_BO6_GPI.PG);
+GVL_BTS_VAC.fb_BO6_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BO6_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BO6_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BO6_PIP(i_stGauge := GVL_BTS_VAC.fb_BO6_GCC.IG);
+
+// BO9
+GVL_BTS_VAC.fb_BO9_GPI();
+GVL_BTS_VAC.fb_BO9_GCC(PG := GVL_BTS_VAC.fb_BO9_GPI.PG);
+GVL_BTS_VAC.fb_BO9_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BO9_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BO9_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BO9_PIP(i_stGauge := GVL_BTS_VAC.fb_BO9_GCC.IG);
+
+// BO10
+GVL_BTS_VAC.fb_BO10_GPI();
+GVL_BTS_VAC.fb_BO10_GCC(PG := GVL_BTS_VAC.fb_BO10_GPI.PG);
+GVL_BTS_VAC.fb_BO10_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BO10_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BO10_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BO10_PIP(i_stGauge := GVL_BTS_VAC.fb_BO10_GCC.IG);
+
+// BO12
+GVL_BTS_VAC.fb_BO12_GPI();
+GVL_BTS_VAC.fb_BO12_GCC(PG := GVL_BTS_VAC.fb_BO12_GPI.PG);
+GVL_BTS_VAC.fb_BO12_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BO12_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BO12_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BO12_PIP(i_stGauge := GVL_BTS_VAC.fb_BO12_GCC.IG);
+
+// BO13
+GVL_BTS_VAC.fb_BO13_GPI();
+GVL_BTS_VAC.fb_BO13_GCC(PG := GVL_BTS_VAC.fb_BO13_GPI.PG);
+GVL_BTS_VAC.fb_BO13_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BO13_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BO13_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BO13_PIP(i_stGauge := GVL_BTS_VAC.fb_BO13_GCC.IG);
+
+// BO14
+GVL_BTS_VAC.fb_BO14_GPI();
+GVL_BTS_VAC.fb_BO14_GCC(PG := GVL_BTS_VAC.fb_BO14_GPI.PG);
+GVL_BTS_VAC.fb_BO14_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_BO14_GCC.IG, 
+	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
+	i_xDis_DPIlk := FALSE,
+	i_xEPS_OK := TRUE,
+	i_xPMPS_OK := TRUE,
+	i_xExt_OK := TRUE,
+	io_fbFFHWO := GVL_BTS_VAC.fb_BO14_VGC_FFOut
+);
+GVL_BTS_VAC.fb_BO14_PIP(i_stGauge := GVL_BTS_VAC.fb_BO14_GCC.IG);
+]]></ST>
     </Implementation>
     <LineIds Name="F_UpdateIO">
-      <LineId Id="8" Count="25" />
-      <LineId Id="120" Count="0" />
-      <LineId Id="35" Count="8" />
+      <LineId Id="8" Count="5" />
+      <LineId Id="18" Count="1" />
+      <LineId Id="24" Count="3" />
+      <LineId Id="37" Count="6" />
       <LineId Id="121" Count="0" />
       <LineId Id="45" Count="3" />
       <LineId Id="110" Count="1" />
       <LineId Id="50" Count="3" />
       <LineId Id="55" Count="3" />
       <LineId Id="60" Count="3" />
-      <LineId Id="65" Count="8" />
-      <LineId Id="122" Count="0" />
-      <LineId Id="75" Count="4" />
+      <LineId Id="65" Count="0" />
+      <LineId Id="76" Count="3" />
       <LineId Id="81" Count="4" />
       <LineId Id="87" Count="2" />
       <LineId Id="108" Count="1" />
-      <LineId Id="90" Count="0" />
-      <LineId Id="93" Count="4" />
+      <LineId Id="94" Count="3" />
       <LineId Id="7" Count="0" />
+      <LineId Id="130" Count="0" />
+      <LineId Id="128" Count="0" />
+      <LineId Id="134" Count="0" />
+      <LineId Id="132" Count="0" />
+      <LineId Id="145" Count="0" />
+      <LineId Id="136" Count="7" />
+      <LineId Id="135" Count="0" />
+      <LineId Id="133" Count="0" />
+      <LineId Id="147" Count="0" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="149" Count="10" />
+      <LineId Id="148" Count="0" />
+      <LineId Id="173" Count="0" />
+      <LineId Id="161" Count="11" />
+      <LineId Id="160" Count="0" />
+      <LineId Id="187" Count="0" />
+      <LineId Id="175" Count="11" />
+      <LineId Id="174" Count="0" />
+      <LineId Id="189" Count="12" />
+      <LineId Id="188" Count="0" />
+      <LineId Id="203" Count="12" />
+      <LineId Id="202" Count="0" />
+      <LineId Id="216" Count="12" />
+      <LineId Id="131" Count="0" />
+      <LineId Id="230" Count="12" />
+      <LineId Id="229" Count="0" />
+      <LineId Id="244" Count="12" />
+      <LineId Id="243" Count="0" />
+      <LineId Id="258" Count="12" />
+      <LineId Id="257" Count="0" />
+      <LineId Id="272" Count="12" />
+      <LineId Id="271" Count="0" />
+      <LineId Id="285" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

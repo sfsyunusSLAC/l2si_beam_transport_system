@@ -1,18 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
   <GVL Name="GVL_TransportTubes" Id="{2d08e4d9-019a-40af-9ac5-58f5518fa595}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL CONSTANT
 	// When adding transport tubes make sure to update F_GetTransportTube!
 	
-	NUM_TRANSPORT_TUBES : UINT := 2;
+	NUM_TRANSPORT_TUBES : UINT := 11;
 	
 	aTubes : ARRAY [1..NUM_TRANSPORT_TUBES] OF T_TransportTube := [
 		(* Input transport tubes *)
-		E_TransportTube.BI1, 
+		E_TransportTube.BI1,
+		E_TransportTube.BI5,
+		E_TransportTube.BI8, 
 		
 		(* Output transport tubes *)
-		E_TransportTube.BO4
+		E_TransportTube.BO4,
+		E_TransportTube.BO5,
+		E_TransportTube.BO6,
+		E_TransportTube.BO9,
+		E_TransportTube.BO10,
+		E_TransportTube.BO12,
+		E_TransportTube.BO13,
+		E_TransportTube.BO14
 	];
 	
 	(* Transport tube configs *)
@@ -27,6 +36,26 @@ VAR_GLOBAL CONSTANT
 			refColdCathode := GVL_BTS_VAC.fb_BI1_GCC)
 	);
 	
+	stBI5 : ST_TransportTubeConfig := (
+		sName:= 'BI5',
+		bInput := TRUE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BI5_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BI5_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BI5_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BI5_GCC)
+	);
+	
+	stBI8 : ST_TransportTubeConfig := (
+		sName:= 'BI8',
+		bInput := TRUE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BI8_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BI8_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BI8_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BI8_GCC)
+	);	
+	
 	stBO4 : ST_TransportTubeConfig := (
 		sName:= 'BO4',
 		bInput := FALSE,
@@ -36,17 +65,123 @@ VAR_GLOBAL CONSTANT
 			refPiraniGauge := GVL_BTS_VAC.fb_BO4_GPI,
 			refColdCathode := GVL_BTS_VAC.fb_BO4_GCC)
 	);
+	
+	stBO5 : ST_TransportTubeConfig := (
+		sName:= 'BO5',
+		bInput := FALSE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BO5_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BO5_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BO5_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BO5_GCC)
+	);
+	
+	stBO6 : ST_TransportTubeConfig := (
+		sName:= 'BO6',
+		bInput := FALSE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BO6_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BO6_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BO6_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BO6_GCC)
+	);
+	
+	stBO9 : ST_TransportTubeConfig := (
+		sName:= 'BO9',
+		bInput := FALSE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BO9_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BO9_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BO9_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BO9_GCC)
+	);
+	
+	stBO10 : ST_TransportTubeConfig := (
+		sName:= 'BO10',
+		bInput := FALSE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BO10_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BO10_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BO10_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BO10_GCC)
+	);
+	
+	stBO12 : ST_TransportTubeConfig := (
+		sName:= 'BO12',
+		bInput := FALSE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BO12_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BO12_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BO12_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BO12_GCC)
+	);
+	
+	stBO13 : ST_TransportTubeConfig := (
+		sName:= 'BO13',
+		bInput := FALSE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BO13_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BO13_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BO13_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BO13_GCC)
+	);
+	
+	stBO14 : ST_TransportTubeConfig := (
+		sName:= 'BO14',
+		bInput := FALSE,
+		stDevices:= (
+			refIonPump := GVL_BTS_VAC.fb_BO14_PIP,
+			refGateValve := GVL_BTS_VAC.fb_BO14_VGC,
+			refPiraniGauge := GVL_BTS_VAC.fb_BO14_GPI,
+			refColdCathode := GVL_BTS_VAC.fb_BO14_GCC)
+	);
 END_VAR
 VAR_GLOBAL
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI1
 	'}
 	fbBI1 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI5
+	'}
+	fbBI5 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI18
+	'}
+	fbBI8 : FB_TransportTube;
 
 	{attribute 'pytmc' := '
 		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO4
 	'}
 	fbBO4 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO5
+	'}
+	fbBO5 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO6
+	'}
+	fbBO6 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO9
+	'}
+	fbBO9 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO10
+	'}
+	fbBO10 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO12
+	'}
+	fbBO12 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO13
+	'}
+	fbBO13 : FB_TransportTube;
+	{attribute 'pytmc' := '
+		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO14
+	'}
+	fbBO14 : FB_TransportTube;
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

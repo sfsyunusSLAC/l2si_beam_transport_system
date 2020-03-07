@@ -15,8 +15,53 @@ GVL_TransportTubes.fbBI1(
 	i_bLaserExtIntl := TRUE
 );
 
+GVL_TransportTubes.fbBI5(
+	i_stConfig := GVL_TransportTubes.stBI5, 
+	i_bLaserExtIntl := TRUE
+);
+
+GVL_TransportTubes.fbBI8(
+	i_stConfig := GVL_TransportTubes.stBI8, 
+	i_bLaserExtIntl := TRUE
+);
+
 GVL_TransportTubes.fbBO4(
 	i_stConfig := GVL_TransportTubes.stBO4,
+	i_bLaserExtIntl := TRUE
+);
+
+GVL_TransportTubes.fbBO5(
+	i_stConfig := GVL_TransportTubes.stBO5,
+	i_bLaserExtIntl := TRUE
+);
+
+GVL_TransportTubes.fbBO6(
+	i_stConfig := GVL_TransportTubes.stBO6,
+	i_bLaserExtIntl := TRUE
+);
+
+GVL_TransportTubes.fbBO9(
+	i_stConfig := GVL_TransportTubes.stBO9,
+	i_bLaserExtIntl := TRUE
+);
+
+GVL_TransportTubes.fbBO10(
+	i_stConfig := GVL_TransportTubes.stBO10,
+	i_bLaserExtIntl := TRUE
+);
+
+GVL_TransportTubes.fbBO12(
+	i_stConfig := GVL_TransportTubes.stBO12,
+	i_bLaserExtIntl := TRUE
+);
+
+GVL_TransportTubes.fbBO13(
+	i_stConfig := GVL_TransportTubes.stBO13,
+	i_bLaserExtIntl := TRUE
+);
+
+GVL_TransportTubes.fbBO14(
+	i_stConfig := GVL_TransportTubes.stBO14,
 	i_bLaserExtIntl := TRUE
 );
 ]]></ST>
@@ -28,10 +73,28 @@ GVL_TransportTubes.fbBO4(
       <LineId Id="395" Count="0" />
       <LineId Id="394" Count="0" />
       <LineId Id="396" Count="2" />
+      <LineId Id="447" Count="3" />
+      <LineId Id="446" Count="0" />
+      <LineId Id="452" Count="3" />
+      <LineId Id="451" Count="0" />
       <LineId Id="402" Count="0" />
       <LineId Id="401" Count="0" />
       <LineId Id="403" Count="2" />
+      <LineId Id="458" Count="3" />
+      <LineId Id="457" Count="0" />
+      <LineId Id="462" Count="3" />
       <LineId Id="442" Count="0" />
+      <LineId Id="467" Count="3" />
+      <LineId Id="466" Count="0" />
+      <LineId Id="472" Count="3" />
+      <LineId Id="471" Count="0" />
+      <LineId Id="477" Count="3" />
+      <LineId Id="476" Count="0" />
+      <LineId Id="482" Count="3" />
+      <LineId Id="481" Count="0" />
+      <LineId Id="487" Count="3" />
+      <LineId Id="486" Count="0" />
+      <LineId Id="491" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
