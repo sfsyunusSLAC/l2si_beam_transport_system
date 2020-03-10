@@ -138,48 +138,48 @@ VAR_GLOBAL CONSTANT
 END_VAR
 VAR_GLOBAL
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI1
+		pv: LT1LHN:BI1
 	'}
 	fbBI1 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI5
+		pv: LT5LHN:BI5
 	'}
 	fbBI5 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BI18
+		pv: LT8LHN:BI8
 	'}
 	fbBI8 : FB_TransportTube;
 
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO4
+		pv: LT12LHN:BO4
 	'}
 	fbBO4 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO5
+		pv: LT13LHN:BO5
 	'}
 	fbBO5 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO6
+		pv: LT14LHN:BO6
 	'}
 	fbBO6 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO9
+		pv: LT17LHN:BO9
 	'}
 	fbBO9 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO10
+		pv: LT18LHN:BO10
 	'}
 	fbBO10 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO12
+		pv: LT20LHN:BO12
 	'}
 	fbBO12 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO13
+		pv: LT21LHN:BO13
 	'}
 	fbBO13 : FB_TransportTube;
 	{attribute 'pytmc' := '
-		pv: PLC_LAS_BTS_VAC:TRANSPORT_TUBE:BO14
+		pv: LT22LHN:BO14
 	'}
 	fbBO14 : FB_TransportTube;
 END_VAR]]></Declaration>
