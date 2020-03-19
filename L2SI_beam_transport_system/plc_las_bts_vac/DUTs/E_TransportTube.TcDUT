@@ -4,17 +4,16 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 TYPE E_TransportTube :
 (
-	BI1 := 0,
-	BI5 := 1,
-	BI8 := 2,
-	BO4 := 3,
-	BO5 := 4,
-	BO6 := 5,
-	BO9 := 6,
-	BO10 := 7,
-	BO12 := 8,
-	BO13 := 9,
-	BO14 := 10
+	LS1 := 0,
+	LS5 := 1,
+	LS8 := 2,
+	LD2 := 3,
+	LD4 := 4,
+	LD6 := 5,
+	LD8 := 6,
+	LD9 := 7,
+	LD10 := 8,
+	LD14 := 9
 ) UINT;
 END_TYPE
 ]]></Declaration>

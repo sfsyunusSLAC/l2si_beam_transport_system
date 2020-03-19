@@ -68,159 +68,145 @@ GVL_BTS_VAC.fb_PP_PIP(i_stGauge := GVL_BTS_VAC.fb_DP_GCC.IG);
 
 
 (* Update Transport Tubes *)
-// BI1
-GVL_BTS_VAC.fb_BI1_GPI();
-GVL_BTS_VAC.fb_BI1_GCC(PG := GVL_BTS_VAC.fb_BI1_GPI.PG);
-GVL_BTS_VAC.fb_BI1_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BI1_GCC.IG, 
+// LS1
+GVL_BTS_VAC.fb_LS1_GPI();
+GVL_BTS_VAC.fb_LS1_GCC(PG := GVL_BTS_VAC.fb_LS1_GPI.PG);
+GVL_BTS_VAC.fb_LS1_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LS1_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BI1_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LS1_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BI1_PIP(i_stGauge := GVL_BTS_VAC.fb_BI1_GCC.IG);
+GVL_BTS_VAC.fb_LS1_PIP(i_stGauge := GVL_BTS_VAC.fb_LS1_GCC.IG);
 
-// BI5
-GVL_BTS_VAC.fb_BI5_GPI();
-GVL_BTS_VAC.fb_BI5_GCC(PG := GVL_BTS_VAC.fb_BI5_GPI.PG);
-GVL_BTS_VAC.fb_BI5_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BI5_GCC.IG, 
+// LS5
+GVL_BTS_VAC.fb_LS5_GPI();
+GVL_BTS_VAC.fb_LS5_GCC(PG := GVL_BTS_VAC.fb_LS5_GPI.PG);
+GVL_BTS_VAC.fb_LS5_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LS5_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BI5_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LS5_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BI5_PIP(i_stGauge := GVL_BTS_VAC.fb_BI5_GCC.IG);
+GVL_BTS_VAC.fb_LS5_PIP(i_stGauge := GVL_BTS_VAC.fb_LS5_GCC.IG);
 
-// BI8
-GVL_BTS_VAC.fb_BI8_GPI();
-GVL_BTS_VAC.fb_BI8_GCC(PG := GVL_BTS_VAC.fb_BI8_GPI.PG);
-GVL_BTS_VAC.fb_BI8_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BI8_GCC.IG, 
+// LS8
+GVL_BTS_VAC.fb_LS8_GPI();
+GVL_BTS_VAC.fb_LS8_GCC(PG := GVL_BTS_VAC.fb_LS8_GPI.PG);
+GVL_BTS_VAC.fb_LS8_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LS8_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BI8_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LS8_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BI8_PIP(i_stGauge := GVL_BTS_VAC.fb_BI8_GCC.IG);
+GVL_BTS_VAC.fb_LS8_PIP(i_stGauge := GVL_BTS_VAC.fb_LS8_GCC.IG);
 
-// BO4
-GVL_BTS_VAC.fb_BO4_GPI();
-GVL_BTS_VAC.fb_BO4_GCC(PG := GVL_BTS_VAC.fb_BO4_GPI.PG);
-GVL_BTS_VAC.fb_BO4_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO4_GCC.IG, 
+// LD2
+GVL_BTS_VAC.fb_LD2_GPI();
+GVL_BTS_VAC.fb_LD2_GCC(PG := GVL_BTS_VAC.fb_LD2_GPI.PG);
+GVL_BTS_VAC.fb_LD2_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LD2_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO4_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LD2_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BO4_PIP(i_stGauge := GVL_BTS_VAC.fb_BO4_GCC.IG);
+GVL_BTS_VAC.fb_LD2_PIP(i_stGauge := GVL_BTS_VAC.fb_LD2_GCC.IG);
 
-// BO5
-GVL_BTS_VAC.fb_BO5_GPI();
-GVL_BTS_VAC.fb_BO5_GCC(PG := GVL_BTS_VAC.fb_BO5_GPI.PG);
-GVL_BTS_VAC.fb_BO5_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO5_GCC.IG, 
+// LD4
+GVL_BTS_VAC.fb_LD4_GPI();
+GVL_BTS_VAC.fb_LD4_GCC(PG := GVL_BTS_VAC.fb_LD4_GPI.PG);
+GVL_BTS_VAC.fb_LD4_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LD4_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO5_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LD4_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BO5_PIP(i_stGauge := GVL_BTS_VAC.fb_BO5_GCC.IG);
+GVL_BTS_VAC.fb_LD4_PIP(i_stGauge := GVL_BTS_VAC.fb_LD4_GCC.IG);
 
-// BO6
-GVL_BTS_VAC.fb_BO6_GPI();
-GVL_BTS_VAC.fb_BO6_GCC(PG := GVL_BTS_VAC.fb_BO6_GPI.PG);
-GVL_BTS_VAC.fb_BO6_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO6_GCC.IG, 
+// LD6
+GVL_BTS_VAC.fb_LD6_GPI();
+GVL_BTS_VAC.fb_LD6_GCC(PG := GVL_BTS_VAC.fb_LD6_GPI.PG);
+GVL_BTS_VAC.fb_LD6_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LD6_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO6_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LD6_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BO6_PIP(i_stGauge := GVL_BTS_VAC.fb_BO6_GCC.IG);
+GVL_BTS_VAC.fb_LD6_PIP(i_stGauge := GVL_BTS_VAC.fb_LD6_GCC.IG);
 
-// BO9
-GVL_BTS_VAC.fb_BO9_GPI();
-GVL_BTS_VAC.fb_BO9_GCC(PG := GVL_BTS_VAC.fb_BO9_GPI.PG);
-GVL_BTS_VAC.fb_BO9_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO9_GCC.IG, 
+// LD14
+GVL_BTS_VAC.fb_LD14_GPI();
+GVL_BTS_VAC.fb_LD14_GCC(PG := GVL_BTS_VAC.fb_LD14_GPI.PG);
+GVL_BTS_VAC.fb_LD14_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LD14_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO9_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LD14_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BO9_PIP(i_stGauge := GVL_BTS_VAC.fb_BO9_GCC.IG);
+GVL_BTS_VAC.fb_LD14_PIP(i_stGauge := GVL_BTS_VAC.fb_LD14_GCC.IG);
 
-// BO10
-GVL_BTS_VAC.fb_BO10_GPI();
-GVL_BTS_VAC.fb_BO10_GCC(PG := GVL_BTS_VAC.fb_BO10_GPI.PG);
-GVL_BTS_VAC.fb_BO10_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO10_GCC.IG, 
+// LD10
+GVL_BTS_VAC.fb_LD10_GPI();
+GVL_BTS_VAC.fb_LD10_GCC(PG := GVL_BTS_VAC.fb_LD10_GPI.PG);
+GVL_BTS_VAC.fb_LD10_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LD10_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO10_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LD10_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BO10_PIP(i_stGauge := GVL_BTS_VAC.fb_BO10_GCC.IG);
+GVL_BTS_VAC.fb_LD10_PIP(i_stGauge := GVL_BTS_VAC.fb_LD10_GCC.IG);
 
-// BO12
-GVL_BTS_VAC.fb_BO12_GPI();
-GVL_BTS_VAC.fb_BO12_GCC(PG := GVL_BTS_VAC.fb_BO12_GPI.PG);
-GVL_BTS_VAC.fb_BO12_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO12_GCC.IG, 
+// LD9
+GVL_BTS_VAC.fb_LD9_GPI();
+GVL_BTS_VAC.fb_LD9_GCC(PG := GVL_BTS_VAC.fb_LD9_GPI.PG);
+GVL_BTS_VAC.fb_LD9_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LD9_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO12_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LD9_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BO12_PIP(i_stGauge := GVL_BTS_VAC.fb_BO12_GCC.IG);
+GVL_BTS_VAC.fb_LD9_PIP(i_stGauge := GVL_BTS_VAC.fb_LD9_GCC.IG);
 
-// BO13
-GVL_BTS_VAC.fb_BO13_GPI();
-GVL_BTS_VAC.fb_BO13_GCC(PG := GVL_BTS_VAC.fb_BO13_GPI.PG);
-GVL_BTS_VAC.fb_BO13_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO13_GCC.IG, 
+// LD8
+GVL_BTS_VAC.fb_LD8_GPI();
+GVL_BTS_VAC.fb_LD8_GCC(PG := GVL_BTS_VAC.fb_LD8_GPI.PG);
+GVL_BTS_VAC.fb_LD8_VGC(
+	i_stUSG := GVL_BTS_VAC.fb_LD8_GCC.IG, 
 	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
 	i_xDis_DPIlk := FALSE,
 	i_xEPS_OK := TRUE,
 	i_xPMPS_OK := TRUE,
 	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO13_VGC_FFOut
+	io_fbFFHWO := GVL_BTS_VAC.fb_LD8_VGC_FFOut
 );
-GVL_BTS_VAC.fb_BO13_PIP(i_stGauge := GVL_BTS_VAC.fb_BO13_GCC.IG);
-
-// BO14
-GVL_BTS_VAC.fb_BO14_GPI();
-GVL_BTS_VAC.fb_BO14_GCC(PG := GVL_BTS_VAC.fb_BO14_GPI.PG);
-GVL_BTS_VAC.fb_BO14_VGC(
-	i_stUSG := GVL_BTS_VAC.fb_BO14_GCC.IG, 
-	i_stDSG := GVL_BTS_VAC.fb_DP_GCC.IG,
-	i_xDis_DPIlk := FALSE,
-	i_xEPS_OK := TRUE,
-	i_xPMPS_OK := TRUE,
-	i_xExt_OK := TRUE,
-	io_fbFFHWO := GVL_BTS_VAC.fb_BO14_VGC_FFOut
-);
-GVL_BTS_VAC.fb_BO14_PIP(i_stGauge := GVL_BTS_VAC.fb_BO14_GCC.IG);
+GVL_BTS_VAC.fb_LD8_PIP(i_stGauge := GVL_BTS_VAC.fb_LD8_GCC.IG);
 ]]></ST>
     </Implementation>
     <LineIds Name="F_UpdateIO">
@@ -271,8 +257,6 @@ GVL_BTS_VAC.fb_BO14_PIP(i_stGauge := GVL_BTS_VAC.fb_BO14_GCC.IG);
       <LineId Id="243" Count="0" />
       <LineId Id="258" Count="12" />
       <LineId Id="257" Count="0" />
-      <LineId Id="272" Count="12" />
-      <LineId Id="271" Count="0" />
       <LineId Id="285" Count="0" />
     </LineIds>
   </POU>

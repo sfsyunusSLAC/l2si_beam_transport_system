@@ -10,58 +10,53 @@ END_VAR
 F_UpdateIO();
 
 (* Update transport tubes *)
-GVL_TransportTubes.fbBI1(
-	i_stConfig := GVL_TransportTubes.stBI1, 
+GVL_TransportTubes.fbLS1(
+	i_stConfig := GVL_TransportTubes.stLS1, 
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBI5(
-	i_stConfig := GVL_TransportTubes.stBI5, 
+GVL_TransportTubes.fbLS5(
+	i_stConfig := GVL_TransportTubes.stLS5, 
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBI8(
-	i_stConfig := GVL_TransportTubes.stBI8, 
+GVL_TransportTubes.fbLS8(
+	i_stConfig := GVL_TransportTubes.stLS8, 
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBO4(
-	i_stConfig := GVL_TransportTubes.stBO4,
+GVL_TransportTubes.fbLD2(
+	i_stConfig := GVL_TransportTubes.stLD2,
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBO5(
-	i_stConfig := GVL_TransportTubes.stBO5,
+GVL_TransportTubes.fbLD4(
+	i_stConfig := GVL_TransportTubes.stLD4,
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBO6(
-	i_stConfig := GVL_TransportTubes.stBO6,
+GVL_TransportTubes.fbLD6(
+	i_stConfig := GVL_TransportTubes.stLD6,
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBO9(
-	i_stConfig := GVL_TransportTubes.stBO9,
+GVL_TransportTubes.fbLD14(
+	i_stConfig := GVL_TransportTubes.stLD14,
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBO10(
-	i_stConfig := GVL_TransportTubes.stBO10,
+GVL_TransportTubes.fbLD10(
+	i_stConfig := GVL_TransportTubes.stLD10,
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBO12(
-	i_stConfig := GVL_TransportTubes.stBO12,
+GVL_TransportTubes.fbLD9(
+	i_stConfig := GVL_TransportTubes.stLD9,
 	i_bLaserExtIntl := TRUE
 );
 
-GVL_TransportTubes.fbBO13(
-	i_stConfig := GVL_TransportTubes.stBO13,
-	i_bLaserExtIntl := TRUE
-);
-
-GVL_TransportTubes.fbBO14(
-	i_stConfig := GVL_TransportTubes.stBO14,
+GVL_TransportTubes.fbLD8(
+	i_stConfig := GVL_TransportTubes.stLD8,
 	i_bLaserExtIntl := TRUE
 );
 ]]></ST>
@@ -92,8 +87,6 @@ GVL_TransportTubes.fbBO14(
       <LineId Id="476" Count="0" />
       <LineId Id="482" Count="3" />
       <LineId Id="481" Count="0" />
-      <LineId Id="487" Count="3" />
-      <LineId Id="486" Count="0" />
       <LineId Id="491" Count="0" />
     </LineIds>
   </POU>

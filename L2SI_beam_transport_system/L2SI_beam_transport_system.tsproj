@@ -97,15 +97,6 @@
 							<Type GUID="{18071995-0000-0000-0000-000000000041}">AMSNETID</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_VGC.i_xOpnLS</Name>
-							<Comment><![CDATA[IO]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_VGC.i_xClsLS</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VGC.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
@@ -139,15 +130,6 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_3.i_xClsLS</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_VGC.i_xOpnLS</Name>
-							<Comment><![CDATA[IO]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_VGC.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -186,29 +168,11 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_PIP.i_iPRESS</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_PIP.i_xSP_DI</Name>
-							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PIP.i_iPRESS</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PIP.i_xSP_DI</Name>
-							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_PIP.i_iPRESS</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_PIP.i_xSP_DI</Name>
 							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -228,16 +192,6 @@
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_GCC.i_iPRESS_R</Name>
 							<Comment><![CDATA[ Controls and I/Os]]></Comment>
 							<Type>INT</Type>
@@ -249,36 +203,6 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_GCC.i_xDisc_Active</Name>
 							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -298,358 +222,388 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_PIP.i_iPRESS</Name>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_PIP.i_xSP_DI</Name>
-							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_GCC.i_iPRESS_R</Name>
-							<Comment><![CDATA[ Controls and I/Os]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_GCC.i_xHV_ON</Name>
-							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_GCC.i_xDisc_Active</Name>
-							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_GPI.i_iPRESS_R</Name>
-							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
-							<Type>INT</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_VGC.i_xOpnLS</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_VGC.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_VGC.i_xClsLS</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_VGC.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_VGC.i_xOpnLS</Name>
-							<Comment><![CDATA[IO]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_VGC.i_xClsLS</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_PIP.i_iPRESS</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_PIP.i_iPRESS</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_PIP.i_xSP_DI</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_PIP.i_xSP_DI</Name>
 							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_PIP.i_iPRESS</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_PIP.i_xSP_DI</Name>
-							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_GCC.i_iPRESS_R</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_GCC.i_iPRESS_R</Name>
 							<Comment><![CDATA[ Controls and I/Os]]></Comment>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_GCC.i_xHV_ON</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_GCC.i_xHV_ON</Name>
 							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_GCC.i_xDisc_Active</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_GCC.i_xDisc_Active</Name>
 							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_VGC.i_xOpnLS</Name>
+							<Name>GVL_BTS_VAC.fb_LS5_VGC.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_VGC.i_xClsLS</Name>
+							<Name>GVL_BTS_VAC.fb_LS5_VGC.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_VGC.i_xOpnLS</Name>
-							<Comment><![CDATA[IO]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_VGC.i_xClsLS</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_PIP.i_iPRESS</Name>
+							<Name>GVL_BTS_VAC.fb_LS5_PIP.i_iPRESS</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_PIP.i_xSP_DI</Name>
+							<Name>GVL_BTS_VAC.fb_LS5_PIP.i_xSP_DI</Name>
 							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_VGC.i_xOpnLS</Name>
+							<Name>GVL_BTS_VAC.fb_LS5_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS5_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS5_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS5_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS8_VGC.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_VGC.i_xClsLS</Name>
+							<Name>GVL_BTS_VAC.fb_LS8_VGC.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_PIP.i_iPRESS</Name>
+							<Name>GVL_BTS_VAC.fb_LS8_PIP.i_iPRESS</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_PIP.i_xSP_DI</Name>
+							<Name>GVL_BTS_VAC.fb_LS8_PIP.i_xSP_DI</Name>
 							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_VGC.i_xOpnLS</Name>
+							<Name>GVL_BTS_VAC.fb_LS8_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS8_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS8_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS8_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD2_VGC.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_VGC.i_xClsLS</Name>
+							<Name>GVL_BTS_VAC.fb_LD2_VGC.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_PIP.i_iPRESS</Name>
+							<Name>GVL_BTS_VAC.fb_LD2_PIP.i_iPRESS</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_PIP.i_xSP_DI</Name>
+							<Name>GVL_BTS_VAC.fb_LD2_PIP.i_xSP_DI</Name>
 							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_VGC.i_xOpnLS</Name>
+							<Name>GVL_BTS_VAC.fb_LD2_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD2_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD2_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD2_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD4_VGC.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_VGC.i_xClsLS</Name>
+							<Name>GVL_BTS_VAC.fb_LD4_VGC.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_PIP.i_iPRESS</Name>
+							<Name>GVL_BTS_VAC.fb_LD4_PIP.i_iPRESS</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_PIP.i_xSP_DI</Name>
+							<Name>GVL_BTS_VAC.fb_LD4_PIP.i_xSP_DI</Name>
 							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_VGC.i_xOpnLS</Name>
+							<Name>GVL_BTS_VAC.fb_LD4_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD4_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD4_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD4_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD6_VGC.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_VGC.i_xClsLS</Name>
+							<Name>GVL_BTS_VAC.fb_LD6_VGC.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_PIP.i_iPRESS</Name>
+							<Name>GVL_BTS_VAC.fb_LD6_PIP.i_iPRESS</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_PIP.i_xSP_DI</Name>
+							<Name>GVL_BTS_VAC.fb_LD6_PIP.i_xSP_DI</Name>
 							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_VGC.i_xOpnLS</Name>
+							<Name>GVL_BTS_VAC.fb_LD6_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD6_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD6_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD6_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD14_VGC.i_xOpnLS</Name>
 							<Comment><![CDATA[IO]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_VGC.i_xClsLS</Name>
+							<Name>GVL_BTS_VAC.fb_LD14_VGC.i_xClsLS</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_PIP.i_iPRESS</Name>
+							<Name>GVL_BTS_VAC.fb_LD14_PIP.i_iPRESS</Name>
 							<Type>INT</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_PIP.i_xSP_DI</Name>
+							<Name>GVL_BTS_VAC.fb_LD14_PIP.i_xSP_DI</Name>
 							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD14_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD14_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD14_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD14_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_VGC.i_xOpnLS</Name>
+							<Comment><![CDATA[IO]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_VGC.i_xClsLS</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_PIP.i_iPRESS</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_PIP.i_xSP_DI</Name>
+							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_VGC.i_xOpnLS</Name>
+							<Comment><![CDATA[IO]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_VGC.i_xClsLS</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_PIP.i_iPRESS</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_PIP.i_xSP_DI</Name>
+							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_VGC.i_xOpnLS</Name>
+							<Comment><![CDATA[IO]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_VGC.i_xClsLS</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_PIP.i_iPRESS</Name>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_PIP.i_xSP_DI</Name>
+							<Comment><![CDATA[ NO contact // 'TcLinkTo' (EL1004) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_GPI.i_iPRESS_R</Name>
+							<Comment><![CDATA[ input Pressure // Link to analog Input]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_GCC.i_iPRESS_R</Name>
+							<Comment><![CDATA[ Controls and I/Os]]></Comment>
+							<Type>INT</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_GCC.i_xHV_ON</Name>
+							<Comment><![CDATA[  True when High Voltage is on  // 'TcLinkTo' (EL1124) ^Input]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_GCC.i_xDisc_Active</Name>
+							<Comment><![CDATA[ Discharge Current Active // 'TcLinkTo' (EL1124) ^Input]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
 					<Vars VarGrpType="2">
 						<Name>PlcTask Outputs</Name>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_VGC_FFOut.q_xFastFaultOut</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_VGC.q_xOPN_DO</Name>
-							<Type>BOOL</Type>
-						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VGC_FFOut.q_xFastFaultOut</Name>
 							<Type>BOOL</Type>
@@ -673,14 +627,6 @@
 						</Var>
 						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_VRC_3.q_xOPN_DO</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_VGC_FFOut.q_xFastFaultOut</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_VGC.q_xOPN_DO</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
@@ -721,17 +667,7 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_PIP.q_xHVEna_DO</Name>
-							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_BTS_VAC.fb_PP_PIP.q_xHVEna_DO</Name>
-							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_PIP.q_xHVEna_DO</Name>
 							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
@@ -741,180 +677,188 @@
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO4_GCC.q_xHV_DIS</Name>
-							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI1_GCC.q_xHV_DIS</Name>
-							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
 							<Name>GVL_BTS_VAC.fb_DP_GCC.q_xHV_DIS</Name>
 							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_GCC.q_xHV_DIS</Name>
-							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
+							<Name>GVL_BTS_VAC.fb_LS1_VGC_FFOut.q_xFastFaultOut</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_GCC.q_xHV_DIS</Name>
-							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
+							<Name>GVL_BTS_VAC.fb_LS1_VGC.q_xOPN_DO</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_GCC.q_xHV_DIS</Name>
-							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_GCC.q_xHV_DIS</Name>
-							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_PIP.q_xHVEna_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_PIP.q_xHVEna_DO</Name>
 							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_GCC.q_xHV_DIS</Name>
+							<Name>GVL_BTS_VAC.fb_LS1_GCC.q_xHV_DIS</Name>
 							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_GCC.q_xHV_DIS</Name>
+							<Name>GVL_BTS_VAC.fb_LS5_VGC_FFOut.q_xFastFaultOut</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS5_VGC.q_xOPN_DO</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS5_PIP.q_xHVEna_DO</Name>
+							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS5_GCC.q_xHV_DIS</Name>
 							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_GCC.q_xHV_DIS</Name>
+							<Name>GVL_BTS_VAC.fb_LS8_VGC_FFOut.q_xFastFaultOut</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS8_VGC.q_xOPN_DO</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS8_PIP.q_xHVEna_DO</Name>
+							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LS8_GCC.q_xHV_DIS</Name>
 							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_GCC.q_xHV_DIS</Name>
+							<Name>GVL_BTS_VAC.fb_LD2_VGC_FFOut.q_xFastFaultOut</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD2_VGC.q_xOPN_DO</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD2_PIP.q_xHVEna_DO</Name>
+							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD2_GCC.q_xHV_DIS</Name>
 							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_VGC.q_xOPN_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD4_VGC_FFOut.q_xFastFaultOut</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_VGC.q_xOPN_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD4_VGC.q_xOPN_DO</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_PIP.q_xHVEna_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD4_PIP.q_xHVEna_DO</Name>
 							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_PIP.q_xHVEna_DO</Name>
-							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_GCC.q_xHV_DIS</Name>
+							<Name>GVL_BTS_VAC.fb_LD4_GCC.q_xHV_DIS</Name>
 							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI5_VGC_FFOut.q_xFastFaultOut</Name>
+							<Name>GVL_BTS_VAC.fb_LD6_VGC_FFOut.q_xFastFaultOut</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BI8_VGC_FFOut.q_xFastFaultOut</Name>
+							<Name>GVL_BTS_VAC.fb_LD6_VGC.q_xOPN_DO</Name>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_VGC.q_xOPN_DO</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_VGC.q_xOPN_DO</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_PIP.q_xHVEna_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD6_PIP.q_xHVEna_DO</Name>
 							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_VGC.q_xOPN_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD6_GCC.q_xHV_DIS</Name>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_PIP.q_xHVEna_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD14_VGC_FFOut.q_xFastFaultOut</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD14_VGC.q_xOPN_DO</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD14_PIP.q_xHVEna_DO</Name>
 							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_VGC.q_xOPN_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD14_GCC.q_xHV_DIS</Name>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_PIP.q_xHVEna_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD10_VGC_FFOut.q_xFastFaultOut</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_VGC.q_xOPN_DO</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD10_PIP.q_xHVEna_DO</Name>
 							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_VGC.q_xOPN_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD10_GCC.q_xHV_DIS</Name>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_PIP.q_xHVEna_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD9_VGC_FFOut.q_xFastFaultOut</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_VGC.q_xOPN_DO</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD9_PIP.q_xHVEna_DO</Name>
 							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_VGC.q_xOPN_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD9_GCC.q_xHV_DIS</Name>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_PIP.q_xHVEna_DO</Name>
+							<Name>GVL_BTS_VAC.fb_LD8_VGC_FFOut.q_xFastFaultOut</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_VGC.q_xOPN_DO</Name>
+							<Type>BOOL</Type>
+						</Var>
+						<Var>
+							<Name>GVL_BTS_VAC.fb_LD8_PIP.q_xHVEna_DO</Name>
 							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_VGC.q_xOPN_DO</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_PIP.q_xHVEna_DO</Name>
-							<Comment><![CDATA[ Enable High Voltage when TRUE]]></Comment>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO5_VGC_FFOut.q_xFastFaultOut</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO6_VGC_FFOut.q_xFastFaultOut</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO9_VGC_FFOut.q_xFastFaultOut</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO10_VGC_FFOut.q_xFastFaultOut</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO12_VGC_FFOut.q_xFastFaultOut</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO13_VGC_FFOut.q_xFastFaultOut</Name>
-							<Type>BOOL</Type>
-						</Var>
-						<Var>
-							<Name>GVL_BTS_VAC.fb_BO14_VGC_FFOut.q_xFastFaultOut</Name>
+							<Name>GVL_BTS_VAC.fb_LD8_GCC.q_xHV_DIS</Name>
+							<Comment><![CDATA[ Enable High Voltage when True // 'TcLinkTo' (EL2624) ^Output]]></Comment>
 							<Type>BOOL</Type>
 						</Var>
 					</Vars>
@@ -2872,43 +2816,42 @@ Bit1: Value smaller than Limit2]]></Comment>
 	<Mappings>
 		<OwnerA Name="TIPC^plc_las_bts_vac^plc_las_bts_vac Instance">
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1100_01_00^=+-EL1124_01_28">
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_GCC.i_xDisc_Active" VarB="Channel 4^fb_BI1_GCC.i_xDisc_Active"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_GCC.i_xHV_ON" VarB="Channel 3^fb_BI1_GCC.i_xHV_ON"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LS1_GCC.i_xDisc_Active" VarB="Channel 4^fb_BI1_GCC.i_xDisc_Active"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LS1_GCC.i_xHV_ON" VarB="Channel 3^fb_BI1_GCC.i_xHV_ON"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_GCC.i_xDisc_Active" VarB="Channel 2^fb_PP_GCC.i_xDisc_Active"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_GCC.i_xHV_ON" VarB="Channel 1^fb_PP_GCC.i_xHV_ON"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1100_01_00^=+-EL1124_01_29">
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BO4_GCC.i_xDisc_Active" VarB="Channel 2^fb_BO4_GCC.i_xDisc_Active"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BO4_GCC.i_xHV_ON" VarB="Channel 1^fb_BO4_GCC.i_xHV_ON"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_DP_GCC.i_xDisc_Active" VarB="Channel 4^fb_DP_GCC.i_xDisc_Active"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_DP_GCC.i_xHV_ON" VarB="Channel 3^fb_DP_GCC.i_xHV_ON"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LD2_GCC.i_xDisc_Active" VarB="Channel 2^fb_BO4_GCC.i_xDisc_Active"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LD2_GCC.i_xHV_ON" VarB="Channel 1^fb_BO4_GCC.i_xHV_ON"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1100_01_00^=+-EL2624_01_26">
-				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_BI1_GCC.q_xHV_DIS" VarB="Channel 3^fb_BI1_GCC.q_xHV_DIS"/>
-				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_BO4_GCC.q_xHV_DIS" VarB="Channel 1^fb_BO4_GCC.q_xHV_DIS"/>
 				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_DP_GCC.q_xHV_DIS" VarB="Channel 4^fb_DP_GCC.q_xHV_DIS"/>
+				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_LD2_GCC.q_xHV_DIS" VarB="Channel 1^fb_BO4_GCC.q_xHV_DIS"/>
+				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_LS1_GCC.q_xHV_DIS" VarB="Channel 3^fb_BI1_GCC.q_xHV_DIS"/>
 				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_PP_GCC.q_xHV_DIS" VarB="Channel 2^fb_PP_GCC.q_xHV_DIS"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1100_01_00^=+-EL3174_01_18">
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_GPI.i_iPRESS_R" VarB="AI Standard Channel 3^fb_BI1_GPI.i_iPRESS_R"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BO4_GPI.i_iPRESS_R" VarB="AI Standard Channel 1^fb_BO4_GPI.i_iPRESS_R"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_DP_GPI.i_iPRESS_R" VarB="AI Standard Channel 4^fb_DP_GPI.i_iPRESS_R"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LS1_GPI.i_iPRESS_R" VarB="AI Standard Channel 3^fb_BI1_GPI.i_iPRESS_R"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_GPI_1.i_iPRESS_R" VarB="AI Standard Channel 2^fb_PP_GPI_1.i_iPRESS_R"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1100_01_00^=+-EL3174_01_19">
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_GPI_2.i_iPRESS_R" VarB="AI Standard Channel 1^fb_PP_GPI_2.i_iPRESS_R"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1100_01_00^=+-EL3174_01_23">
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_GCC.i_iPRESS_R" VarB="AI Standard Channel 3^fb_BI1_GCC.i_iPRESS_R"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BO4_GCC.i_iPRESS_R" VarB="AI Standard Channel 1^fb_BO4_GCC.i_iPRESS_R"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_DP_GCC.i_iPRESS_R" VarB="AI Standard Channel 4^fb_DP_GCC.i_iPRESS_R"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LD2_GCC.i_iPRESS_R" VarB="AI Standard Channel 1^fb_BO4_GCC.i_iPRESS_R"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LS1_GCC.i_iPRESS_R" VarB="AI Standard Channel 3^fb_BI1_GCC.i_iPRESS_R"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_GCC.i_iPRESS_R" VarB="AI Standard Channel 2^fb_PP_GCC.i_iPRESS_R"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1200_00_00^=+-EL1004_00_04">
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_VGC.i_xClsLS" VarB="Channel 1^fb_BI1_VGC.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_VGC.i_xOpnLS" VarB="Channel 2^fb_BI1_VGC.i_xOpnLS"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BO4_VGC.i_xClsLS" VarB="Channel 3^fb_BO4_VGC.i_xClsLS"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BO4_VGC.i_xOpnLS" VarB="Channel 4^fb_BO4_VGC.i_xOpnLS"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LD2_VGC.i_xClsLS" VarB="Channel 3^fb_BO4_VGC.i_xClsLS"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LD2_VGC.i_xOpnLS" VarB="Channel 4^fb_BO4_VGC.i_xOpnLS"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LS1_VGC.i_xClsLS" VarB="Channel 1^fb_BI1_VGC.i_xClsLS"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LS1_VGC.i_xOpnLS" VarB="Channel 2^fb_BI1_VGC.i_xOpnLS"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1200_00_00^=+-EL1004_00_05">
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_VGC.i_xClsLS" VarB="Channel 3^fb_PP_VGC.i_xClsLS"/>
@@ -2934,8 +2877,8 @@ Bit1: Value smaller than Limit2]]></Comment>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_PTM.i_xRemote" VarB="Channel 2^fb_PP_PTM.i_xRemote"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1200_00_00^=+-EL2004_00_06">
-				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_BI1_VGC.q_xOPN_DO" VarB="Channel 1^fb_BI1_VGC.q_xOPN_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_BO4_VGC.q_xOPN_DO" VarB="Channel 3^fb_BO4_VGC.q_xOPN_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_LD2_VGC.q_xOPN_DO" VarB="Channel 3^fb_BO4_VGC.q_xOPN_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_LS1_VGC.q_xOPN_DO" VarB="Channel 1^fb_BI1_VGC.q_xOPN_DO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1200_00_00^=+-EL2004_00_08">
 				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_PP_VGC.q_xOPN_DO" VarB="Channel 2^fb_PP_VGC.q_xOPN_DO"/>
@@ -2954,8 +2897,8 @@ Bit1: Value smaller than Limit2]]></Comment>
 				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_PP_PTM.q_xRemote" VarB="Channel 2^fb_PP_PTM.q_xRemote"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1200_00_00^=+-EL2794_00_01">
-				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_BI1_PIP.q_xHVEna_DO" VarB="Channel 2^fb_BI1_PIP.q_xHVEna_DO"/>
-				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_BO4_PIP.q_xHVEna_DO" VarB="Channel 1^fb_BO4_PIP.q_xHVEna_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_LD2_PIP.q_xHVEna_DO" VarB="Channel 1^fb_BO4_PIP.q_xHVEna_DO"/>
+				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_LS1_PIP.q_xHVEna_DO" VarB="Channel 2^fb_BI1_PIP.q_xHVEna_DO"/>
 				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_PP_PIP.q_xHVEna_DO" VarB="Channel 3^fb_PP_PIP.q_xHVEna_DO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1200_00_00^=+-EL2794_00_11">
@@ -2964,13 +2907,13 @@ Bit1: Value smaller than Limit2]]></Comment>
 				<Link VarA="PlcTask Outputs^GVL_BTS_VAC.fb_PP_PMF.q_xRunDO" VarB="Channel 1^fb_PP_PMF.q_xRunDO"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1200_00_00^=+-ES1004_00_02">
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_PIP.i_xSP_DI" VarB="Channel 2^fb_BI1_PIP.i_xSP_DI"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BO4_PIP.i_xSP_DI" VarB="Channel 1^fb_BO4_PIP.i_xSP_DI"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LD2_PIP.i_xSP_DI" VarB="Channel 1^fb_BO4_PIP.i_xSP_DI"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LS1_PIP.i_xSP_DI" VarB="Channel 2^fb_BI1_PIP.i_xSP_DI"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_PIP.i_xSP_DI" VarB="Channel 3^fb_PP_PIP.i_xSP_DI"/>
 			</OwnerB>
 			<OwnerB Name="TIID^=+-EK1200_00_00-CPU/EtherCAT1^=+-EK1200_00_00^=+-ES3064_00_03">
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BI1_PIP.i_iPRESS" VarB="AI Standard Channel 2^fb_BI1_PIP.i_iPRESS"/>
-				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_BO4_PIP.i_iPRESS" VarB="AI Standard Channel 1^fb_BO4_PIP.i_iPRESS"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LD2_PIP.i_iPRESS" VarB="AI Standard Channel 1^fb_BO4_PIP.i_iPRESS"/>
+				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_LS1_PIP.i_iPRESS" VarB="AI Standard Channel 2^fb_BI1_PIP.i_iPRESS"/>
 				<Link VarA="PlcTask Inputs^GVL_BTS_VAC.fb_PP_PIP.i_iPRESS" VarB="AI Standard Channel 3^fb_PP_PIP.i_iPRESS"/>
 			</OwnerB>
 		</OwnerA>
