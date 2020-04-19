@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <DUT Name="E_OpStep" Id="{ec262c74-2984-43a5-9b67-138f9035ebaf}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 {attribute 'strict'}
@@ -60,7 +60,35 @@ TYPE E_OpStep :
 	
 	(* Vent Transport Tube *)
 	VOT_VENT,
-	VOT_FINISH
+	VOT_WAIT_PC,
+	VOT_FINISH,
+	
+	(* Open Transport Tube Gate Valve *)
+	OTT_OPEN_VALVE,
+	OTT_RUN_PSB,
+	OTT_RUN_PTT,
+	
+	(* Laser Transport Tube On *)
+	LTT_RUN_PSB,
+	LTT_RUN_PTT,
+	
+	(* Beam On - Switchbox Ion Pump Failure *)
+	BOIP_TURN_OFF_ION_PUMP,
+	BOIP_OPEN_SB_VALVE,
+	BOIP_HOLD,
+	BOIP_CLOSE_TRANSPORT_TUBE_VALVES,
+	BOIP_CLOSE_SB_VALVE,
+	BOIP_TURN_OFF_PUMPS,
+	BOIP_CLOSE_PP_VALVES,
+	BOIP_VENT_SB,
+	
+	(* Beam On - Switchbox Roughing Pump or Turbo Pump Failure *)
+	BOPL_TURN_ON_ION_PUMP,
+	BOPL_CLOSE_PP_VALVES,
+	BOPL_TURN_OFF_PP_PUMPS,
+	BOPL_HOLD,
+	BOPL_CLOSE_TRANSPORT_TUBE_VALVES,
+	BOPL_VENT_SB
 );
 END_TYPE
 ]]></Declaration>

@@ -1,17 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_PumpTransportTube" Id="{18af31ad-0ef4-4293-b083-bfbe97dbfcd2}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_PumpTransportTube EXTENDS FB_Operation
-VAR_INPUT
-	i_eTransportTube : E_TransportTube;
-END_VAR
-VAR_OUTPUT
-END_VAR
-VAR
-	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	stTTDevices : ST_TransportTubeDevices;
-END_VAR
-VAR CONSTANT
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PumpTransportTube EXTENDS FB_TTOperation
+VAR_STAT CONSTANT
 	(* Expected system states before operation starts*)		
 	stExpTTStatus : ST_TransportTubeStatuses := (
 		bIonPumpOn:= FALSE,
@@ -44,22 +35,24 @@ END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^();
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
-CASE nStep OF
+CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
 	
-	eTransportTube := i_eTransportTube;
-	stTTDevices := F_GetTransportTubeDevices(i_eTransportTube);
+	M_SetMessage('Verifying system status');
 	
 	IF F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
-		eTransportTube := eTransportTube,
+		eTransportTube := eTT,
 		stStatusOp := stTTOp, 
 		bEnforce := TRUE)
 	THEN // System status check 
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.POT_WAIT_PUMP_CART;
+		M_SetMessage('OPERATOR: Rough chamber w/ pump cart'); 
+		eStep := E_OpStep.POT_WAIT_PUMP_CART;
 	END_IF
 	
 E_OpStep.POT_WAIT_PUMP_CART:
@@ -69,49 +62,57 @@ E_OpStep.POT_WAIT_PUMP_CART:
 	*)
 	
 	// Check that pressure is low enough to turn on ion pump
-	IF stTTDevices.refPiraniGauge.PG.rPRESS <= ION_READY_PRESS
-	THEN
+	IF fbTT.q_stConfig.stDevices.refPiraniGauge.PG.rPRESS <= ION_READY_PRESS THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.POT_TURN_ON_PUMP;
+		M_SetMessage('Turning on ion pump');
+		eStep := E_OpStep.POT_TURN_ON_PUMP;
 	END_IF
 	
 E_OpStep.POT_TURN_ON_PUMP:
 	M_RunTimeoutTimer(ION_PUMP_TIMEOUT);
 	
-	stTTDevices.refIonPump.M_Run(TRUE);
+	fbTT.q_stConfig.stDevices.refIonPump.M_Run(TRUE);
 	// Check that desired pressure has been reached
-	IF stTTDevices.refColdCathode.IG.eState <> E_PressureState.Off
-	AND stTTDevices.refColdCathode.IG.rPRESS <= ION_FINISHED_PRESS
+	IF fbTT.q_stConfig.stDevices.refColdCathode.IG.eState <> E_PressureState.Off
+	AND fbTT.q_stConfig.stDevices.refColdCathode.IG.rPRESS <= ION_FINISHED_PRESS
 	THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.POT_FINISH;
+		eStep := E_OpStep.POT_FINISH;
 	END_IF
 	
 E_OpStep.POT_FINISH:
 	IF F_VerifyTransportTubeStatuses(stExpStatus := stFinExpTTStatus,
-		eTransportTube := eTransportTube,
+		eTransportTube := eTT,
 		stStatusOp := stFinTTOp, 
 		bEnforce := FALSE)
 	THEN
 		M_Finish();
 	ELSE
-		M_FatalError();
+		M_FatalError('End system status check failed');
 	END_IF
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_PumpTransportTube">
-      <LineId Id="171" Count="4" />
-      <LineId Id="193" Count="0" />
-      <LineId Id="251" Count="0" />
-      <LineId Id="195" Count="1" />
-      <LineId Id="176" Count="11" />
+      <LineId Id="171" Count="2" />
+      <LineId Id="420" Count="0" />
+      <LineId Id="419" Count="0" />
+      <LineId Id="174" Count="1" />
+      <LineId Id="386" Count="0" />
+      <LineId Id="295" Count="0" />
+      <LineId Id="196" Count="0" />
+      <LineId Id="176" Count="5" />
+      <LineId Id="296" Count="0" />
+      <LineId Id="182" Count="5" />
       <LineId Id="214" Count="0" />
       <LineId Id="213" Count="0" />
       <LineId Id="188" Count="0" />
       <LineId Id="211" Count="0" />
       <LineId Id="189" Count="0" />
-      <LineId Id="204" Count="0" />
       <LineId Id="218" Count="0" />
+      <LineId Id="297" Count="0" />
       <LineId Id="217" Count="0" />
       <LineId Id="199" Count="0" />
       <LineId Id="191" Count="0" />
@@ -131,6 +132,9 @@ END_CASE]]></ST>
       <LineId Id="252" Count="0" />
       <LineId Id="243" Count="5" />
       <LineId Id="238" Count="0" />
+      <LineId Id="339" Count="0" />
+      <LineId Id="341" Count="0" />
+      <LineId Id="340" Count="0" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

@@ -1,17 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_VentTransportTube" Id="{2346f218-1e95-4da4-9396-1840f40cbfe3}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_VentTransportTube EXTENDS FB_Operation
-VAR_INPUT
-	i_eTransportTube : E_TransportTube;
-END_VAR
-VAR_OUTPUT
-END_VAR
-VAR
-	eTransportTube : E_TransportTube; // Ensure transport tube doesn't get changed during operation by making a copy
-	stTTDevices : ST_TransportTubeDevices;
-END_VAR
-VAR CONSTANT
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_VentTransportTube EXTENDS FB_TTOperation
+VAR_STAT CONSTANT
 	(* Expected system states before operation starts*)		
 	stExpTTStatus : ST_TransportTubeStatuses := (
 		bIonPumpOn:= TRUE,
@@ -34,70 +25,73 @@ VAR CONSTANT
 	);
 	
 	(* Timeout constants *)
-	VENT_TIMEOUT : Time := T#15M;
+	WAIT_PUMPCART_TIMEOUT : TIME := T#20M;
+	VENT_TIMEOUT : TIME := T#20M;
 END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^();
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
-CASE nStep OF
+CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // Verify system status
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
-	
-	eTransportTube := i_eTransportTube;
-	stTTDevices := F_GetTransportTubeDevices(i_eTransportTube);
+	M_SetMessage('Verifying system status');
 	
 	IF F_VerifyTransportTubeStatuses(stExpStatus := stExpTTStatus,
-		eTransportTube := eTransportTube,
+		eTransportTube := eTT,
 		stStatusOp := stTTOp, 
 		bEnforce := TRUE)
 	THEN // System status check 
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.VOT_VENT;
+		M_SetMessage('OPERATOR: Pump inlet port w/ pump cart');
+		eStep := E_OpStep.VOT_WAIT_PC;
+	END_IF
+	
+E_OpStep.VOT_WAIT_PC:
+	M_RunTimeoutTImer(WAIT_PUMPCART_TIMEOUT);
+	
+	(* At this point the system must wait for the inlet port of the transport tube to be pumped down by the pump cart. *)
+	
+	// @TODO. What should this check be???? Need a way to check P-GCC1
+	IF FALSE THEN
+		M_ResetTimeoutTImer();
+		M_SetMessage('Venting');
+		eStep := E_OpStep.VOT_VENT;
 	END_IF
 	
 E_OpStep.VOT_VENT:
 	M_RunTimeoutTimer(VENT_TIMEOUT);
-	stTTDevices.refIonPump.M_Run(FALSE);
+	fbTT.q_stConfig.stDevices.refIonPump.M_Run(FALSE);
 	
 	// Vent until atmospheric pressure reached
-	IF F_Atm(stTTDevices.refPiraniGauge.PG.rPRESS) THEN
+	IF F_Atm(fbTT.q_stConfig.stDevices.refPiraniGauge.PG.rPRESS) THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.VOT_FINISH;
+		eStep := E_OpStep.VOT_FINISH;
 	END_IF
 	
 E_OpStep.VOT_FINISH:
 	IF F_VerifyTransportTubeStatuses(stExpStatus := stFinExpTTStatus,
-		eTransportTube := eTransportTube,
+		eTransportTube := eTT,
 		stStatusOp := stFinTTOp, 
 		bEnforce := FALSE)
 	THEN
 		M_Finish();
 	ELSE
-		M_FatalError();
+		M_FatalError('End system status check failed');
 	END_IF
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
 END_CASE]]></ST>
     </Implementation>
     <LineIds Name="FB_VentTransportTube">
-      <LineId Id="171" Count="4" />
-      <LineId Id="193" Count="0" />
-      <LineId Id="251" Count="0" />
-      <LineId Id="195" Count="1" />
-      <LineId Id="176" Count="8" />
-      <LineId Id="295" Count="0" />
-      <LineId Id="298" Count="0" />
-      <LineId Id="296" Count="1" />
-      <LineId Id="306" Count="0" />
-      <LineId Id="302" Count="1" />
-      <LineId Id="305" Count="0" />
-      <LineId Id="304" Count="0" />
-      <LineId Id="237" Count="0" />
-      <LineId Id="249" Count="0" />
-      <LineId Id="242" Count="0" />
-      <LineId Id="252" Count="0" />
-      <LineId Id="243" Count="5" />
-      <LineId Id="238" Count="0" />
+      <LineId Id="513" Count="2" />
+      <LineId Id="596" Count="1" />
+      <LineId Id="516" Count="2" />
+      <LineId Id="522" Count="45" />
       <LineId Id="20" Count="0" />
     </LineIds>
   </POU>

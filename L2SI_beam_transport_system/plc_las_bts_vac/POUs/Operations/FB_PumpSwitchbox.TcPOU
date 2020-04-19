@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.0">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4022.17">
   <POU Name="FB_PumpSwitchbox" Id="{5143353d-50c7-423c-8d89-57ae0141a026}" SpecialFunc="None">
     <Declaration><![CDATA[(* Operation for pumping the switchbox *)
 FUNCTION_BLOCK FB_PumpSwitchbox EXTENDS FB_Operation
-VAR CONSTANT
+VAR_STAT CONSTANT
 	(* Expected system states before operation starts*)
 	stExpPumpStatus : ST_SBPumpStatuses := (
 		bRoughingPumpOn:= FALSE, 
@@ -70,11 +70,15 @@ VAR CONSTANT
 	ION_READY_PRESS : REAL := 1E-5; // Pressure at which to initiate ion pump
 END_VAR]]></Declaration>
     <Implementation>
-      <ST><![CDATA[SUPER^();
+      <ST><![CDATA[SUPER^(iq_sMessageBuffer := iq_sMessageBuffer);
 
-CASE nStep OF
+CASE eStep OF
+E_OpStep.IDLE: // Do nothing
+
 E_OpStep.START: // System Status Check
 	M_RunTimeoutTimer(STATUS_CHECK_TIMEOUT);
+	M_SetMessage('Verifying system status');
+	
 	IF F_VerifySBPumpStatuses(stExpStatus := stExpPumpStatus, bEnforce := TRUE)
 		AND F_VerifySBValveStatuses(stExpStatus := stExpValveStatus, bEnforce := TRUE)
 		AND F_VerifySBGaugeReadings(stExpReadings := stExpGaugeReadings, stReadingsOp := stGaugeReadingsOp)
@@ -86,9 +90,10 @@ E_OpStep.START: // System Status Check
 		
 		// Make sure pressure difference is low between switchbox and pumping station
 		IF ABS(GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS - GVL_BTS_VAC.fb_PP_GPI_1.PG.rPRESS) < 10 THEN
-			nStep := E_OpStep.PSB_OPEN_GATE_VALVE;
+			M_SetMessage('Opening gate valve');
+			eStep := E_OpStep.PSB_OPEN_GATE_VALVE;
 		ELSE
-			M_FatalError();
+			M_FatalError('Vent to atmosphere');
 		END_IF
 	END_IF
 	
@@ -100,7 +105,8 @@ E_OpStep.PSB_OPEN_GATE_VALVE:
 	
 	IF GVL_BTS_VAC.fb_PP_VGC.M_IsOpen() THEN
 		M_ResetTimeoutTimer();		
-		nStep := E_OpStep.PSB_OPEN_PUMP_STATION_VALVES;
+		M_SetMessage('Opening pump station valves');
+		eStep := E_OpStep.PSB_OPEN_PUMP_STATION_VALVES;
 	END_IF
 	
 E_OpStep.PSB_OPEN_PUMP_STATION_VALVES:
@@ -112,7 +118,8 @@ E_OpStep.PSB_OPEN_PUMP_STATION_VALVES:
 
 	IF GVL_BTS_VAC.fb_PP_VRC_1.iq_stValve.eState = E_ValvePositionState.OPEN AND GVL_BTS_VAC.fb_PP_VRC_2.iq_stValve.eState = E_ValvePositionState.OPEN THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.PSB_ROUGH_CHAMBER;
+		M_SetMessage('Roughing chamber');
+		eStep := E_OpStep.PSB_ROUGH_CHAMBER;
 	END_IF
 	
 E_OpStep.PSB_ROUGH_CHAMBER: // Rough chamber
@@ -124,7 +131,8 @@ E_OpStep.PSB_ROUGH_CHAMBER: // Rough chamber
 	// Continue roughing until pressure is low enough to start turbo pump
 	IF GVL_BTS_VAC.fb_PP_PMF.q_stPump.eState = E_PumpState.pumpRUNNING AND GVL_BTS_VAC.fb_DP_GPI.PG.rPRESS < TURBO_READY_PRESS THEN	
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.PSB_TURBO_CHAMBER;
+		M_SetMessage('Turbo pumping chamber');
+		eStep := E_OpStep.PSB_TURBO_CHAMBER;
 	END_IF
 	
 E_OpStep.PSB_TURBO_CHAMBER: // Turbo pump down to base pressure
@@ -136,7 +144,8 @@ E_OpStep.PSB_TURBO_CHAMBER: // Turbo pump down to base pressure
 	// Continue turbo pump until pressure is low enough to start ion pump
 	IF GVL_BTS_VAC.fb_PP_PTM.iq_stPTM.eState = E_PumpState.pumpRUNNING AND GVL_BTS_VAC.fb_DP_GCC.IG.rPRESS < ION_READY_PRESS THEN	
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.PSB_SWITCH_TO_ION_PUMP;
+		M_SetMessage('Switching to ion pump');
+		eStep := E_OpStep.PSB_SWITCH_TO_ION_PUMP;
 	END_IF
 	
 E_OpStep.PSB_SWITCH_TO_ION_PUMP:
@@ -147,7 +156,8 @@ E_OpStep.PSB_SWITCH_TO_ION_PUMP:
 	
 	IF GVL_BTS_VAC.fb_PP_PIP.i_xSP_DI THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.PSB_CLOSE_GATE_VALVE;
+		M_SetMessage('Closing gate valve');
+		eStep := E_OpStep.PSB_CLOSE_GATE_VALVE;
 	END_IF
 	
 E_OpStep.PSB_CLOSE_GATE_VALVE:
@@ -158,7 +168,8 @@ E_OpStep.PSB_CLOSE_GATE_VALVE:
 	
 	IF GVL_BTS_VAC.fb_PP_VGC.M_IsClosed() THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.PSB_STOP_TURBO_PUMP;
+		M_SetMessage('Stopping turbo pump');
+		eStep := E_OpStep.PSB_STOP_TURBO_PUMP;
 	END_IF
 	
 E_OpStep.PSB_STOP_TURBO_PUMP:
@@ -169,7 +180,7 @@ E_OpStep.PSB_STOP_TURBO_PUMP:
 	
 	IF GVL_BTS_VAC.fb_PP_PTM.iq_stPTM.eState = E_PumpState.pumpSTOPPED THEN
 		M_ResetTimeoutTimer();
-		nStep := E_OpStep.PSB_FINISH;
+		eStep := E_OpStep.PSB_FINISH;
 	END_IF
 	
 E_OpStep.PSB_FINISH: // System Status Check
@@ -182,15 +193,23 @@ E_OpStep.PSB_FINISH: // System Status Check
 	THEN
 		M_Finish();
 	ELSE
-		M_FatalError();
+		M_FatalError('End system status check failed');
 	END_IF
+	
+ELSE
+	M_FatalError('Operation is in invalid state');
 END_CASE
 ]]></ST>
     </Implementation>
     <LineIds Name="FB_PumpSwitchbox">
       <LineId Id="131" Count="1" />
-      <LineId Id="63" Count="1" />
+      <LineId Id="887" Count="0" />
+      <LineId Id="889" Count="0" />
+      <LineId Id="888" Count="0" />
+      <LineId Id="64" Count="0" />
       <LineId Id="297" Count="0" />
+      <LineId Id="740" Count="0" />
+      <LineId Id="742" Count="0" />
       <LineId Id="65" Count="0" />
       <LineId Id="103" Count="1" />
       <LineId Id="251" Count="0" />
@@ -200,6 +219,7 @@ END_CASE
       <LineId Id="299" Count="0" />
       <LineId Id="579" Count="0" />
       <LineId Id="574" Count="1" />
+      <LineId Id="741" Count="0" />
       <LineId Id="597" Count="0" />
       <LineId Id="577" Count="1" />
       <LineId Id="576" Count="0" />
@@ -210,6 +230,7 @@ END_CASE
       <LineId Id="614" Count="1" />
       <LineId Id="584" Count="1" />
       <LineId Id="588" Count="0" />
+      <LineId Id="743" Count="0" />
       <LineId Id="596" Count="0" />
       <LineId Id="587" Count="0" />
       <LineId Id="460" Count="0" />
@@ -221,6 +242,7 @@ END_CASE
       <LineId Id="605" Count="0" />
       <LineId Id="599" Count="0" />
       <LineId Id="608" Count="0" />
+      <LineId Id="744" Count="0" />
       <LineId Id="613" Count="0" />
       <LineId Id="601" Count="0" />
       <LineId Id="80" Count="0" />
@@ -233,6 +255,7 @@ END_CASE
       <LineId Id="471" Count="0" />
       <LineId Id="142" Count="0" />
       <LineId Id="469" Count="0" />
+      <LineId Id="745" Count="0" />
       <LineId Id="144" Count="1" />
       <LineId Id="192" Count="0" />
       <LineId Id="459" Count="0" />
@@ -243,6 +266,7 @@ END_CASE
       <LineId Id="474" Count="0" />
       <LineId Id="181" Count="0" />
       <LineId Id="480" Count="0" />
+      <LineId Id="746" Count="0" />
       <LineId Id="183" Count="1" />
       <LineId Id="636" Count="1" />
       <LineId Id="631" Count="0" />
@@ -250,8 +274,10 @@ END_CASE
       <LineId Id="633" Count="1" />
       <LineId Id="642" Count="1" />
       <LineId Id="647" Count="0" />
+      <LineId Id="747" Count="0" />
       <LineId Id="644" Count="1" />
       <LineId Id="648" Count="8" />
+      <LineId Id="748" Count="0" />
       <LineId Id="658" Count="0" />
       <LineId Id="657" Count="0" />
       <LineId Id="659" Count="8" />
@@ -266,6 +292,9 @@ END_CASE
       <LineId Id="439" Count="0" />
       <LineId Id="670" Count="1" />
       <LineId Id="436" Count="0" />
+      <LineId Id="816" Count="0" />
+      <LineId Id="818" Count="0" />
+      <LineId Id="817" Count="0" />
       <LineId Id="13" Count="0" />
       <LineId Id="672" Count="0" />
     </LineIds>
